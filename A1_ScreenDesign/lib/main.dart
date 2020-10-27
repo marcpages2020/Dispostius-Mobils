@@ -26,14 +26,24 @@ class _MainScreen extends StatelessWidget {
       body: Column(
         children: [
           Center(
-              child: Text(
-            'Amazing Text',
-            style: TextStyle(
-              color: Colors.lightGreen,
-              fontSize: 30,
-              fontWeight: FontWeight.bold,
+            child: Text(
+              'Amazing Text',
+              style: TextStyle(
+                color: Colors.lightGreen,
+                fontSize: 30,
+                fontWeight: FontWeight.bold,
+              ),
             ),
-          )),
+          ),
+          ClipRRect(
+            borderRadius: BorderRadius.circular(27.0),
+            child: Image.asset(
+              'assets/images/klpso.jpg',
+              width: 300.0,
+              height: 330.0,
+              fit: BoxFit.fill,
+            ),
+          ),
         ],
       ),
     );
