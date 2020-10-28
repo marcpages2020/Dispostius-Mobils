@@ -25,27 +25,80 @@ class _MainScreen extends StatelessWidget {
       backgroundColor: Colors.black,
       body: Column(
         children: [
-          Center(
-            child: Text(
-              'Amazing Text',
-              style: TextStyle(
-                color: Colors.lightGreen,
-                fontSize: 30,
-                fontWeight: FontWeight.bold,
-              ),
-            ),
+          /*
+          Container(
+            color: Colors.lightGreen,
+            height: 400,
+            width: 400,
+            alignment: Alignment.topLeft,
           ),
-          ClipRRect(
-            borderRadius: BorderRadius.circular(27.0),
-            child: Image.asset(
-              'assets/images/klpso.jpg',
-              width: 300.0,
-              height: 330.0,
-              fit: BoxFit.fill,
-            ),
+          */
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  SizedBox(height: 80),
+                  Text(
+                    'PLAYING NOW',
+                    style: TextStyle(color: Colors.white),
+                  )
+                ],
+              ),
+              ClipRRect(
+                borderRadius: BorderRadius.circular(27.0),
+                child: Image.asset(
+                  'assets/images/klpso.jpg',
+                  width: 300.0,
+                  height: 330.0,
+                  fit: BoxFit.fill,
+                ),
+              ),
+              SizedBox(height: 50),
+              SongInformation(),
+              Row(children: [
+                SizedBox(width: 40),
+                Text('Rhye', style: TextStyle(color: Colors.white))
+              ])
+            ],
           ),
         ],
       ),
+    );
+  }
+}
+
+class SongInformation extends StatelessWidget {
+  const SongInformation({
+    Key key,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      children: [
+        Container(
+          child: Text(
+            'Last Dance',
+            style: TextStyle(
+              color: Colors.white,
+              fontSize: 20,
+              fontWeight: FontWeight.bold,
+            ),
+          ),
+        ),
+        Container(
+          alignment: Alignment.centerRight,
+          height: 10,
+          child: Icon(
+            Icons.favorite,
+            color: Colors.yellowAccent,
+          ),
+        ),
+      ],
     );
   }
 }
