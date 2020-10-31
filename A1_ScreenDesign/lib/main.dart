@@ -25,13 +25,30 @@ class _MainScreen extends StatelessWidget {
       backgroundColor: Colors.black,
       body: Stack(
         children: [
+          Container(
+            //TODO HACER QUE EL WIDTH SEA LA POSICION TOP RIGHT DE LA FOTO -X NUMERO PARA QUE ESTE SIEMPRE EN LA MISMA WIDTH AL IGUAL QUE EL HEIGHT
+            height: 335,
+            width: 250,
+            child: DecoratedBox(
+              decoration: BoxDecoration(
+                gradient: LinearGradient(
+                  begin: Alignment.bottomCenter,
+                  end: Alignment.topCenter,
+                  colors: [
+                    Colors.lime[300],
+                    Colors.lime[200],
+                  ],
+                ),
+              ),
+            ),
+          ),
           Column(
             children: [
               TopElements(),
               ClipRRect(
                 borderRadius: BorderRadius.circular(27.0),
                 child: Image.asset(
-                  'assets/images/klpso.jpg',
+                  'assets/images/cover.jpg',
                   width: 375.0,
                   height: 375.0,
                   fit: BoxFit.fill,
@@ -64,7 +81,7 @@ class TopElements extends StatelessWidget {
       children: [
         Icon(
           Icons.expand_more,
-          color: Colors.white,
+          color: Colors.black,
         ),
         Container(
           height: 100,
@@ -72,8 +89,8 @@ class TopElements extends StatelessWidget {
           child: Text(
             'PLAYING NOW',
             style: TextStyle(
-              color: Colors.white,
-              fontWeight: FontWeight.w100,
+              color: Colors.black,
+              fontWeight: FontWeight.w400,
               fontSize: 14,
             ),
           ),
