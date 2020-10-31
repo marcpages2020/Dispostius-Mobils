@@ -11,7 +11,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Screen Design',
       theme: ThemeData(
-        primarySwatch: Colors.blue,
+        primarySwatch: Colors.lime,
       ),
       home: _MainScreen(),
     );
@@ -23,49 +23,66 @@ class _MainScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.black,
-      body: Column(
+      body: Stack(
         children: [
-          /*
-          Container(
-            color: Colors.lightGreen,
-            height: 400,
-            width: 400,
-            alignment: Alignment.topLeft,
-          ),
-          */
           Column(
-            crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  SizedBox(height: 80),
-                  Text(
-                    'PLAYING NOW',
-                    style: TextStyle(color: Colors.white),
-                  )
-                ],
-              ),
+              TopElements(),
               ClipRRect(
                 borderRadius: BorderRadius.circular(27.0),
                 child: Image.asset(
                   'assets/images/klpso.jpg',
-                  width: 300.0,
-                  height: 330.0,
+                  width: 375.0,
+                  height: 375.0,
                   fit: BoxFit.fill,
                 ),
               ),
-              SizedBox(height: 50),
+              Spacer(),
               SongInformation(),
-              Row(children: [
-                SizedBox(width: 40),
-                Text('Rhye', style: TextStyle(color: Colors.white))
-              ])
+              SizedBox(height: 80),
+              Spacer(),
+              ControlButtons(),
+              Spacer(),
             ],
           ),
         ],
       ),
+    );
+  }
+}
+
+class TopElements extends StatelessWidget {
+  const TopElements({
+    Key key,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      crossAxisAlignment: CrossAxisAlignment.center,
+      children: [
+        Icon(
+          Icons.expand_more,
+          color: Colors.white,
+        ),
+        Container(
+          height: 100,
+          alignment: Alignment.center,
+          child: Text(
+            'PLAYING NOW',
+            style: TextStyle(
+              color: Colors.white,
+              fontWeight: FontWeight.w100,
+              fontSize: 14,
+            ),
+          ),
+        ),
+        Icon(
+          Icons.queue_music,
+          color: Colors.white,
+        ),
+      ],
     );
   }
 }
@@ -78,25 +95,75 @@ class SongInformation extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Row(
+      crossAxisAlignment: CrossAxisAlignment.center,
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
-        Container(
-          child: Text(
-            'Last Dance',
-            style: TextStyle(
-              color: Colors.white,
-              fontSize: 20,
-              fontWeight: FontWeight.bold,
+        Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text(
+              'Last Dance',
+              style: TextStyle(
+                color: Colors.white,
+                fontSize: 22,
+                fontWeight: FontWeight.bold,
+              ),
             ),
-          ),
+            Text(
+              'Rhys',
+              style: TextStyle(
+                color: Colors.white,
+                fontSize: 14,
+              ),
+            )
+          ],
         ),
         Container(
-          alignment: Alignment.centerRight,
-          height: 10,
           child: Icon(
             Icons.favorite,
-            color: Colors.yellowAccent,
+            color: Theme.of(context).primaryColor,
           ),
+        )
+      ],
+    );
+  }
+}
+
+class ControlButtons extends StatelessWidget {
+  const ControlButtons({
+    Key key,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+      crossAxisAlignment: CrossAxisAlignment.center,
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      children: [
+        Icon(
+          Icons.shuffle,
+          color: Colors.grey,
+        ),
+        Icon(
+          Icons.fast_rewind,
+          color: Colors.white,
+        ),
+        FloatingActionButton(
+          mini: false,
+          backgroundColor: Theme.of(context).primaryColor,
+          child: Icon(
+            Icons.pause,
+            size: 30,
+          ),
+          onPressed: () {},
+        ),
+        Icon(
+          Icons.fast_forward,
+          color: Colors.white,
+        ),
+        Icon(
+          Icons.repeat,
+          color: Colors.white,
         ),
       ],
     );
