@@ -39,7 +39,7 @@ class ControlButtons extends StatelessWidget {
         ),
         Icon(
           Icons.repeat,
-          color: Colors.white,
+          color: Colors.grey,
         ),
       ],
     );
