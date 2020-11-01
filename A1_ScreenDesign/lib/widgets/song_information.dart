@@ -41,3 +41,30 @@ class SongInformation extends StatelessWidget {
     );
   }
 }
+
+class SliderWidget extends StatefulWidget {
+  @override
+  SliderState createState() => SliderState();
+}
+
+class SliderState extends State<SliderWidget> {
+  double _sliderValue = 0;
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      width: MediaQuery.of(context).size.width,
+      child: Slider(
+        value: _sliderValue,
+        min: 0,
+        max: 100,
+        label: _sliderValue.round().toString(),
+        onChanged: (double value) {
+          setState(() {
+            _sliderValue = value;
+          });
+        },
+      ),
+    );
+  }
+}

@@ -18,7 +18,13 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.lime,
       ),
-      home: _MainScreen(song: Song(name: "Last Dance", author: "Rhys", liked: true),),
+      home: _MainScreen(
+        song: Song(
+            name: "Last Dance",
+            author: "Rhys",
+            liked: true,
+            song_duration: 350),
+      ),
     );
   }
 }
@@ -50,10 +56,7 @@ class _MainScreen extends StatelessWidget {
                     Spacer(),
                     SongInformation(),
                     SizedBox(height: 60),
-                    Container(
-                      height: 80,
-                      color: Colors.lime,
-                    ),
+                    SliderWidget(),
                     Spacer(),
                     ControlButtons(),
                     Spacer(),
@@ -80,15 +83,16 @@ class SongCover extends StatelessWidget {
   const SongCover({
     Key key,
   }) : super(key: key);
-
   @override
   Widget build(BuildContext context) {
+    double widthImage = 425.0;
+    double heightImage = 450.0;
     return ClipRRect(
       borderRadius: BorderRadius.circular(27.0),
       child: Image.asset(
         'assets/images/cover.jpg',
-        width: 425.0,
-        height: 450.0,
+        width: widthImage,
+        height: heightImage,
         fit: BoxFit.fitHeight,
       ),
     );
@@ -121,17 +125,17 @@ class BackgroundRect extends StatelessWidget {
   }
 }
 
-class Song{
+class Song {
   String name;
   String author;
   String album;
   bool liked;
+  int song_duration;
 
   Song({
     @required this.name,
     @required this.author,
+    @required this.song_duration,
     this.liked = false,
   });
 }
-
-
