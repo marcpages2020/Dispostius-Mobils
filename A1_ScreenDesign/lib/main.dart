@@ -1,5 +1,9 @@
 import 'package:flutter/material.dart';
 
+import 'package:A1_ScreenDesign/widgets/song_information.dart';
+import 'package:A1_ScreenDesign/widgets/top_elements.dart';
+import 'package:A1_ScreenDesign/widgets/control_buttons.dart';
+
 void main() {
   runApp(MyApp());
 }
@@ -9,180 +13,125 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      debugShowCheckedModeBanner: false,
       title: 'Screen Design',
       theme: ThemeData(
         primarySwatch: Colors.lime,
       ),
-      home: _MainScreen(),
+      home: _MainScreen(song: Song(name: "Last Dance", author: "Rhys", liked: true),),
     );
   }
 }
 
 class _MainScreen extends StatelessWidget {
+  Song song;
+  _MainScreen({@required this.song});
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.black,
       body: Stack(
         children: [
-          Container(
-            //TODO HACER QUE EL WIDTH SEA LA POSICION TOP RIGHT DE LA FOTO -X NUMERO PARA QUE ESTE SIEMPRE EN LA MISMA WIDTH AL IGUAL QUE EL HEIGHT
-            height: 335,
-            width: 250,
-            child: DecoratedBox(
-              decoration: BoxDecoration(
-                gradient: LinearGradient(
-                  begin: Alignment.bottomCenter,
-                  end: Alignment.topCenter,
-                  colors: [
-                    Colors.lime[300],
-                    Colors.lime[200],
+          BackgroundRect(),
+          Row(
+            children: [
+              Expanded(
+                //Left Border Spacing
+                flex: 1,
+                child: Container(),
+              ),
+              Expanded(
+                flex: 14,
+                child: Column(
+                  children: [
+                    TopElements(),
+                    SongCover(),
+                    Spacer(),
+                    SongInformation(),
+                    SizedBox(height: 60),
+                    Container(
+                      height: 80,
+                      color: Colors.lime,
+                    ),
+                    Spacer(),
+                    ControlButtons(),
+                    Spacer(),
                   ],
                 ),
               ),
-            ),
-          ),
-          Column(
-            children: [
-              TopElements(),
-              ClipRRect(
-                borderRadius: BorderRadius.circular(27.0),
-                child: Image.asset(
-                  'assets/images/cover.jpg',
-                  width: 375.0,
-                  height: 375.0,
-                  fit: BoxFit.fill,
-                ),
-              ),
-              Spacer(),
-              SongInformation(),
-              SizedBox(height: 80),
-              Spacer(),
-              ControlButtons(),
-              Spacer(),
+              Expanded(
+                //Right Border Spacing
+                flex: 1,
+                child: Container(),
+              )
             ],
-          ),
+          )
+          /*
+          
+          */
         ],
       ),
     );
   }
 }
 
-class TopElements extends StatelessWidget {
-  const TopElements({
+class SongCover extends StatelessWidget {
+  const SongCover({
     Key key,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-      crossAxisAlignment: CrossAxisAlignment.center,
-      children: [
-        Icon(
-          Icons.expand_more,
-          color: Colors.black,
-        ),
-        Container(
-          height: 100,
-          alignment: Alignment.center,
-          child: Text(
-            'PLAYING NOW',
-            style: TextStyle(
-              color: Colors.black,
-              fontWeight: FontWeight.w400,
-              fontSize: 14,
-            ),
-          ),
-        ),
-        Icon(
-          Icons.queue_music,
-          color: Colors.white,
-        ),
-      ],
+    return ClipRRect(
+      borderRadius: BorderRadius.circular(27.0),
+      child: Image.asset(
+        'assets/images/cover.jpg',
+        width: 425.0,
+        height: 450.0,
+        fit: BoxFit.fitHeight,
+      ),
     );
   }
 }
 
-class SongInformation extends StatelessWidget {
-  const SongInformation({
+class BackgroundRect extends StatelessWidget {
+  const BackgroundRect({
     Key key,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return Row(
-      crossAxisAlignment: CrossAxisAlignment.center,
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-      children: [
-        Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Text(
-              'Last Dance',
-              style: TextStyle(
-                color: Colors.white,
-                fontSize: 22,
-                fontWeight: FontWeight.bold,
-              ),
-            ),
-            Text(
-              'Rhys',
-              style: TextStyle(
-                color: Colors.white,
-                fontSize: 14,
-              ),
-            )
-          ],
-        ),
-        Container(
-          child: Icon(
-            Icons.favorite,
-            color: Theme.of(context).primaryColor,
+    return Container(
+      height: MediaQuery.of(context).size.height * 0.4,
+      width: MediaQuery.of(context).size.width * 0.75,
+      child: DecoratedBox(
+        decoration: BoxDecoration(
+          gradient: LinearGradient(
+            begin: Alignment.bottomCenter,
+            end: Alignment.topCenter,
+            colors: [
+              Colors.lime,
+              Colors.lightGreen[300],
+            ],
           ),
-        )
-      ],
+        ),
+      ),
     );
   }
 }
 
-class ControlButtons extends StatelessWidget {
-  const ControlButtons({
-    Key key,
-  }) : super(key: key);
+class Song{
+  String name;
+  String author;
+  String album;
+  bool liked;
 
-  @override
-  Widget build(BuildContext context) {
-    return Row(
-      crossAxisAlignment: CrossAxisAlignment.center,
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-      children: [
-        Icon(
-          Icons.shuffle,
-          color: Colors.grey,
-        ),
-        Icon(
-          Icons.fast_rewind,
-          color: Colors.white,
-        ),
-        FloatingActionButton(
-          mini: false,
-          backgroundColor: Theme.of(context).primaryColor,
-          child: Icon(
-            Icons.pause,
-            size: 30,
-          ),
-          onPressed: () {},
-        ),
-        Icon(
-          Icons.fast_forward,
-          color: Colors.white,
-        ),
-        Icon(
-          Icons.repeat,
-          color: Colors.white,
-        ),
-      ],
-    );
-  }
+  Song({
+    @required this.name,
+    @required this.author,
+    this.liked = false,
+  });
 }
+
+
