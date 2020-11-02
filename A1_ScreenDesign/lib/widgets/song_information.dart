@@ -3,9 +3,10 @@ import 'dart:html';
 import 'package:flutter/material.dart';
 
 class SongInformation extends StatelessWidget {
-  const SongInformation({
-    Key key,
-  }) : super(key: key);
+  final String name;
+  final String author;
+  final bool liked;
+  SongInformation({@required this.name, @required this.author, @required this.liked});
 
   @override
   Widget build(BuildContext context) {
@@ -17,7 +18,7 @@ class SongInformation extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(
-              'Last Dance',
+              '$name',
               style: TextStyle(
                 color: Colors.white,
                 fontSize: 22,
@@ -25,7 +26,7 @@ class SongInformation extends StatelessWidget {
               ),
             ),
             Text(
-              'Rhys',
+              '$author',
               style: TextStyle(
                 color: Colors.white,
                 fontSize: 14,
@@ -36,7 +37,7 @@ class SongInformation extends StatelessWidget {
         Container(
           child: Icon(
             //Icons.favorite_border,
-            Icons.favorite,
+            liked ? Icons.favorite : Icons.favorite_border,
             color: Theme.of(context).primaryColor,
           ),
         )
@@ -46,6 +47,11 @@ class SongInformation extends StatelessWidget {
 }
 
 class SliderWidget extends StatefulWidget {
+  final int durationMinutes;
+  final int durationSeconds;
+
+  SliderWidget({@required this.durationMinutes, @required this.durationSeconds});
+
   @override
   SliderState createState() => SliderState();
 }

@@ -21,16 +21,18 @@ class MyApp extends StatelessWidget {
       home: _MainScreen(
         song: Song(
             name: "Last Dance",
-            author: "Rhys",
+            author: "Rhye",
             liked: true,
-            song_duration: 350),
+            durationMinutes: 2,
+            durationSeconds: 58,
+            album: "woman"),
       ),
     );
   }
 }
 
 class _MainScreen extends StatelessWidget {
-  Song song;
+  final Song song;
   _MainScreen({@required this.song});
 
   @override
@@ -52,11 +54,17 @@ class _MainScreen extends StatelessWidget {
                 child: Column(
                   children: [
                     TopElements(),
-                    SongCover(),
+                    _SongCover(
+                      albumName: song.album,
+                    ),
                     Spacer(),
-                    SongInformation(),
+                    SongInformation(
+                      name: song.name,
+                      author: song.author,
+                      liked: song.liked,
+                    ),
                     SizedBox(height: 60),
-                    SliderWidget(),
+                    SliderWidget(durationMinutes: song.durationMinutes, durationSeconds: song.durationSeconds),
                     Spacer(),
                     ControlButtons(),
                     Spacer(),
@@ -79,18 +87,20 @@ class _MainScreen extends StatelessWidget {
   }
 }
 
-class SongCover extends StatelessWidget {
-  const SongCover({
-    Key key,
-  }) : super(key: key);
+class _SongCover extends StatelessWidget {
+  final String albumName;
+
+  _SongCover({@required this.albumName});
+
   @override
   Widget build(BuildContext context) {
+    print(albumName);
     double widthImage = 425.0;
     double heightImage = 450.0;
     return ClipRRect(
       borderRadius: BorderRadius.circular(27.0),
       child: Image.asset(
-        'assets/images/cover.jpg',
+        'assets/images/$albumName.jpg',
         width: widthImage,
         height: heightImage,
         fit: BoxFit.fitHeight,
@@ -130,12 +140,15 @@ class Song {
   String author;
   String album;
   bool liked;
-  int song_duration;
+  int durationMinutes;
+  int durationSeconds;
 
   Song({
     @required this.name,
     @required this.author,
-    @required this.song_duration,
+    @required this.durationMinutes,
+        @required this.durationSeconds,
+    @required this.album,
     this.liked = false,
   });
 }
