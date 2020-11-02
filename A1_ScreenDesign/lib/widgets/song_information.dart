@@ -1,3 +1,4 @@
+import 'dart:ui';
 
 import 'package:flutter/material.dart';
 
@@ -22,16 +23,17 @@ class SongInformation extends StatelessWidget {
               style: TextStyle(
                 color: Colors.white,
                 fontSize: 22,
-                fontFamily: 'PaytoneOne',
-                fontWeight: FontWeight.bold,
+                fontFamily: 'Poppins',
+                fontWeight: FontWeight.w700,
               ),
             ),
             Text(
               '$author',
               style: TextStyle(
-                color: Colors.white,
-                fontSize: 14,
+                color: Colors.grey[600],
+                fontSize: 15,
                 fontFamily: 'Raleway',
+                fontWeight: FontWeight.bold,
               ),
             )
           ],

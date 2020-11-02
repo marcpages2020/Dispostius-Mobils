@@ -84,7 +84,6 @@ class SliderState extends State<SliderWidget> {
     return Column(
       children: [
         Container(
-          width: 475,
           child: SliderTheme(
             data: SliderTheme.of(context).copyWith(
                 thumbShape: CircleThumbShape(thumbRadius: 6.0),
