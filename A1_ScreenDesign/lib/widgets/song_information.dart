@@ -6,7 +6,8 @@ class SongInformation extends StatelessWidget {
   final String name;
   final String author;
   final bool liked;
-  SongInformation({@required this.name, @required this.author, @required this.liked});
+  SongInformation(
+      {@required this.name, @required this.author, @required this.liked});
 
   @override
   Widget build(BuildContext context) {
@@ -50,7 +51,8 @@ class SliderWidget extends StatefulWidget {
   final int durationMinutes;
   final int durationSeconds;
 
-  SliderWidget({@required this.durationMinutes, @required this.durationSeconds});
+  SliderWidget(
+      {@required this.durationMinutes, @required this.durationSeconds});
 
   @override
   SliderState createState() => SliderState();
@@ -73,7 +75,8 @@ class SliderState extends State<SliderWidget> {
           child: Slider(
             value: _sliderValue,
             min: 0,
-            max: 178,
+            max: widget.durationMinutes.toDouble() * 60 +
+                widget.durationSeconds.toDouble(),
             inactiveColor: Colors.grey[850],
             onChanged: (double value) {
               setState(() {
@@ -97,7 +100,7 @@ class SliderState extends State<SliderWidget> {
             ),
             Container(
               child: Text(
-                '2:58',
+                '${parseToMinutesSeconds(widget.durationMinutes.toDouble() * 60 + widget.durationSeconds.toDouble())}',
                 style: TextStyle(
                   color: Colors.white,
                   fontSize: 14,

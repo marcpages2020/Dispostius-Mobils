@@ -23,7 +23,7 @@ class MyApp extends StatelessWidget {
             name: "Last Dance",
             author: "Rhye",
             liked: true,
-            durationMinutes: 2,
+            durationMinutes: 3,
             durationSeconds: 58,
             album: "woman"),
       ),
@@ -64,7 +64,9 @@ class _MainScreen extends StatelessWidget {
                       liked: song.liked,
                     ),
                     SizedBox(height: 60),
-                    SliderWidget(durationMinutes: song.durationMinutes, durationSeconds: song.durationSeconds),
+                    SliderWidget(
+                        durationMinutes: song.durationMinutes,
+                        durationSeconds: song.durationSeconds),
                     Spacer(),
                     ControlButtons(),
                     Spacer(),
@@ -147,7 +149,7 @@ class Song {
     @required this.name,
     @required this.author,
     @required this.durationMinutes,
-        @required this.durationSeconds,
+    @required this.durationSeconds,
     @required this.album,
     this.liked = false,
   });
