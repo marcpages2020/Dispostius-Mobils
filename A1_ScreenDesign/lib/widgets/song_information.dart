@@ -63,8 +63,13 @@ class SliderState extends State<SliderWidget> {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        Container(
-          width: MediaQuery.of(context).size.width,
+        SliderTheme(
+          data: SliderTheme.of(context).copyWith(
+            thumbShape: RoundSliderThumbShape(
+              enabledThumbRadius: 10.0,
+              disabledThumbRadius: 5.0,
+            ),
+          ),
           child: Slider(
             value: _sliderValue,
             min: 0,
