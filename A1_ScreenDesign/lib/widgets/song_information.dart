@@ -62,8 +62,7 @@ class SliderState extends State<SliderWidget> {
           child: Slider(
             value: _sliderValue,
             min: 0,
-            max: 100,
-            label: _sliderValue.round().toString(),
+            max: 178,
             inactiveColor: Colors.grey[850],
             onChanged: (double value) {
               setState(() {
@@ -76,7 +75,7 @@ class SliderState extends State<SliderWidget> {
           children: [
             Container(
               child: Text(
-                '${_sliderValue}',
+                '${parseToMinutesSeconds(_sliderValue)}',
                 style: TextStyle(
                   color: Colors.white,
                   fontSize: 14,
@@ -103,4 +102,18 @@ class SliderState extends State<SliderWidget> {
       ],
     );
   }
+}
+
+String parseToMinutesSeconds(double ms) {
+  String data;
+  Duration duration = Duration(milliseconds: ms.toInt() * 1000);
+
+  int minutes = duration.inMinutes;
+  int seconds = (duration.inSeconds) - (minutes * 60);
+
+  data = minutes.toString() + ":";
+  if (seconds <= 9) data += "0";
+
+  data += seconds.toString();
+  return data;
 }
