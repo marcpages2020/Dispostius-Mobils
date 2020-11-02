@@ -1,3 +1,4 @@
+import 'package:A1_ScreenDesign/widgets/slider.dart';
 import 'package:flutter/material.dart';
 
 import 'package:A1_ScreenDesign/widgets/song_information.dart';
@@ -24,7 +25,7 @@ class MyApp extends StatelessWidget {
             author: "Rhye",
             liked: true,
             durationMinutes: 3,
-            durationSeconds: 58,
+            durationSeconds: 27,
             album: "woman"),
       ),
     );
@@ -65,8 +66,9 @@ class _MainScreen extends StatelessWidget {
                     ),
                     SizedBox(height: 60),
                     SliderWidget(
-                        durationMinutes: song.durationMinutes,
-                        durationSeconds: song.durationSeconds),
+                      durationMinutes: song.durationMinutes,
+                      durationSeconds: song.durationSeconds,
+                    ),
                     Spacer(),
                     ControlButtons(),
                     Spacer(),
@@ -80,9 +82,6 @@ class _MainScreen extends StatelessWidget {
               )
             ],
           )
-          /*
-          
-          */
         ],
       ),
     );
@@ -120,7 +119,7 @@ class BackgroundRect extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       height: MediaQuery.of(context).size.height * 0.4,
-      width: MediaQuery.of(context).size.width * 0.75,
+      width: MediaQuery.of(context).size.width * 0.8,
       child: DecoratedBox(
         decoration: BoxDecoration(
           gradient: LinearGradient(
@@ -131,6 +130,7 @@ class BackgroundRect extends StatelessWidget {
               Colors.lightGreen[300],
             ],
           ),
+          borderRadius: BorderRadius.only(bottomRight: Radius.circular(15)),
         ),
       ),
     );
