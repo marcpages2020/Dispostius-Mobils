@@ -39,7 +39,6 @@ class CircleThumbShape extends SliderComponentShape {
     double value,
   }) {
     final Canvas canvas = context.canvas;
-    final trackWidth = parentBox.size.width;
     final fill = Paint()
       ..color = Colors.black
       ..style = PaintingStyle.fill;

@@ -1,4 +1,3 @@
-import 'dart:html';
 
 import 'package:flutter/material.dart';
 
@@ -23,6 +22,7 @@ class SongInformation extends StatelessWidget {
               style: TextStyle(
                 color: Colors.white,
                 fontSize: 22,
+                fontFamily: 'PaytoneOne',
                 fontWeight: FontWeight.bold,
               ),
             ),
@@ -31,6 +31,7 @@ class SongInformation extends StatelessWidget {
               style: TextStyle(
                 color: Colors.white,
                 fontSize: 14,
+                fontFamily: 'Raleway',
               ),
             )
           ],

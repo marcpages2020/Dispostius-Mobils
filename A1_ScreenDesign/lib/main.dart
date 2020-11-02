@@ -10,9 +10,26 @@ void main() {
 }
 
 class MyApp extends StatelessWidget {
-  // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
+    Song lastDance = new Song(
+      name: "Last Dance",
+      author: "Rhye",
+      liked: true,
+      durationMinutes: 3,
+      durationSeconds: 27,
+      album: "woman",
+    );
+
+    Song doIWannaKnow = new Song(
+      name: "Do I Wanna Know",
+      author: "Arctic Monkeys",
+      liked: true,
+      durationMinutes: 4,
+      durationSeconds: 32,
+      album: "AM",
+    );
+
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'Screen Design',
@@ -20,13 +37,7 @@ class MyApp extends StatelessWidget {
         primarySwatch: Colors.lime,
       ),
       home: _MainScreen(
-        song: Song(
-            name: "Last Dance",
-            author: "Rhye",
-            liked: true,
-            durationMinutes: 3,
-            durationSeconds: 27,
-            album: "woman"),
+        song: lastDance,
       ),
     );
   }
@@ -95,7 +106,6 @@ class _SongCover extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    print(albumName);
     double widthImage = 425.0;
     double heightImage = 450.0;
     return ClipRRect(
