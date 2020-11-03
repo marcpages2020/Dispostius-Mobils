@@ -43,8 +43,16 @@ class MyApp extends StatelessWidget {
   }
 }
 
+class GiveAlbum extends Song {
+  final int counter;
+  GiveAlbum({
+    this.counter,
+  });
+}
+
 class _MainScreen extends StatelessWidget {
   final Song song;
+  final int counter = 0;
   _MainScreen({@required this.song});
 
   @override
@@ -81,7 +89,9 @@ class _MainScreen extends StatelessWidget {
                       durationSeconds: song.durationSeconds,
                     ),
                     Spacer(),
-                    ControlButtons(),
+                    ControlButtons(
+                      counter: counter,
+                    ),
                     Spacer(),
                   ],
                 ),

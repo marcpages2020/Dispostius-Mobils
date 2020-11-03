@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 
 class ControlButtons extends StatelessWidget {
-  const ControlButtons({
-    Key key,
-  }) : super(key: key);
+  int counter;
+  ControlButtons({
+    @required this.counter,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -15,27 +16,53 @@ class ControlButtons extends StatelessWidget {
           Icons.shuffle,
           color: Colors.grey,
         ),
-        Icon(
-          Icons.fast_rewind,
-          color: Colors.white,
+        CircleAvatar(
+          backgroundColor: Colors.black,
+          child: IconButton(
+            icon: Icon(Icons.fast_rewind),
+            hoverColor: Colors.black,
+            color: Colors.white,
+            highlightColor: Colors.grey[900],
+            splashRadius: 22.0,
+            onPressed: () {
+              if (counter > 0) counter--;
+              debugPrint('counter : $counter');
+            },
+          ),
         ),
         Container(
           width: 75,
           height: 75,
-          decoration: BoxDecoration(
-            color: Theme.of(context).primaryColor,
-            borderRadius: BorderRadius.all(
-              Radius.circular(60),
+          child: CircleAvatar(
+            backgroundColor: Theme.of(context).primaryColor,
+            radius: 30,
+            child: IconButton(
+              iconSize: (50),
+              icon: Icon(Icons.pause),
+              hoverColor: Colors.black,
+              color: Colors.black,
+              highlightColor: Colors.grey[900],
+              splashRadius: 43.0,
+              onPressed: () {
+                /*if (counter > 0) counter--;
+                debugPrint('counter : $counter');*/
+              },
             ),
           ),
-          child: Icon(
-            Icons.pause,
-            size: 50,
-          ),
         ),
-        Icon(
-          Icons.fast_forward,
-          color: Colors.white,
+        CircleAvatar(
+          backgroundColor: Colors.black,
+          child: IconButton(
+            icon: Icon(Icons.fast_forward),
+            hoverColor: Colors.black,
+            color: Colors.white,
+            focusColor: Colors.grey[900],
+            splashRadius: 22.0,
+            onPressed: () {
+              if (counter >= 0 && counter < 2) counter++;
+              debugPrint('counter : $counter');
+            },
+          ),
         ),
         Icon(
           Icons.repeat,
