@@ -47,12 +47,12 @@ class ControlButtons extends StatelessWidget {
             backgroundColor: Theme.of(context).primaryColor,
             radius: 30,
             child: IconButton(
-              iconSize: (50),
+              iconSize: (40),
               icon: Icon(Icons.pause),
               hoverColor: Colors.black,
               color: Colors.black,
               highlightColor: Colors.grey[900],
-              splashRadius: 43.0,
+              splashRadius: 42.0,
               onPressed: () {
                 /*if (counter > 0) counter--;
                 debugPrint('counter : $counter');*/

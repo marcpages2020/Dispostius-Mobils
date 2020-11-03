@@ -34,7 +34,7 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       title: 'Screen Design',
       theme: ThemeData(
-        primarySwatch: Colors.lime,
+        primarySwatch: Colors.yellow,
       ),
       home: _MainScreen(
         song: lastDance,
@@ -83,7 +83,7 @@ class _MainScreen extends StatelessWidget {
                       author: song.author,
                       liked: song.liked,
                     ),
-                    SizedBox(height: 60),
+                    Spacer(),
                     SliderWidget(
                       durationMinutes: song.durationMinutes,
                       durationSeconds: song.durationSeconds,
@@ -119,7 +119,7 @@ class _SongCover extends StatelessWidget {
     double widthImage = 425.0;
     double heightImage = 450.0;
     return ClipRRect(
-      borderRadius: BorderRadius.circular(27.0),
+      borderRadius: BorderRadius.circular(26.0),
       child: Image.asset(
         'assets/images/$albumName.jpg',
         width: widthImage,

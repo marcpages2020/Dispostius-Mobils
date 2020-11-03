@@ -87,10 +87,10 @@ class SliderState extends State<SliderWidget> {
           child: SliderTheme(
             data: SliderTheme.of(context).copyWith(
                 thumbShape: CircleThumbShape(thumbRadius: 6.0),
-                activeTrackColor: Colors.lime[400],
+                activeTrackColor: Theme.of(context).primaryColor,
                 trackHeight: 3,
                 trackShape: TrackShape(),
-                thumbColor: Colors.lime[400]),
+                thumbColor: Theme.of(context).primaryColor),
             child: Slider(
               value: _sliderValue,
               min: 0,
@@ -111,7 +111,7 @@ class SliderState extends State<SliderWidget> {
               child: Text(
                 '${parseToMinutesSeconds(_sliderValue)}',
                 style: TextStyle(
-                    color: Colors.grey[850],
+                    color: Colors.grey[700],
                     fontSize: 14,
                     fontWeight: FontWeight.bold),
                 textAlign: TextAlign.left,
@@ -121,7 +121,7 @@ class SliderState extends State<SliderWidget> {
               child: Text(
                 '${parseToMinutesSeconds(widget.durationMinutes.toDouble() * 60 + widget.durationSeconds.toDouble())}',
                 style: TextStyle(
-                  color: Colors.grey[850],
+                  color: Colors.grey[700],
                   fontSize: 14,
                   fontWeight: FontWeight.bold,
                 ),

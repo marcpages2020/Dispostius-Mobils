@@ -24,14 +24,17 @@ class SongInformation extends StatelessWidget {
                 color: Colors.white,
                 fontSize: 22,
                 fontFamily: 'Poppins',
-                fontWeight: FontWeight.w700,
+                fontWeight: FontWeight.w600,
               ),
+            ),
+            SizedBox(
+              height: 8,
             ),
             Text(
               '$author',
               style: TextStyle(
                 color: Colors.grey[600],
-                fontSize: 15,
+                fontSize: 14,
                 fontFamily: 'Raleway',
                 fontWeight: FontWeight.bold,
               ),
