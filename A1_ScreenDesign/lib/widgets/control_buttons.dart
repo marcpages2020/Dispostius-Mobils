@@ -12,9 +12,19 @@ class ControlButtons extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.center,
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
-        Icon(
-          Icons.shuffle,
-          color: Colors.grey,
+        CircleAvatar(
+          backgroundColor: Colors.black,
+          child: IconButton(
+            icon: Icon(Icons.shuffle),
+            hoverColor: Colors.black,
+            color: Colors.grey[700],
+            focusColor: Colors.grey[900],
+            splashRadius: 22.0,
+            onPressed: () {
+              //if (counter >= 0 && counter < 2) counter++;
+              //debugPrint('counter : $counter');
+            },
+          ),
         ),
         CircleAvatar(
           backgroundColor: Colors.black,
@@ -64,9 +74,19 @@ class ControlButtons extends StatelessWidget {
             },
           ),
         ),
-        Icon(
-          Icons.repeat,
-          color: Colors.grey,
+        CircleAvatar(
+          backgroundColor: Colors.black,
+          child: IconButton(
+            icon: Icon(Icons.repeat),
+            hoverColor: Colors.black,
+            color: Colors.grey[700],
+            focusColor: Colors.grey[900],
+            splashRadius: 22.0,
+            onPressed: () {
+              //if (counter >= 0 && counter < 2) counter++;
+              //debugPrint('counter : $counter');
+            },
+          ),
         ),
       ],
     );

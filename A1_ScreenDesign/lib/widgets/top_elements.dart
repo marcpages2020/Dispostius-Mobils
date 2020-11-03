@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 
 class TopElements extends StatelessWidget {
@@ -12,9 +11,19 @@ class TopElements extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       crossAxisAlignment: CrossAxisAlignment.center,
       children: [
-        Icon(
-          Icons.expand_more,
-          color: Colors.black,
+        CircleAvatar(
+          backgroundColor: Colors.transparent,
+          child: IconButton(
+            icon: Icon(Icons.expand_more),
+            hoverColor: Colors.black,
+            color: Colors.black,
+            focusColor: Colors.black,
+            splashRadius: 22.0,
+            onPressed: () {
+              //if (counter >= 0 && counter < 2) counter++;
+              //debugPrint('counter : $counter');
+            },
+          ),
         ),
         Container(
           height: 100,
@@ -28,9 +37,19 @@ class TopElements extends StatelessWidget {
             ),
           ),
         ),
-        Icon(
-          Icons.queue_music,
-          color: Colors.white,
+        CircleAvatar(
+          backgroundColor: Colors.black,
+          child: IconButton(
+            icon: Icon(Icons.queue_music),
+            hoverColor: Colors.black,
+            color: Colors.white,
+            focusColor: Colors.black,
+            splashRadius: 22.0,
+            onPressed: () {
+              //if (counter >= 0 && counter < 2) counter++;
+              //debugPrint('counter : $counter');
+            },
+          ),
         ),
       ],
     );
