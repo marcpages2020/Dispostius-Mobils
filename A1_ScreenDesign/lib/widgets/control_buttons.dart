@@ -12,34 +12,8 @@ class ControlButtons extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.center,
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
-        CircleAvatar(
-          backgroundColor: Colors.black,
-          child: IconButton(
-            icon: Icon(Icons.shuffle),
-            hoverColor: Colors.black,
-            color: Colors.grey[700],
-            focusColor: Colors.grey[900],
-            splashRadius: 22.0,
-            onPressed: () {
-              //if (counter >= 0 && counter < 2) counter++;
-              //debugPrint('counter : $counter');
-            },
-          ),
-        ),
-        CircleAvatar(
-          backgroundColor: Colors.black,
-          child: IconButton(
-            icon: Icon(Icons.fast_rewind),
-            hoverColor: Colors.black,
-            color: Colors.white,
-            highlightColor: Colors.grey[900],
-            splashRadius: 22.0,
-            onPressed: () {
-              if (counter > 0) counter--;
-              debugPrint('counter : $counter');
-            },
-          ),
-        ),
+        SongControlButton(icon: Icons.shuffle, color: Colors.grey,),
+        SongControlButton(icon: Icons.fast_rewind, color: Colors.white),
         Container(
           width: 75,
           height: 75,
@@ -53,42 +27,34 @@ class ControlButtons extends StatelessWidget {
               color: Colors.black,
               highlightColor: Colors.grey[900],
               splashRadius: 42.0,
-              onPressed: () {
-                /*if (counter > 0) counter--;
-                debugPrint('counter : $counter');*/
-              },
+              onPressed: () {},
             ),
           ),
         ),
-        CircleAvatar(
-          backgroundColor: Colors.black,
-          child: IconButton(
-            icon: Icon(Icons.fast_forward),
-            hoverColor: Colors.black,
-            color: Colors.white,
-            focusColor: Colors.grey[900],
-            splashRadius: 22.0,
-            onPressed: () {
-              if (counter >= 0 && counter < 2) counter++;
-              debugPrint('counter : $counter');
-            },
-          ),
-        ),
-        CircleAvatar(
-          backgroundColor: Colors.black,
-          child: IconButton(
-            icon: Icon(Icons.repeat),
-            hoverColor: Colors.black,
-            color: Colors.grey[700],
-            focusColor: Colors.grey[900],
-            splashRadius: 22.0,
-            onPressed: () {
-              //if (counter >= 0 && counter < 2) counter++;
-              //debugPrint('counter : $counter');
-            },
-          ),
-        ),
+        SongControlButton(icon: Icons.fast_forward, color: Colors.white),
+        SongControlButton(icon: Icons.repeat, color: Colors.grey),
       ],
+    );
+  }
+}
+
+class SongControlButton extends StatelessWidget {
+  final IconData icon;
+  final Color color;
+  const SongControlButton({@required this.icon, this.color});
+
+  @override
+  Widget build(BuildContext context) {
+    return CircleAvatar(
+      backgroundColor: Colors.black,
+      child: IconButton(
+        icon: Icon(icon),
+        hoverColor: Colors.black,
+        color: color,
+        focusColor: Colors.grey[900],
+        splashRadius: 22.0,
+        onPressed: () {},
+      ),
     );
   }
 }
