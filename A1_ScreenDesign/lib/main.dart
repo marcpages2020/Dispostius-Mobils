@@ -1,9 +1,9 @@
-import 'package:A1_ScreenDesign/widgets/slider.dart';
+import 'widgets/slider.dart';
 import 'package:flutter/material.dart';
 
-import 'package:A1_ScreenDesign/widgets/song_information.dart';
-import 'package:A1_ScreenDesign/widgets/top_elements.dart';
-import 'package:A1_ScreenDesign/widgets/control_buttons.dart';
+import 'widgets/song_information.dart';
+import 'widgets/top_elements.dart';
+import 'widgets/control_buttons.dart';
 
 void main() {
   runApp(MyApp());
