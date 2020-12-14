@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "538532487525",
+    "project_id": "dm-music-d2a4a",
+    "storage_bucket": "dm-music-d2a4a.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:538532487525:android:f5fb209e2fa256523c418c",
+        "android_client_info": {
+          "package_name": "com.example.dm_music"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "538532487525-va1p4uf68id7rofn7khmn5f3n44pepl6.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCjwPlydX6TwEMc-YMxythWIlmEeU9XZIg"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "538532487525-va1p4uf68id7rofn7khmn5f3n44pepl6.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
