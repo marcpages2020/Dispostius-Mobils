@@ -1,7 +1,7 @@
-import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:flutter/material.dart';
 
-import 'DmMusic.dart';
+import 'hacker_news_app.dart';
 import 'sign_in_flow/auth_state_switch.dart';
 
 Future<void> main() async {
@@ -9,7 +9,7 @@ Future<void> main() async {
   await Firebase.initializeApp();
   runApp(
     AuthStateSwitch(
-      app: DmMusic(),
+      app: HackerNewsApp(),
     ),
   );
 }

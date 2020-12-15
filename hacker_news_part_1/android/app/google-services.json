@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "635003577312",
+    "firebase_url": "https://dm-backend-a4731.firebaseio.com",
+    "project_id": "dm-backend-a4731",
+    "storage_bucket": "dm-backend-a4731.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:635003577312:android:f9dfdd2162aad8ea6ec185",
+        "android_client_info": {
+          "package_name": "com.example.dm_frontend"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "635003577312-ldiid7avtnjupba0fialm2jblt8564du.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC_ZBVTx8Zc77NPkMk-LowU_KDxv8NquAA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "635003577312-ldiid7avtnjupba0fialm2jblt8564du.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
