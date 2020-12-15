@@ -31,7 +31,9 @@ class AuthStateSwitch extends StatelessWidget {
             {
               final user = snapshot.data;
               if (user == null) {
-                return MaterialApp(home: SignInScreen());
+                return MaterialApp(
+                  home: SignInScreen(),
+                );
               }
               return this.app;
             }

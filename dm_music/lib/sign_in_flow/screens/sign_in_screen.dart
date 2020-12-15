@@ -93,7 +93,7 @@ class _SignInScreenState extends State<SignInScreen> {
                 'Sign In',
                 style: TextStyle(
                   fontSize: 24,
-                  color: Theme.of(context).primaryColor,
+                  color: Theme.of(context).primaryColor
                 ),
               ),
               SizedBox(height: 30),

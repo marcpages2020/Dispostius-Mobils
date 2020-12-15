@@ -1,10 +1,15 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:dm_music/main_screen.dart';
 import 'package:flutter/material.dart';
 
 class DmMusic extends StatelessWidget {
   // This widget is the root of your application.
   Widget _buildList(QuerySnapshot snapshot) {
     final storyDocs = snapshot.docs;
+
+    return MainScreen();
+
+    /*
     return ListView.builder(
       itemCount: storyDocs.length,
       itemBuilder: (context, int index) {
@@ -15,13 +20,15 @@ class DmMusic extends StatelessWidget {
         );
       },
     );
+    */
   }
 
   @override
   Widget build(BuildContext context) {
     final stories = FirebaseFirestore.instance.collection('stories');
     return MaterialApp(
-      title: 'My App which needs login',
+      title: 'DM Music',
+      debugShowCheckedModeBanner: false,
       home: Scaffold(
         body: StreamBuilder(
           stream: stories.snapshots(),
