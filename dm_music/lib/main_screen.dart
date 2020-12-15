@@ -1,3 +1,5 @@
+import 'dart:ffi';
+
 import 'package:flutter/material.dart';
 
 class MainScreen extends StatelessWidget {
@@ -18,7 +20,10 @@ class MainScreen extends StatelessWidget {
       backgroundColor: Colors.black,
       body: Stack(
         children: [
-          BackgroundRect(),
+          BackgroundRect(
+            widhtPercentage: 0.8,
+            heightPercentage: 0.7,
+          ),
           Column(
             children: [
               Container(
@@ -59,13 +64,20 @@ class MainScreen extends StatelessWidget {
 class BackgroundRect extends StatelessWidget {
   const BackgroundRect({
     Key key,
-  }) : super(key: key);
+    @required double widhtPercentage,
+    @required double heightPercentage,
+  })  : _widhtPercentage = widhtPercentage,
+        _heightPercentage = heightPercentage,
+        super(key: key);
+
+  final double _widhtPercentage;
+  final double _heightPercentage;
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      width: MediaQuery.of(context).size.width * 0.8,
-      height: MediaQuery.of(context).size.height * 0.7,
+      width: MediaQuery.of(context).size.width * _widhtPercentage,
+      height: MediaQuery.of(context).size.height * _heightPercentage,
       child: DecoratedBox(
         decoration: BoxDecoration(
           gradient: LinearGradient(

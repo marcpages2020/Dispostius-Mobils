@@ -2,6 +2,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
+import '../../main_screen.dart';
 import 'sign_up_screen.dart';
 
 class SignInScreen extends StatefulWidget {
@@ -82,88 +83,163 @@ class _SignInScreenState extends State<SignInScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: SingleChildScrollView(
-        child: Padding(
-          padding: EdgeInsets.all(32),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.stretch,
-            children: [
-              SizedBox(height: 50),
-              Text(
-                'Sign In',
-                style: TextStyle(
-                  fontSize: 24,
-                  color: Theme.of(context).primaryColor
-                ),
-              ),
-              SizedBox(height: 30),
-              TextField(
-                controller: _email,
-                decoration: InputDecoration(
-                  border: OutlineInputBorder(
-                    borderRadius: BorderRadius.all(Radius.circular(3)),
-                  ),
-                  labelText: 'Email',
-                ),
-                keyboardType: TextInputType.emailAddress,
-              ),
-              SizedBox(height: 12),
-              TextField(
-                controller: _password,
-                obscureText: true,
-                decoration: InputDecoration(
-                  border: OutlineInputBorder(
-                    borderRadius: BorderRadius.all(Radius.circular(3)),
-                  ),
-                  labelText: 'Password',
-                ),
-              ),
-              SizedBox(height: 40),
-              FlatButton(
-                color: Theme.of(context).primaryColor,
-                child: Text(
-                  'Sign-in',
-                  style: TextStyle(
-                    color: Colors.white,
+      resizeToAvoidBottomInset: false,
+      backgroundColor: Colors.black,
+      body: Stack(
+        children: [
+          BackgroundRect(widhtPercentage: 0.7, heightPercentage: 0.5),
+          Padding(
+            padding: EdgeInsets.all(32),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              children: [
+                SizedBox(height: 100),
+                Container(
+                  child: Text(
+                    'Welcome Back',
+                    style: TextStyle(
+                      fontSize: 54,
+                      color: Colors.black,
+                    ),
                   ),
                 ),
-                onPressed: () {
-                  _signInWithEmailWithPassword(
-                    email: _email.text,
-                    password: _password.text,
-                  );
-                },
-              ),
-              SizedBox(height: 40),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Text('Need an account?'),
-                  SizedBox(width: 12),
-                  FlatButton(
-                    textColor: Theme.of(context).primaryColor,
-                    child: Text('Sign up'),
-                    onPressed: () {
-                      Navigator.of(context)
-                          .push(
-                        MaterialPageRoute(
-                          builder: (_) => SignUpScreen(),
+                SizedBox(height: 130),
+                TextInput(
+                    controller: _email,
+                    hint: 'Enter Your Email',
+                    label: 'Email',
+                    hide: false),
+                SizedBox(height: 24),
+                TextInput(
+                  controller: _password,
+                  hint: 'Enter Your Password',
+                  label: 'Password',
+                  hide: true,
+                ),
+                SizedBox(height: 30),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Container(
+                      alignment: Alignment.centerLeft,
+                      child: Text(
+                        'Sign In',
+                        style: TextStyle(
+                          fontSize: 24,
+                          color: Colors.white,
                         ),
-                      )
-                          .then((result) {
-                        _createUserWithEmailAndPassword(
-                          email: result.email,
-                          password: result.password,
-                        );
-                      });
-                    },
-                  )
-                ],
-              )
-            ],
+                      ),
+                    ),
+                    SizedBox(width: 12),
+                    Container(
+                      alignment: Alignment.centerRight,
+                      margin: EdgeInsets.only(right: 40),
+                      child: CircleAvatar(
+                        backgroundColor: Colors.lime[300],
+                        radius: 40,
+                        child: IconButton(
+                          iconSize: (50),
+                          icon: Icon(Icons.play_arrow),
+                          hoverColor: Colors.black,
+                          color: Colors.black,
+                          highlightColor: Colors.grey[900],
+                          splashRadius: 52.0,
+                          onPressed: () {
+                            _signInWithEmailWithPassword(
+                              email: _email.text,
+                              password: _password.text,
+                            );
+                          },
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+                SizedBox(height: 40),
+                Expanded(
+                  child: Align(
+                    alignment: FractionalOffset.bottomCenter,
+                    child: Row(
+                      mainAxisSize: MainAxisSize.max,
+                      mainAxisAlignment: MainAxisAlignment.end,
+                      children: [
+                        Text(
+                          'Need an account?',
+                          style: TextStyle(
+                            color: Colors.lime[300],
+                          ),
+                        ),
+                        SizedBox(width: 6),
+                        FlatButton(
+                          textColor: Colors.white,
+                          child: Text('Sign up'),
+                          onPressed: () {
+                            Navigator.of(context)
+                                .push(
+                              MaterialPageRoute(
+                                builder: (_) => SignUpScreen(),
+                              ),
+                            )
+                                .then((result) {
+                              _createUserWithEmailAndPassword(
+                                email: result.email,
+                                password: result.password,
+                              );
+                            });
+                          },
+                        )
+                      ],
+                    ),
+                  ),
+                )
+              ],
+            ),
           ),
+        ],
+      ),
+    );
+  }
+}
+
+class TextInput extends StatelessWidget {
+  const TextInput({
+    Key key,
+    @required TextEditingController controller,
+    @required String hint,
+    @required String label,
+    @required bool hide,
+  })  : _controller = controller,
+        _hint = hint,
+        _label = label,
+        _hide = hide,
+        super(key: key);
+
+  final TextEditingController _controller;
+  final String _hint;
+  final String _label;
+  final bool _hide;
+
+  @override
+  Widget build(BuildContext context) {
+    return TextField(
+      controller: _controller,
+      obscureText: _hide,
+      decoration: InputDecoration(
+        hintText: _hint,
+        labelText: _label,
+        labelStyle: TextStyle(color: Colors.lime[300]),
+        enabledBorder: UnderlineInputBorder(
+          borderSide: BorderSide(color: Colors.lime[300]),
+        ),
+        focusedBorder: UnderlineInputBorder(
+          borderSide: BorderSide(color: Colors.lime[300]),
+        ),
+        border: UnderlineInputBorder(
+          borderSide: BorderSide(color: Colors.lime[300]),
         ),
       ),
+      style: TextStyle(color: Colors.lime[300]),
+      keyboardType: TextInputType.emailAddress,
     );
   }
 }
