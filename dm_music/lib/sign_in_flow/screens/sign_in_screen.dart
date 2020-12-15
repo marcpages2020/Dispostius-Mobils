@@ -15,6 +15,7 @@ class _SignInScreenState extends State<SignInScreen> {
 
   @override
   void initState() {
+    SystemChrome.setEnabledSystemUIOverlays([SystemUiOverlay.bottom]);
     _email = TextEditingController();
     _password = TextEditingController();
     super.initState();

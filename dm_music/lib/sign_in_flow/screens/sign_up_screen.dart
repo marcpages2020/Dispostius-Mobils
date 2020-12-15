@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 
+import '../../main_screen.dart';
+import 'sign_in_screen.dart';
+
 class EmailAndPassword {
   String email, password;
   EmailAndPassword(this.email, this.password);
@@ -30,51 +33,156 @@ class _SignUpScreenState extends State<SignUpScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Padding(
-        padding: EdgeInsets.all(32),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.start,
-          crossAxisAlignment: CrossAxisAlignment.stretch,
+      resizeToAvoidBottomInset: false,
+      backgroundColor: Colors.black,
+      body: Stack(children: [
+        BackgroundRect(widhtPercentage: 0.7, heightPercentage: 0.5),
+        Padding(
+          padding: EdgeInsets.all(32),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: [
+              TopElements(),
+              SizedBox(height: 80),
+              Container(
+                child: Text(
+                  'Create Account',
+                  style: TextStyle(
+                    fontSize: 54,
+                    color: Colors.black,
+                  ),
+                ),
+              ),
+              SizedBox(height: 130),
+              TextInput(
+                  controller: _email,
+                  hint: 'Enter Your Email',
+                  label: 'Email',
+                  hide: false),
+              SizedBox(height: 24),
+              TextInput(
+                controller: _password,
+                hint: 'Enter Your Password',
+                label: 'Password',
+                hide: true,
+              ),
+              SizedBox(height: 30),
+              SignUp(email: _email, password: _password),
+              SizedBox(height: 40),
+              Return()
+            ],
+          ),
+        ),
+      ]),
+    );
+  }
+}
+
+class TopElements extends StatelessWidget {
+  const TopElements({
+    Key key,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      crossAxisAlignment: CrossAxisAlignment.center,
+      children: [
+        CircleAvatar(
+          backgroundColor: Colors.transparent,
+          child: IconButton(
+            icon: Icon(Icons.arrow_back_ios),
+            hoverColor: Colors.black,
+            color: Colors.black,
+            focusColor: Colors.black,
+            splashRadius: 22.0,
+            onPressed: () {
+              Navigator.of(context).pop();
+            },
+          ),
+        ),
+      ],
+    );
+  }
+}
+
+class Return extends StatelessWidget {
+  const Return({
+    Key key,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Expanded(
+      child: Align(
+        alignment: FractionalOffset.bottomCenter,
+        child: Row(
+          mainAxisSize: MainAxisSize.max,
+          mainAxisAlignment: MainAxisAlignment.end,
           children: [
-            SizedBox(height: 40),
             Text(
-              'Sign Up',
+              'Return to..',
               style: TextStyle(
-                fontSize: 24,
-                color: Theme.of(context).primaryColor,
+                color: Colors.lime[300],
               ),
             ),
-            SizedBox(height: 30),
-            TextField(
-              controller: _email,
-              decoration: InputDecoration(
-                border: OutlineInputBorder(
-                  borderRadius: BorderRadius.all(Radius.circular(3)),
-                ),
-                labelText: 'Email',
-              ),
-              keyboardType: TextInputType.emailAddress,
-            ),
-            SizedBox(height: 12),
-            TextField(
-              controller: _password,
-              obscureText: true,
-              decoration: InputDecoration(
-                border: OutlineInputBorder(
-                  borderRadius: BorderRadius.all(Radius.circular(3)),
-                ),
-                labelText: 'Password',
-              ),
-            ),
-            SizedBox(height: 20),
+            SizedBox(width: 6),
             FlatButton(
-              color: Theme.of(context).primaryColor,
-              child: Text(
-                'Register',
-                style: TextStyle(
-                  color: Colors.white,
-                ),
-              ),
+              textColor: Colors.white,
+              child: Text('Sign in'),
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+            )
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+class SignUp extends StatelessWidget {
+  const SignUp({
+    Key key,
+    @required TextEditingController email,
+    @required TextEditingController password,
+  })  : _email = email,
+        _password = password,
+        super(key: key);
+
+  final TextEditingController _email;
+  final TextEditingController _password;
+
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      children: [
+        Container(
+          alignment: Alignment.centerLeft,
+          child: Text(
+            'Sign Up',
+            style: TextStyle(
+              fontSize: 24,
+              color: Colors.white,
+            ),
+          ),
+        ),
+        SizedBox(width: 12),
+        Container(
+          alignment: Alignment.centerRight,
+          margin: EdgeInsets.only(right: 40),
+          child: CircleAvatar(
+            backgroundColor: Colors.lime[300],
+            radius: 40,
+            child: IconButton(
+              iconSize: (50),
+              icon: Icon(Icons.play_arrow),
+              hoverColor: Colors.black,
+              color: Colors.black,
+              highlightColor: Colors.grey[900],
+              splashRadius: 52.0,
               onPressed: () {
                 Navigator.of(context).pop(
                   EmailAndPassword(
@@ -84,9 +192,9 @@ class _SignUpScreenState extends State<SignUpScreen> {
                 );
               },
             ),
-          ],
+          ),
         ),
-      ),
+      ],
     );
   }
 }
