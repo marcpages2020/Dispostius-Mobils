@@ -19,10 +19,35 @@ class MainScreen extends StatelessWidget {
       body: Stack(
         children: [
           BackgroundRect(),
-          Row(
+          Column(
             children: [
-              Expanded(flex: 1,
-              child: Container(color: Colors.red,),)
+              Container(
+                padding: EdgeInsets.all(10),
+                height: 100,
+                child: ListView(
+                  scrollDirection: Axis.horizontal,
+                  children: [
+                    Container(
+                      margin: EdgeInsets.all(2),
+                      width: 100.0,
+                      color: Colors.red,
+                    ),
+                    Container(width: 20),
+                    Container(
+                      width: 100.0,
+                      color: Colors.blue,
+                    ),
+                    Container(
+                      width: 100.0,
+                      color: Colors.green,
+                    ),
+                    Container(
+                      width: 100.0,
+                      color: Colors.yellow,
+                    ),
+                  ],
+                ),
+              )
             ],
           ),
         ],
