@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 class DmMusic extends StatelessWidget {
   // This widget is the root of your application.
   Widget _buildList(QuerySnapshot snapshot) {
-    final storyDocs = snapshot.docs;
+    //final storyDocs = snapshot.docs;
 
     return MainScreen();
 

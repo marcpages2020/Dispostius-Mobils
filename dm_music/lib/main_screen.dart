@@ -1,3 +1,5 @@
+import 'package:dm_music/user_profile_screen.dart';
+import 'package:dm_music/widgets/horizontal_list.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
@@ -9,10 +11,15 @@ class MainScreen extends StatelessWidget {
       appBar: AppBar(
         title: Text("DM Music"),
         actions: [
-          Icon(
-            Icons.circle,
-            size: 50,
-            color: Colors.lime,
+          FlatButton(
+            child: Icon(Icons.circle, color: Colors.green,),
+            onPressed: () {
+              Navigator.of(context).push(
+                MaterialPageRoute(
+                  builder: (_) => UserProfileScreen(),
+                ),
+              );
+            },
           )
         ],
         backgroundColor: Colors.black,
@@ -65,44 +72,7 @@ class MainScreen extends StatelessWidget {
   }
 }
 
-class HorizontalList extends StatelessWidget {
-  const HorizontalList({
-    Key key,
-  }) : super(key: key);
 
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      padding: EdgeInsets.only(top: 8, bottom: 8),
-      height: 120,
-      child: ListView(
-        scrollDirection: Axis.horizontal,
-        children: [
-          Container(
-            margin: EdgeInsets.all(2),
-            width: 100.0,
-            color: Colors.red,
-          ),
-          Container(width: 20),
-          Container(
-            width: 100.0,
-            color: Colors.blue,
-          ),
-          Container(width: 20),
-          Container(
-            width: 100.0,
-            color: Colors.green,
-          ),
-          Container(width: 20),
-          Container(
-            width: 100.0,
-            color: Colors.yellow,
-          ),
-        ],
-      ),
-    );
-  }
-}
 
 class FriendList extends StatelessWidget {
   const FriendList({
@@ -148,13 +118,13 @@ class FriendIcon extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return CircleAvatar(
-      backgroundColor: Colors.white,
-      radius: 40,
-      child: CircleAvatar(
-        backgroundColor: Colors.black,
-        radius: 36,
-      ),
-    );
+        backgroundColor: Colors.white,
+        radius: 40,
+        child: Image.asset('assets/users_pictures/1.jpg')
+        //backgroundColor: Colors.black,
+        //radius: 36,
+        //),
+        );
   }
 }
 
@@ -198,8 +168,8 @@ class Title extends StatelessWidget {
     return Container(
       child: Text(
         text,
-        style: TextStyle(
-            color: color, fontSize: 22, fontWeight: FontWeight.bold),
+        style:
+            TextStyle(color: color, fontSize: 22, fontWeight: FontWeight.bold),
       ),
       alignment: Alignment.centerLeft,
     );
