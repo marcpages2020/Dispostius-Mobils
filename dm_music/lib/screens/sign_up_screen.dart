@@ -4,8 +4,8 @@ import 'package:flutter/material.dart';
 import 'sign_in_screen.dart';
 
 class EmailAndPassword {
-  String email, password;
-  EmailAndPassword(this.email, this.password);
+  String email, password, username;
+  EmailAndPassword(this.email, this.password, this.username);
 }
 
 class SignUpScreen extends StatefulWidget {
@@ -14,12 +14,13 @@ class SignUpScreen extends StatefulWidget {
 }
 
 class _SignUpScreenState extends State<SignUpScreen> {
-  TextEditingController _email, _password;
+  TextEditingController _email, _password, _username;
 
   @override
   void initState() {
     _email = TextEditingController();
     _password = TextEditingController();
+    _username = TextEditingController();
     super.initState();
   }
 
@@ -27,6 +28,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
   void dispose() {
     _email.dispose();
     _password.dispose();
+    _username.dispose();
     super.dispose();
   }
 
@@ -36,14 +38,14 @@ class _SignUpScreenState extends State<SignUpScreen> {
       resizeToAvoidBottomInset: false,
       backgroundColor: Colors.black,
       body: Stack(children: [
-        BackgroundRect(widhtPercentage: 0.7, heightPercentage: 0.5),
+        BackgroundRect(widhtPercentage: 0.7, heightPercentage: 0.4),
         Padding(
           padding: EdgeInsets.all(32),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
               TopElements(),
-              SizedBox(height: 80),
+              SizedBox(height: 15),
               Container(
                 child: Text(
                   'Create Account',
@@ -68,9 +70,19 @@ class _SignUpScreenState extends State<SignUpScreen> {
                 label: 'Password',
                 hide: true,
               ),
+              SizedBox(height: 24),
+              TextInput(
+                controller: _username,
+                hint: 'Enter Your Username',
+                label: 'Username',
+                hide: true,
+              ),
               SizedBox(height: 30),
-              SignUp(email: _email, password: _password),
-              SizedBox(height: 40),
+              SignUp(
+                email: _email,
+                password: _password,
+                username: _username,
+              ),
               Return()
             ],
           ),
@@ -169,12 +181,15 @@ class SignUp extends StatelessWidget {
     Key key,
     @required TextEditingController email,
     @required TextEditingController password,
+    @required TextEditingController username,
   })  : _email = email,
         _password = password,
+        _username = username,
         super(key: key);
 
   final TextEditingController _email;
   final TextEditingController _password;
+  final TextEditingController _username;
 
   @override
   Widget build(BuildContext context) {
@@ -212,6 +227,7 @@ class SignUp extends StatelessWidget {
                   EmailAndPassword(
                     _email.text,
                     _password.text,
+                    _username.text,
                   ),
                 );
               },
