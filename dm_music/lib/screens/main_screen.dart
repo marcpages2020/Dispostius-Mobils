@@ -5,6 +5,7 @@ import 'package:dm_music/widgets/background_rect.dart';
 import 'package:dm_music/widgets/horizontal_list.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'sign_in_screen.dart';
 
 class MainScreen extends StatelessWidget {
   @override
@@ -27,11 +28,12 @@ class MainScreen extends StatelessWidget {
               ),
             ),
             onPressed: () {
-              Navigator.of(context).push(
-                MaterialPageRoute(
-                  builder: (_) => UserProfileScreen(),
-                ),
-              );
+              Navigator.of(context).push(route.createRoute(
+                scene: UserProfileScreen(),
+                offset: Offset.zero,
+                curves: Curves.easeOut,
+                durationMilli: 500,
+              ));
             },
           )
         ],

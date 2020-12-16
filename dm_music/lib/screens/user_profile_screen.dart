@@ -1,10 +1,15 @@
-import 'package:dm_music/sign_in_flow/screens/sign_in_screen.dart';
+import 'package:dm_music/screens/sign_in_screen.dart';
 import 'package:dm_music/widgets/background_rect.dart';
 import 'package:dm_music/widgets/horizontal_list.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
-class UserProfileScreen extends StatelessWidget {
+class UserProfileScreen extends StatefulWidget {
+  @override
+  _UserProfileScreen createState() => _UserProfileScreen();
+}
+
+class _UserProfileScreen extends State<UserProfileScreen> {
   @override
   Future<SignInScreen> _signOut() async {
     await FirebaseAuth.instance.signOut();
@@ -35,11 +40,14 @@ class UserProfileScreen extends StatelessWidget {
               SizedBox(
                 height: 40,
               ),
-              ClipRRect(
-                borderRadius: BorderRadius.circular(120),
-                child: Image.asset(
-                  'assets/users_pictures/4.jpg',
-                  height: 150,
+              Container(
+                alignment: Alignment.center,
+                child: ClipRRect(
+                  borderRadius: BorderRadius.circular(70),
+                  child: Image.asset(
+                    'assets/users_pictures/4.jpg',
+                    height: 150,
+                  ),
                 ),
               ),
               SizedBox(height: 10),
@@ -63,7 +71,7 @@ class UserProfileScreen extends StatelessWidget {
                     fontWeight: FontWeight.bold),
               ),
               HorizontalList(),
-                Text(
+              Text(
                 "Albums",
                 style: TextStyle(
                     color: Colors.white,
