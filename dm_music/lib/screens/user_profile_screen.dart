@@ -55,7 +55,7 @@ class _UserProfileScreen extends State<UserProfileScreen> {
               ),
               SizedBox(height: 10),
               Text(
-                "User",
+                "My profile",
                 style: TextStyle(
                   fontSize: 40,
                   color: Colors.white,

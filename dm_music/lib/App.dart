@@ -1,12 +1,16 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:dm_music/screens/main_screen.dart';
+import 'package:dm_music/user.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
 class DmMusic extends StatelessWidget {
   // This widget is the root of your application.
   Widget _buildList(QuerySnapshot snapshot) {
-    //final storyDocs = snapshot.docs;
+    final docs = snapshot.docs;
+
+    
+
     return MainScreen();
 
     /*

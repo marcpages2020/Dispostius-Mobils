@@ -14,22 +14,22 @@ class HorizontalList extends StatelessWidget {
         scrollDirection: Axis.horizontal,
         children: [
           ClipRRect(
-            borderRadius: BorderRadius.circular(15),
+            borderRadius: BorderRadius.circular(10),
             child: Image.asset('assets/images/note.png'),
           ),
           Container(width: 20),
           ClipRRect(
-            borderRadius: BorderRadius.circular(15),
+            borderRadius: BorderRadius.circular(10),
             child: Image.asset('assets/images/note.png'),
           ),
           Container(width: 20),
             ClipRRect(
-            borderRadius: BorderRadius.circular(15),
+            borderRadius: BorderRadius.circular(10),
             child: Image.asset('assets/images/note.png'),
           ),
           Container(width: 20),
           ClipRRect(
-            borderRadius: BorderRadius.circular(15),
+            borderRadius: BorderRadius.circular(10),
             child: Image.asset('assets/images/note.png'),
           ),
         ],

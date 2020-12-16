@@ -5,9 +5,12 @@ import 'package:dm_music/screens/user_profile_screen.dart';
 import 'package:dm_music/widgets/horizontal_list.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import '../user.dart';
 import 'sign_in_screen.dart';
 
 class MainScreen extends StatefulWidget {
+  User _user;
+
   @override
   _MainScreenState createState() => _MainScreenState();
 }
