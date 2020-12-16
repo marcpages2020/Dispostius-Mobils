@@ -101,6 +101,8 @@ class _SignInScreenState extends State<SignInScreen> {
                     style: TextStyle(
                       fontSize: 54,
                       color: Colors.black,
+                      fontFamily: "FredokaOne",
+                      fontStyle: FontStyle.normal,
                     ),
                   ),
                 ),
@@ -128,6 +130,8 @@ class _SignInScreenState extends State<SignInScreen> {
                         style: TextStyle(
                           fontSize: 24,
                           color: Colors.white,
+                          fontFamily: "FredokaOne",
+                          fontStyle: FontStyle.normal,
                         ),
                       ),
                     ),
@@ -136,7 +140,7 @@ class _SignInScreenState extends State<SignInScreen> {
                       alignment: Alignment.centerRight,
                       margin: EdgeInsets.only(right: 40),
                       child: CircleAvatar(
-                        backgroundColor: Colors.lime[300],
+                        backgroundColor: Theme.of(context).primaryColor,
                         radius: 40,
                         child: IconButton(
                           iconSize: (50),
@@ -167,13 +171,21 @@ class _SignInScreenState extends State<SignInScreen> {
                         Text(
                           'Need an account?',
                           style: TextStyle(
-                            color: Colors.lime[300],
+                            color: Theme.of(context).primaryColor,
+                            fontFamily: "FredokaOne",
+                            fontStyle: FontStyle.normal,
                           ),
                         ),
                         SizedBox(width: 6),
                         FlatButton(
                           textColor: Colors.white,
-                          child: Text('Sign up'),
+                          child: Text(
+                            'Sign up',
+                            style: TextStyle(
+                              fontFamily: "FredokaOne",
+                              fontStyle: FontStyle.normal,
+                            ),
+                          ),
                           onPressed: () {
                             Navigator.of(context)
                                 .push(
@@ -234,18 +246,26 @@ class TextInput extends StatelessWidget {
         ),
         hintText: _hint,
         labelText: _label,
-        labelStyle: TextStyle(color: Colors.lime[300]),
+        labelStyle: TextStyle(
+          color: Theme.of(context).primaryColor,
+          fontFamily: "FredokaOne",
+          fontStyle: FontStyle.normal,
+        ),
         enabledBorder: UnderlineInputBorder(
-          borderSide: BorderSide(color: Colors.lime[300]),
+          borderSide: BorderSide(color: Theme.of(context).primaryColor),
         ),
         focusedBorder: UnderlineInputBorder(
-          borderSide: BorderSide(color: Colors.lime[300]),
+          borderSide: BorderSide(color: Theme.of(context).primaryColor),
         ),
         border: UnderlineInputBorder(
-          borderSide: BorderSide(color: Colors.lime[300]),
+          borderSide: BorderSide(color: Theme.of(context).primaryColor),
         ),
       ),
-      style: TextStyle(color: Colors.lime[300]),
+      style: TextStyle(
+        color: Theme.of(context).primaryColor,
+        fontFamily: "FredokaOne",
+        fontStyle: FontStyle.normal,
+      ),
       keyboardType: TextInputType.emailAddress,
     );
   }

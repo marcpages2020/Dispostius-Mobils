@@ -23,8 +23,8 @@ class BackgroundRect extends StatelessWidget {
             begin: Alignment.bottomCenter,
             end: Alignment.topCenter,
             colors: [
-              Colors.lime,
-              Colors.lightGreen[300],
+              Theme.of(context).primaryColor,
+              Colors.deepPurple[300],
             ],
           ),
           borderRadius: BorderRadius.only(bottomRight: Radius.circular(15)),

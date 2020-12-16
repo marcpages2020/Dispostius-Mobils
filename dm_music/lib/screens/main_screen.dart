@@ -16,6 +16,8 @@ class MainScreen extends StatelessWidget {
           "DM Music",
           style: TextStyle(
             color: Colors.white,
+            fontFamily: "FredokaOne",
+            fontStyle: FontStyle.normal,
           ),
         ),
         actions: [
@@ -122,10 +124,14 @@ class FriendIcon extends StatelessWidget {
           ),
           onPressed: () {},
         ),
-        SizedBox(height: 2),
+        SizedBox(height: 1),
         Text(
           "Name",
-          style: TextStyle(color: Colors.white),
+          style: TextStyle(
+            color: Colors.white,
+            fontFamily: "FredokaOne",
+            fontStyle: FontStyle.normal,
+          ),
         )
       ],
     );
@@ -143,8 +149,12 @@ class Title extends StatelessWidget {
     return Container(
       child: Text(
         text,
-        style:
-            TextStyle(color: color, fontSize: 22, fontWeight: FontWeight.bold),
+        style: TextStyle(
+          color: color,
+          fontSize: 22,
+          fontFamily: "FredokaOne",
+          fontStyle: FontStyle.normal,
+        ),
       ),
       alignment: Alignment.centerLeft,
     );
@@ -215,7 +225,8 @@ class SongGridTile extends StatelessWidget {
               "Song",
               style: TextStyle(
                   color: Colors.white,
-                  fontWeight: FontWeight.bold,
+                  fontFamily: "FredokaOne",
+                  fontStyle: FontStyle.normal,
                   fontSize: 14),
             )
           ],

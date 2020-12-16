@@ -50,6 +50,8 @@ class _SignUpScreenState extends State<SignUpScreen> {
                   style: TextStyle(
                     fontSize: 54,
                     color: Colors.black,
+                    fontFamily: "FredokaOne",
+                    fontStyle: FontStyle.normal,
                   ),
                 ),
               ),
@@ -131,13 +133,19 @@ class Return extends StatelessWidget {
             Text(
               'Return to..',
               style: TextStyle(
-                color: Colors.lime[300],
+                color: Theme.of(context).primaryColor,
+                fontFamily: "FredokaOne",
+                fontStyle: FontStyle.normal,
               ),
             ),
             SizedBox(width: 6),
             FlatButton(
               textColor: Colors.white,
-              child: Text('Sign in'),
+              child: Text('Sign in',
+                  style: TextStyle(
+                    fontFamily: "FredokaOne",
+                    fontStyle: FontStyle.normal,
+                  )),
               onPressed: () {
                 Navigator.of(context).pop(
                   route.createRoute(
@@ -180,6 +188,8 @@ class SignUp extends StatelessWidget {
             style: TextStyle(
               fontSize: 24,
               color: Colors.white,
+              fontFamily: "FredokaOne",
+              fontStyle: FontStyle.normal,
             ),
           ),
         ),
@@ -188,7 +198,7 @@ class SignUp extends StatelessWidget {
           alignment: Alignment.centerRight,
           margin: EdgeInsets.only(right: 40),
           child: CircleAvatar(
-            backgroundColor: Colors.lime[300],
+            backgroundColor: Theme.of(context).primaryColor,
             radius: 40,
             child: IconButton(
               iconSize: (50),

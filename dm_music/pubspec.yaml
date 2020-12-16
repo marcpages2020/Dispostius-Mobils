@@ -25,3 +25,9 @@ flutter:
   assets: 
    - assets/users_pictures/
    - assets/images/
+
+  fonts:
+    - family: FredokaOne
+      fonts:
+        - asset: assets/fonts/FredokaOne-Regular.ttf
+    

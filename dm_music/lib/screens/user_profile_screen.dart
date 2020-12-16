@@ -17,7 +17,13 @@ class _UserProfileScreen extends State<UserProfileScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("User Profile"),
+        title: Text(
+          "User Profile",
+          style: TextStyle(
+            fontFamily: "FredokaOne",
+            fontStyle: FontStyle.normal,
+          ),
+        ),
         backgroundColor: Colors.black,
       ),
       backgroundColor: Colors.black,
@@ -53,7 +59,8 @@ class _UserProfileScreen extends State<UserProfileScreen> {
                 style: TextStyle(
                   fontSize: 40,
                   color: Colors.white,
-                  fontWeight: FontWeight.bold,
+                  fontFamily: "FredokaOne",
+                  fontStyle: FontStyle.normal,
                 ),
                 textAlign: TextAlign.center,
               ),
@@ -63,17 +70,21 @@ class _UserProfileScreen extends State<UserProfileScreen> {
               Text(
                 "Songs",
                 style: TextStyle(
-                    color: Colors.white,
-                    fontSize: 22,
-                    fontWeight: FontWeight.bold),
+                  color: Colors.white,
+                  fontSize: 22,
+                  fontFamily: "FredokaOne",
+                  fontStyle: FontStyle.normal,
+                ),
               ),
               HorizontalList(),
               Text(
                 "Albums",
                 style: TextStyle(
-                    color: Colors.white,
-                    fontSize: 22,
-                    fontWeight: FontWeight.bold),
+                  color: Colors.white,
+                  fontSize: 22,
+                  fontFamily: "FredokaOne",
+                  fontStyle: FontStyle.normal,
+                ),
               ),
               HorizontalList(),
               SizedBox(height: 10),
@@ -83,7 +94,13 @@ class _UserProfileScreen extends State<UserProfileScreen> {
                   onPressed: () {
                     _signOut();
                   },
-                  child: Text("Sign Out"),
+                  child: Text(
+                    "Sign Out",
+                    style: TextStyle(
+                      fontFamily: "FredokaOne",
+                      fontStyle: FontStyle.normal,
+                    ),
+                  ),
                 ),
               )
             ],

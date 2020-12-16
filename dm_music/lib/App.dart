@@ -32,7 +32,7 @@ class DmMusic extends StatelessWidget {
         primarySwatch: Colors.deepPurple,
         inputDecorationTheme: const InputDecorationTheme(
           labelStyle: TextStyle(
-            color: Colors.lime,
+            color: Colors.deepPurple,
           ),
         ),
       ),
