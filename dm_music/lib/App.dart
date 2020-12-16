@@ -1,5 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:dm_music/main_screen.dart';
+import 'package:dm_music/screens/main_screen.dart';
 import 'package:flutter/material.dart';
 
 class DmMusic extends StatelessWidget {

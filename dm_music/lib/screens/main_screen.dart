@@ -1,6 +1,6 @@
 import 'dart:math';
 
-import 'package:dm_music/user_profile_screen.dart';
+import 'package:dm_music/screens/user_profile_screen.dart';
 import 'package:dm_music/widgets/background_rect.dart';
 import 'package:dm_music/widgets/horizontal_list.dart';
 import 'package:flutter/foundation.dart';
@@ -40,7 +40,6 @@ class MainScreen extends StatelessWidget {
       backgroundColor: Colors.black,
       body: Stack(
         children: [
-          //BackgroundRect(widhtPercentage: 0.8, heightPercentage: 0.75),
           Container(
             decoration: BoxDecoration(
               gradient: LinearGradient(
