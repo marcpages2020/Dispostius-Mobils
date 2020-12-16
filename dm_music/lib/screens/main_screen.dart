@@ -16,14 +16,18 @@ class MainScreen extends StatefulWidget {
 }
 
 class _MainScreenState extends State<MainScreen> {
-  int _selectedIndex = 0;
+  int _selectedIndex = 1;
 
   void _onItemTapped(int index) {
     setState(
       () {
         _selectedIndex = index;
         Navigator.of(context).push(route.createRoute(
-            scene: index == 0 ? SearchScreen() : UserProfileScreen(),
+            scene: index == 0
+                ? SearchScreen()
+                : index == 2
+                    ? UserProfileScreen()
+                    : _selectedIndex = 1,
             offset: Offset.zero,
             curves: Curves.easeOut,
             durationMilli: 500));
@@ -45,6 +49,11 @@ class _MainScreenState extends State<MainScreen> {
             ),
             label: "Search",
           ),
+          BottomNavigationBarItem(
+              icon: Icon(
+                Icons.home
+              ),
+              label: "Home"),
           BottomNavigationBarItem(
               icon: Icon(
                 Icons.perm_identity,
