@@ -1,11 +1,13 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:dm_music/widgets/background_rect.dart';
 import 'package:flutter/material.dart';
 
+import '../user.dart';
 import 'sign_in_screen.dart';
 
 class EmailAndPassword {
-  String email, password, username;
-  EmailAndPassword(this.email, this.password, this.username);
+  String email, password;
+  EmailAndPassword(this.email, this.password);
 }
 
 class SignUpScreen extends StatefulWidget {
@@ -75,7 +77,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                 controller: _username,
                 hint: 'Enter Your Username',
                 label: 'Username',
-                hide: true,
+                hide: false,
               ),
               SizedBox(height: 30),
               SignUp(
@@ -177,7 +179,7 @@ class Return extends StatelessWidget {
 }
 
 class SignUp extends StatelessWidget {
-  const SignUp({
+  SignUp({
     Key key,
     @required TextEditingController email,
     @required TextEditingController password,
@@ -190,6 +192,7 @@ class SignUp extends StatelessWidget {
   final TextEditingController _email;
   final TextEditingController _password;
   final TextEditingController _username;
+  final users = FirebaseFirestore.instance.collection('users');
 
   @override
   Widget build(BuildContext context) {
@@ -224,11 +227,9 @@ class SignUp extends StatelessWidget {
               splashRadius: 52.0,
               onPressed: () {
                 Navigator.of(context).pop(
-                  EmailAndPassword(
-                    _email.text,
-                    _password.text,
-                    _username.text,
-                  ),
+                  EmailAndPassword(_email.text, _password.text),
+                  //users.add(User(_username.text, _email.text).toFirestore()),
+                  //_setUser(),
                 );
               },
             ),
@@ -236,5 +237,11 @@ class SignUp extends StatelessWidget {
         ),
       ],
     );
+  }
+
+  void _setUser() {
+    print("HOLA");
+    //EmailAndPassword(_email.text, _password.text);
+    //users.add(User(_username.text, _email.text).toFirestore());
   }
 }
