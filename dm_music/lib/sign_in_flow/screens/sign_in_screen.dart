@@ -51,10 +51,10 @@ class _SignInScreenState extends State<SignInScreen> {
     } else {
       message = "General Error: $error";
     }
-    ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-      content: Text(message),
-      backgroundColor: Colors.red,
-    ));
+   // ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+   //   content: Text(message),
+   //   backgroundColor: Colors.red,
+  //));
   }
 
   void _signInWithEmailWithPassword({String email, String password}) async {
