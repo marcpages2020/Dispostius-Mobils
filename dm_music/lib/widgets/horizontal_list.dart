@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 
 class HorizontalList extends StatelessWidget {
-  const HorizontalList({
-    Key key,
-  }) : super(key: key);
+    const HorizontalList({
+      Key key,
+    }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -13,25 +13,24 @@ class HorizontalList extends StatelessWidget {
       child: ListView(
         scrollDirection: Axis.horizontal,
         children: [
-          Container(
-            margin: EdgeInsets.all(2),
-            width: 100.0,
-            color: Colors.red,
+          ClipRRect(
+            borderRadius: BorderRadius.circular(15),
+            child: Image.asset('assets/images/note.png'),
           ),
           Container(width: 20),
-          Container(
-            width: 100.0,
-            color: Colors.blue,
+          ClipRRect(
+            borderRadius: BorderRadius.circular(15),
+            child: Image.asset('assets/images/note.png'),
           ),
           Container(width: 20),
-          Container(
-            width: 100.0,
-            color: Colors.green,
+            ClipRRect(
+            borderRadius: BorderRadius.circular(15),
+            child: Image.asset('assets/images/note.png'),
           ),
           Container(width: 20),
-          Container(
-            width: 100.0,
-            color: Colors.yellow,
+          ClipRRect(
+            borderRadius: BorderRadius.circular(15),
+            child: Image.asset('assets/images/note.png'),
           ),
         ],
       ),

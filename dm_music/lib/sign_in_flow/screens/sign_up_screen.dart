@@ -1,6 +1,6 @@
+import 'package:dm_music/widgets/background_rect.dart';
 import 'package:flutter/material.dart';
 
-import '../../main_screen.dart';
 import 'sign_in_screen.dart';
 
 class EmailAndPassword {

@@ -1,4 +1,5 @@
 import 'package:dm_music/user_profile_screen.dart';
+import 'package:dm_music/widgets/background_rect.dart';
 import 'package:dm_music/widgets/horizontal_list.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -12,7 +13,12 @@ class MainScreen extends StatelessWidget {
         title: Text("DM Music"),
         actions: [
           FlatButton(
-            child: Icon(Icons.circle, color: Colors.green,),
+            child: Container(
+              child: ClipRRect(
+                borderRadius: BorderRadius.circular(30),
+                child: Image.asset('assets/users_pictures/4.jpg'),
+              ),
+            ),
             onPressed: () {
               Navigator.of(context).push(
                 MaterialPageRoute(
@@ -71,8 +77,6 @@ class MainScreen extends StatelessWidget {
     );
   }
 }
-
-
 
 class FriendList extends StatelessWidget {
   const FriendList({
@@ -138,7 +142,11 @@ class Grid extends StatelessWidget {
     return Column(
       children: [
         Row(
-          children: [SongGridTile(), SizedBox(width: 10), SongGridTile()],
+          children: [
+            SongGridTile(),
+            SizedBox(width: 10),
+            SongGridTile(),
+          ],
         ),
         SizedBox(
           height: 5,
@@ -195,15 +203,11 @@ class SongGridTile extends StatelessWidget {
         ),
         child: Row(
           children: [
-            SizedBox(
-              width: 60,
-              child: Container(
-                decoration: BoxDecoration(
-                  color: Colors.white,
-                  borderRadius: BorderRadius.only(
-                      topLeft: Radius.circular(5.0),
-                      bottomLeft: Radius.circular(5.0)),
-                ),
+            ClipRRect(
+              borderRadius: BorderRadius.circular(10),
+              child: Image.asset(
+                'assets/images/note.png',
+                height: 200,
               ),
             ),
             SizedBox(width: 10),
@@ -215,40 +219,6 @@ class SongGridTile extends StatelessWidget {
                   fontSize: 14),
             )
           ],
-        ),
-      ),
-    );
-  }
-}
-
-class BackgroundRect extends StatelessWidget {
-  const BackgroundRect({
-    Key key,
-    @required double widhtPercentage,
-    @required double heightPercentage,
-  })  : _widhtPercentage = widhtPercentage,
-        _heightPercentage = heightPercentage,
-        super(key: key);
-
-  final double _widhtPercentage;
-  final double _heightPercentage;
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      width: MediaQuery.of(context).size.width * _widhtPercentage,
-      height: MediaQuery.of(context).size.height * _heightPercentage,
-      child: DecoratedBox(
-        decoration: BoxDecoration(
-          gradient: LinearGradient(
-            begin: Alignment.bottomCenter,
-            end: Alignment.topCenter,
-            colors: [
-              Colors.lime,
-              Colors.lightGreen[300],
-            ],
-          ),
-          borderRadius: BorderRadius.only(bottomRight: Radius.circular(15)),
         ),
       ),
     );
