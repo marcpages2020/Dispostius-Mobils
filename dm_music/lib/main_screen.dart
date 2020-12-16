@@ -49,41 +49,24 @@ class MainScreen extends StatelessWidget {
                   colors: [Theme.of(context).primaryColor, Colors.black]),
             ),
           ),
-          Column(
+          ListView(
+            padding: EdgeInsets.all(10),
             children: [
-              SizedBox(
-                height: 10,
-              ),
-              Row(
-                children: [
-                  Expanded(flex: 1, child: Container()),
-                  Expanded(
-                    flex: 20,
-                    child: Column(
-                      children: [
-                        Title("Good Evening", color: Colors.black),
-                        SizedBox(
-                          height: 5,
-                        ),
-                        Grid(),
-                        SizedBox(height: 16),
-                        Title("Recent Songs", color: Colors.black),
-                        HorizontalList(),
-                        SizedBox(height: 16),
-                        Title("Albums", color: Colors.black),
-                        HorizontalList(),
-                        SizedBox(height: 16),
-                        Title("Friends", color: Colors.white),
-                        SizedBox(height: 2),
-                        FriendList()
-                      ],
-                    ),
-                  ),
-                  Expanded(flex: 1, child: Container())
-                ],
-              ),
+              Title("Good Evening", color: Colors.white),
+              SizedBox(height: 5),
+              Grid(),
+              SizedBox(height: 16),
+              Title("Recent Songs", color: Colors.white),
+              HorizontalList(),
+              SizedBox(height: 16),
+              Title("Albums", color: Colors.white),
+              HorizontalList(),
+              SizedBox(height: 16),
+              Title("Friends", color: Colors.white),
+              SizedBox(height: 2),
+              FriendList()
             ],
-          )
+          ),
         ],
       ),
     );
