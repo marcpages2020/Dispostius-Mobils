@@ -1,45 +1,55 @@
 import 'dart:math';
 
+import 'package:dm_music/screens/search_screen.dart';
 import 'package:dm_music/screens/user_profile_screen.dart';
 import 'package:dm_music/widgets/horizontal_list.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'sign_in_screen.dart';
 
-class MainScreen extends StatelessWidget {
+class MainScreen extends StatefulWidget {
+  @override
+  _MainScreenState createState() => _MainScreenState();
+}
+
+class _MainScreenState extends State<MainScreen> {
+  int _selectedIndex = 0;
+
+  void _onItemTapped(int index) {
+    setState(
+      () {
+        _selectedIndex = index;
+        Navigator.of(context).push(route.createRoute(
+            scene: index == 0 ? SearchScreen() : UserProfileScreen(),
+            offset: Offset.zero,
+            curves: Curves.easeOut,
+            durationMilli: 500));
+      },
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       resizeToAvoidBottomInset: false,
-      appBar: AppBar(
-        title: Text(
-          "DM Music",
-          style: TextStyle(
-            color: Colors.white,
-          ),
-        ),
-        actions: [
-          Container(
-            width: 80,
-            child: FlatButton(
-              child: Container(
-                child: ClipRRect(
-                  borderRadius: BorderRadius.circular(30),
-                  child: Image.asset('assets/users_pictures/4.jpg'),
-                ),
-              ),
-              onPressed: () {
-                Navigator.of(context).push(route.createRoute(
-                  scene: UserProfileScreen(),
-                  offset: Offset.zero,
-                  curves: Curves.easeOut,
-                  durationMilli: 500,
-                ));
-              },
-            ),
-          )
-        ],
+      bottomNavigationBar: BottomNavigationBar(
         backgroundColor: Colors.black,
+        unselectedItemColor: Colors.grey,
+        items: [
+          BottomNavigationBarItem(
+            icon: Icon(
+              Icons.search,
+            ),
+            label: "Search",
+          ),
+          BottomNavigationBarItem(
+              icon: Icon(
+                Icons.perm_identity,
+              ),
+              label: "Profile"),
+        ],
+        currentIndex: _selectedIndex,
+        onTap: _onItemTapped,
       ),
       backgroundColor: Colors.black,
       body: Stack(
@@ -49,7 +59,7 @@ class MainScreen extends StatelessWidget {
               gradient: LinearGradient(
                   begin: Alignment.topLeft,
                   end: Alignment.bottomRight,
-                  colors: [Theme.of(context).primaryColor, Colors.black]),
+                  colors: [Theme.of(context).primaryColor, Colors.grey[900]]),
             ),
           ),
           ListView(
