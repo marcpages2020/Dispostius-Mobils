@@ -28,7 +28,14 @@ class DmMusic extends StatelessWidget {
     return MaterialApp(
       title: 'DM Music',
       debugShowCheckedModeBanner: false,
-      theme: ThemeData(primarySwatch: Colors.deepPurple),
+      theme: ThemeData(
+        primarySwatch: Colors.deepPurple,
+        inputDecorationTheme: const InputDecorationTheme(
+          labelStyle: TextStyle(
+            color: Colors.lime,
+          ),
+        ),
+      ),
       home: Scaffold(
         body: StreamBuilder(
           stream: stories.snapshots(),

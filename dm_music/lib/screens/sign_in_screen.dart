@@ -229,6 +229,9 @@ class TextInput extends StatelessWidget {
       controller: _controller,
       obscureText: _hide,
       decoration: InputDecoration(
+        hintStyle: TextStyle(
+          color: Colors.white,
+        ),
         hintText: _hint,
         labelText: _label,
         labelStyle: TextStyle(color: Colors.lime[300]),

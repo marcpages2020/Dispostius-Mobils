@@ -1,7 +1,6 @@
 import 'dart:math';
 
 import 'package:dm_music/screens/user_profile_screen.dart';
-import 'package:dm_music/widgets/background_rect.dart';
 import 'package:dm_music/widgets/horizontal_list.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -20,21 +19,24 @@ class MainScreen extends StatelessWidget {
           ),
         ),
         actions: [
-          FlatButton(
-            child: Container(
-              child: ClipRRect(
-                borderRadius: BorderRadius.circular(30),
-                child: Image.asset('assets/users_pictures/4.jpg'),
+          Container(
+            width: 80,
+            child: FlatButton(
+              child: Container(
+                child: ClipRRect(
+                  borderRadius: BorderRadius.circular(30),
+                  child: Image.asset('assets/users_pictures/4.jpg'),
+                ),
               ),
+              onPressed: () {
+                Navigator.of(context).push(route.createRoute(
+                  scene: UserProfileScreen(),
+                  offset: Offset.zero,
+                  curves: Curves.easeOut,
+                  durationMilli: 500,
+                ));
+              },
             ),
-            onPressed: () {
-              Navigator.of(context).push(route.createRoute(
-                scene: UserProfileScreen(),
-                offset: Offset.zero,
-                curves: Curves.easeOut,
-                durationMilli: 500,
-              ));
-            },
           )
         ],
         backgroundColor: Colors.black,

@@ -1,5 +1,4 @@
 import 'package:dm_music/screens/sign_in_screen.dart';
-import 'package:dm_music/widgets/background_rect.dart';
 import 'package:dm_music/widgets/horizontal_list.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -10,10 +9,8 @@ class UserProfileScreen extends StatefulWidget {
 }
 
 class _UserProfileScreen extends State<UserProfileScreen> {
-  @override
   Future<SignInScreen> _signOut() async {
     await FirebaseAuth.instance.signOut();
-
     return new SignInScreen();
   }
 
