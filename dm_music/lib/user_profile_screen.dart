@@ -1,9 +1,17 @@
+import 'package:dm_music/sign_in_flow/screens/sign_in_screen.dart';
 import 'package:dm_music/widgets/background_rect.dart';
 import 'package:dm_music/widgets/horizontal_list.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
 class UserProfileScreen extends StatelessWidget {
   @override
+  Future<SignInScreen> _signOut() async {
+    await FirebaseAuth.instance.signOut();
+
+    return new SignInScreen();
+  }
+
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
@@ -72,8 +80,17 @@ class UserProfileScreen extends StatelessWidget {
                       ],
                     ),
                   ),
-                  Expanded(flex: 1, child: Container())
+                  Expanded(flex: 1, child: Container()),
                 ],
+              ),
+              Container(
+                color: Colors.white,
+                child: FlatButton(
+                  onPressed: () {
+                    _signOut();
+                  },
+                  child: Text("Sign Out"),
+                ),
               ),
             ],
           )
