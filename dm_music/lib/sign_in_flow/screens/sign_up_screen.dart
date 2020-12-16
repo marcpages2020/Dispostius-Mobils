@@ -98,7 +98,14 @@ class TopElements extends StatelessWidget {
             focusColor: Colors.black,
             splashRadius: 22.0,
             onPressed: () {
-              Navigator.of(context).pop();
+              Navigator.of(context).pop(
+                route.createRoute(
+                  scene: SignInScreen(),
+                  curves: Curves.easeOut,
+                  offset: Offset.infinite,
+                  durationMilli: 500,
+                ),
+              );
             },
           ),
         ),
@@ -132,7 +139,14 @@ class Return extends StatelessWidget {
               textColor: Colors.white,
               child: Text('Sign in'),
               onPressed: () {
-                Navigator.of(context).pop();
+                Navigator.of(context).pop(
+                  route.createRoute(
+                    scene: SignInScreen(),
+                    curves: Curves.easeOut,
+                    offset: Offset.infinite,
+                    durationMilli: 500,
+                  ),
+                );
               },
             )
           ],

@@ -177,8 +177,11 @@ class _SignInScreenState extends State<SignInScreen> {
                           onPressed: () {
                             Navigator.of(context)
                                 .push(
-                              MaterialPageRoute(
-                                builder: (_) => SignUpScreen(),
+                              route.createRoute(
+                                scene: SignUpScreen(),
+                                offset: Offset.zero,
+                                curves: Curves.easeOut,
+                                durationMilli: 500,
                               ),
                             )
                                 .then((result) {
@@ -241,6 +244,31 @@ class TextInput extends StatelessWidget {
       ),
       style: TextStyle(color: Colors.lime[300]),
       keyboardType: TextInputType.emailAddress,
+    );
+  }
+}
+
+class route {
+  static Route createRoute(
+      {StatefulWidget scene, Curve curves, Offset offset, int durationMilli}) {
+    return PageRouteBuilder(
+      transitionDuration: Duration(milliseconds: durationMilli),
+      pageBuilder: (context, animation, secondaryAnimation) => scene,
+      transitionsBuilder: (context, animation, secondaryAnimation, child) {
+        return SlideTransition(
+          position: animation.drive(
+            Tween(
+              begin: Offset(1.0, 0.0),
+              end: offset,
+            ).chain(
+              CurveTween(
+                curve: curves,
+              ),
+            ),
+          ),
+          child: child,
+        );
+      },
     );
   }
 }
