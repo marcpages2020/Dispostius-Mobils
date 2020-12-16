@@ -24,35 +24,53 @@ class _SearchScreenState extends State<SearchScreen> {
           ),
           Padding(
             padding: EdgeInsets.all(16),
-            child: Row(
+            child: Column(
               children: [
-                Column(
-                  children: [
-                    Container(
-                      alignment: Alignment.centerLeft,
-                      child: Text(
-                        "Search",
-                        style: TextStyle(
-                          fontSize: 30,
-                          color: Colors.white,
-                          fontWeight: FontWeight.bold,
-                        ),
-                        textAlign: TextAlign.start,
-                      ),
+                Container(
+                  alignment: Alignment.centerLeft,
+                  child: Text(
+                    "Search",
+                    style: TextStyle(
+                      fontSize: 30,
+                      color: Colors.white,
+                      fontWeight: FontWeight.bold,
                     ),
-                  ],
+                    textAlign: TextAlign.start,
+                  ),
                 ),
-                SizedBox(height: 30),
                 SizedBox(height: 10),
-                FloatingActionButton(
-                  child: Icon(Icons.arrow_back),
-                  onPressed: () {
-                    setState(
-                      () {
-                        Navigator.of(context).pop();
+                TextField(
+                  controller: _controller,
+                  decoration: InputDecoration(
+                    prefixIcon: Icon(Icons.search),
+                    hintText: "Search",
+                    hintStyle: TextStyle(color: Colors.grey),
+                    enabledBorder: OutlineInputBorder(
+                      borderSide: BorderSide(color: Colors.white),
+                      borderRadius: BorderRadius.circular(10),
+                    ),
+                    focusedBorder: OutlineInputBorder(
+                      borderSide: BorderSide(color: Colors.white),
+                      borderRadius: BorderRadius.circular(10),
+                    ),
+                    fillColor: Colors.white,
+                    filled: true,
+                  ),
+                ),
+                Expanded(
+                  child: Align(
+                    alignment: FractionalOffset.bottomRight,
+                    child: FloatingActionButton(
+                      child: Icon(Icons.arrow_back),
+                      onPressed: () {
+                        setState(
+                          () {
+                            Navigator.of(context).pop();
+                          },
+                        );
                       },
-                    );
-                  },
+                    ),
+                  ),
                 ),
               ],
             ),
@@ -62,8 +80,3 @@ class _SearchScreenState extends State<SearchScreen> {
     );
   }
 }
-
-/*
-
-
-*/
