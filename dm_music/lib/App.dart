@@ -6,7 +6,6 @@ class DmMusic extends StatelessWidget {
   // This widget is the root of your application.
   Widget _buildList(QuerySnapshot snapshot) {
     //final storyDocs = snapshot.docs;
-
     return MainScreen();
 
     /*
@@ -29,6 +28,7 @@ class DmMusic extends StatelessWidget {
     return MaterialApp(
       title: 'DM Music',
       debugShowCheckedModeBanner: false,
+      theme: ThemeData(primarySwatch: Colors.deepPurple),
       home: Scaffold(
         body: StreamBuilder(
           stream: stories.snapshots(),

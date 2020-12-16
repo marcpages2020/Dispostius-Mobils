@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:dm_music/user_profile_screen.dart';
 import 'package:dm_music/widgets/background_rect.dart';
 import 'package:dm_music/widgets/horizontal_list.dart';
@@ -10,7 +12,12 @@ class MainScreen extends StatelessWidget {
     return Scaffold(
       resizeToAvoidBottomInset: false,
       appBar: AppBar(
-        title: Text("DM Music"),
+        title: Text(
+          "DM Music",
+          style: TextStyle(
+            color: Colors.white,
+          ),
+        ),
         actions: [
           FlatButton(
             child: Container(
@@ -33,9 +40,14 @@ class MainScreen extends StatelessWidget {
       backgroundColor: Colors.black,
       body: Stack(
         children: [
-          BackgroundRect(
-            widhtPercentage: 0.8,
-            heightPercentage: 0.7,
+          //BackgroundRect(widhtPercentage: 0.8, heightPercentage: 0.75),
+          Container(
+            decoration: BoxDecoration(
+              gradient: LinearGradient(
+                  begin: Alignment.topLeft,
+                  end: Alignment.bottomRight,
+                  colors: [Theme.of(context).primaryColor, Colors.black]),
+            ),
           ),
           Column(
             children: [
@@ -92,21 +104,9 @@ class FriendList extends StatelessWidget {
         scrollDirection: Axis.horizontal,
         children: [
           FriendIcon(),
-          SizedBox(
-            width: 15,
-          ),
           FriendIcon(),
-          SizedBox(
-            width: 15,
-          ),
           FriendIcon(),
-          SizedBox(
-            width: 15,
-          ),
           FriendIcon(),
-          SizedBox(
-            width: 15,
-          ),
           FriendIcon(),
         ],
       ),
@@ -121,14 +121,47 @@ class FriendIcon extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return CircleAvatar(
-        backgroundColor: Colors.white,
-        radius: 40,
-        child: Image.asset('assets/users_pictures/1.jpg')
-        //backgroundColor: Colors.black,
-        //radius: 36,
-        //),
-        );
+    Random random = new Random();
+    int user = random.nextInt(4) + 1;
+
+    return Column(
+      children: [
+        FlatButton(
+          child: ClipRRect(
+            borderRadius: BorderRadius.circular(50),
+            child: Image.asset(
+              'assets/users_pictures/$user.jpg',
+              height: 60,
+            ),
+          ),
+          onPressed: () {},
+        ),
+        SizedBox(height: 2),
+        Text(
+          "Name",
+          style: TextStyle(color: Colors.white),
+        )
+      ],
+    );
+  }
+}
+
+class Title extends StatelessWidget {
+  final String text;
+  final Color color;
+
+  Title(this.text, {@required this.color});
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      child: Text(
+        text,
+        style:
+            TextStyle(color: color, fontSize: 22, fontWeight: FontWeight.bold),
+      ),
+      alignment: Alignment.centerLeft,
+    );
   }
 }
 
@@ -165,25 +198,6 @@ class Grid extends StatelessWidget {
   }
 }
 
-class Title extends StatelessWidget {
-  final String text;
-  final Color color;
-
-  Title(this.text, {@required this.color});
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      child: Text(
-        text,
-        style:
-            TextStyle(color: color, fontSize: 22, fontWeight: FontWeight.bold),
-      ),
-      alignment: Alignment.centerLeft,
-    );
-  }
-}
-
 class SongGridTile extends StatelessWidget {
   const SongGridTile({
     Key key,
@@ -196,7 +210,7 @@ class SongGridTile extends StatelessWidget {
       child: Container(
         height: 55,
         decoration: BoxDecoration(
-          color: Colors.grey[700],
+          color: Colors.grey[900],
           borderRadius: BorderRadius.all(
             Radius.circular(5.0),
           ),
@@ -204,7 +218,7 @@ class SongGridTile extends StatelessWidget {
         child: Row(
           children: [
             ClipRRect(
-              borderRadius: BorderRadius.circular(10),
+              borderRadius: BorderRadius.circular(5),
               child: Image.asset(
                 'assets/images/note.png',
                 height: 200,
