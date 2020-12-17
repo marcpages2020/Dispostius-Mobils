@@ -8,8 +8,8 @@ class DMUser {
 
   //DMUser(this.username, this.email);
   DMUser(QueryDocumentSnapshot snapshot){
-    username = snapshot.id;
-    email = snapshot.get("email");
+    username = snapshot.get("username");
+    //email = snapshot.get("email");
     friends = snapshot.get("friends");
   }
 

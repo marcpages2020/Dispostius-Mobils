@@ -30,7 +30,7 @@ class HorizontalList extends StatelessWidget {
                 SizedBox(height: 4),
                 Text(
                   "Song",
-                  style: TextStyle(color: Colors.white),
+                  style: TextStyle(color: Colors.white, fontSize: 14),
                   textAlign: TextAlign.center,
                 ),
               ],

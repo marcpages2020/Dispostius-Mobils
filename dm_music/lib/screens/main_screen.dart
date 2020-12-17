@@ -24,15 +24,17 @@ class _MainScreenState extends State<MainScreen> {
     setState(
       () {
         _selectedIndex = index;
-        Navigator.of(context).push(route.createRoute(
-            scene: index == 0
-                ? SearchScreen()
-                : index == 2
-                    ? UserProfileScreen()
-                    : _selectedIndex = 1,
-            offset: Offset.zero,
-            curves: Curves.easeOut,
-            durationMilli: 500));
+        Navigator.of(context).push(
+          route.createRoute(
+              scene: index == 0
+                  ? SearchScreen()
+                  : index == 2
+                      ? UserProfileScreen(widget._user)
+                      : _selectedIndex = 1,
+              offset: Offset.zero,
+              curves: Curves.easeOut,
+              durationMilli: 500),
+        ).then((value) => _selectedIndex);
       },
     );
   }
@@ -76,7 +78,7 @@ class _MainScreenState extends State<MainScreen> {
             padding: EdgeInsets.all(10),
             children: [
               Title("Good Evening", color: Colors.white),
-              SizedBox(height: 5),
+              SizedBox(height: 10),
               Grid(),
               SizedBox(height: 16),
               Title("Recent Songs", color: Colors.white),

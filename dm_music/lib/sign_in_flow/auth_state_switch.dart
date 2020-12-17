@@ -1,10 +1,11 @@
+import 'package:dm_music/app.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
 import '../screens/sign_in_screen.dart';
 
 class AuthStateSwitch extends StatelessWidget {
-  final Widget app;
+  final DmMusic app;
   AuthStateSwitch({@required this.app});
 
   Widget _buildSplash(String msg) {
@@ -36,9 +37,12 @@ class AuthStateSwitch extends StatelessWidget {
                   home: SignInScreen(),
                 );
               }
+              app.currentUserEmail = user.email;
               return this.app;
             }
           case ConnectionState.done:
+            final user = snapshot.data;
+            app.currentUserEmail = user.email;
             return _buildSplash("unreachable (done!)");
           default:
             return _buildSplash("unreachable (none)");

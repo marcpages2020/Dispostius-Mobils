@@ -5,35 +5,26 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
 class DmMusic extends StatelessWidget {
+  String currentUserEmail;
+
   // This widget is the root of your application.
   Widget _setMainPage(QuerySnapshot snapshot) {
     final users = snapshot.docs;
 
+    print(currentUserEmail);
     for (var user in users) {
-      if(user.id == "marcpages2020")
+      if(user.id == currentUserEmail)
       {
-        
         return MainScreen(DMUser(user));
       }
     }
-
-    /*
-    return ListView.builder(
-      itemCount: storyDocs.length,
-      itemBuilder: (context, int index) {
-        final story = storyDocs[index];
-        return ListTile(
-          title: Text(story['title']),
-          subtitle: Text(story['URL']),
-        );
-      },
-    );
-    */
   }
 
   @override
   Widget build(BuildContext context) {
     final users = FirebaseFirestore.instance.collection('users');
+
+
     return MaterialApp(
       title: 'DM Music',
       debugShowCheckedModeBanner: false,
