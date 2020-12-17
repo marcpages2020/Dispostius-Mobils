@@ -4,6 +4,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
 import '../userinfo/user.dart';
+import 'change_image_screen.dart';
 
 class UserProfileScreen extends StatefulWidget {
   DMUser _user;
@@ -51,12 +52,27 @@ class _UserProfileScreen extends State<UserProfileScreen> {
               ),
               Container(
                 alignment: Alignment.center,
-                child: ClipRRect(
-                  borderRadius: BorderRadius.circular(70),
-                  child: Image.asset(
-                    'assets/users_pictures/4.jpg',
-                    height: 150,
+                child: FlatButton(
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(150),
                   ),
+                  child: ClipRRect(
+                    borderRadius: BorderRadius.circular(70),
+                    child: Image.asset(
+                      'assets/users_pictures/4.jpg',
+                      height: 150,
+                    ),
+                  ),
+                  onPressed: () {
+                    Navigator.of(context).push(
+                      route.createRoute(
+                        scene: ChangeProfileImage(widget._user),
+                        offset: Offset.zero,
+                        curves: Curves.easeOut,
+                        durationMilli: 500,
+                      ),
+                    );
+                  },
                 ),
               ),
               SizedBox(height: 10),

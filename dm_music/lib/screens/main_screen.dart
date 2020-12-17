@@ -6,6 +6,7 @@ import 'package:dm_music/widgets/horizontal_list.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import '../userinfo/user.dart';
+import 'change_image_screen.dart';
 import 'sign_in_screen.dart';
 
 class MainScreen extends StatefulWidget {
@@ -91,7 +92,7 @@ class _MainScreenState extends State<MainScreen> {
               SizedBox(height: 16),
               Title("Friends", color: Colors.white),
               SizedBox(height: 2),
-              FriendList(widget._user.friends)
+              FriendList(widget._user.friends, widget._user)
             ],
           ),
         ],
@@ -102,7 +103,8 @@ class _MainScreenState extends State<MainScreen> {
 
 class FriendList extends StatelessWidget {
   List<dynamic> friends;
-  FriendList(this.friends);
+  DMUser user;
+  FriendList(this.friends, this.user);
 
   @override
   Widget build(BuildContext context) {
@@ -114,7 +116,7 @@ class FriendList extends StatelessWidget {
           itemCount: friends.length,
           itemBuilder: (BuildContext context, int index) {
             if (index == 0) {
-              return AddFriendIcon();
+              return AddFriendIcon(user);
             } else {
               return FriendIcon(friends[index]);
             }
@@ -161,7 +163,9 @@ class FriendIcon extends StatelessWidget {
 
 class AddFriendIcon extends StatelessWidget {
   String name;
+  DMUser user_;
 
+  AddFriendIcon(this.user_);
   @override
   Widget build(BuildContext context) {
     Random random = new Random();
