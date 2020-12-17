@@ -1,8 +1,9 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:dm_music/widgets/background_rect.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
-import '../user.dart';
+import '../userinfo/user.dart';
 import 'sign_in_screen.dart';
 
 class EmailAndPassword {
@@ -192,8 +193,9 @@ class SignUp extends StatelessWidget {
   final TextEditingController _email;
   final TextEditingController _password;
   final TextEditingController _username;
-  final users = FirebaseFirestore.instance.collection('users');
+  final List<dynamic> friends = [""];
 
+  final users = FirebaseFirestore.instance.collection('users');
   @override
   Widget build(BuildContext context) {
     return Row(
@@ -226,22 +228,19 @@ class SignUp extends StatelessWidget {
               highlightColor: Colors.grey[900],
               splashRadius: 52.0,
               onPressed: () {
+                //users.add(DMUser(_username.text, _email.text).toFirestore());
                 Navigator.of(context).pop(
                   EmailAndPassword(_email.text, _password.text),
-                  //users.add(User(_username.text, _email.text).toFirestore()),
-                  //_setUser(),
                 );
+
+                users
+                    .doc(_email.text)
+                    .set(NewUser(_username.text, friends).toFirestore());
               },
             ),
           ),
         ),
       ],
     );
-  }
-
-  void _setUser() {
-    print("HOLA");
-    //EmailAndPassword(_email.text, _password.text);
-    //users.add(User(_username.text, _email.text).toFirestore());
   }
 }

@@ -3,11 +3,11 @@ import 'package:dm_music/widgets/horizontal_list.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
-import '../user.dart';
+import '../userinfo/user.dart';
 
 class UserProfileScreen extends StatefulWidget {
   DMUser _user;
-  
+
   UserProfileScreen(this._user);
 
   @override

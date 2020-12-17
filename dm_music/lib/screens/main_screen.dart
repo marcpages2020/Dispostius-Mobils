@@ -5,7 +5,7 @@ import 'package:dm_music/screens/user_profile_screen.dart';
 import 'package:dm_music/widgets/horizontal_list.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import '../user.dart';
+import '../userinfo/user.dart';
 import 'sign_in_screen.dart';
 
 class MainScreen extends StatefulWidget {
@@ -24,17 +24,19 @@ class _MainScreenState extends State<MainScreen> {
     setState(
       () {
         _selectedIndex = index;
-        Navigator.of(context).push(
-          route.createRoute(
-              scene: index == 0
-                  ? SearchScreen()
-                  : index == 2
-                      ? UserProfileScreen(widget._user)
-                      : _selectedIndex = 1,
-              offset: Offset.zero,
-              curves: Curves.easeOut,
-              durationMilli: 500),
-        ).then((value) => _selectedIndex);
+        Navigator.of(context)
+            .push(
+              route.createRoute(
+                  scene: index == 0
+                      ? SearchScreen()
+                      : index == 2
+                          ? UserProfileScreen(widget._user)
+                          : _selectedIndex = 1,
+                  offset: Offset.zero,
+                  curves: Curves.easeOut,
+                  durationMilli: 500),
+            )
+            .then((value) => _selectedIndex);
       },
     );
   }
@@ -111,7 +113,11 @@ class FriendList extends StatelessWidget {
           scrollDirection: Axis.horizontal,
           itemCount: friends.length,
           itemBuilder: (BuildContext context, int index) {
-            return FriendIcon(friends[index]);
+            if (index == 0) {
+              return AddFriendIcon();
+            } else {
+              return FriendIcon(friends[index]);
+            }
           }),
     );
   }
@@ -142,6 +148,44 @@ class FriendIcon extends StatelessWidget {
         SizedBox(height: 1),
         Text(
           name,
+          style: TextStyle(
+            color: Colors.white,
+            fontFamily: "FredokaOne",
+            fontStyle: FontStyle.normal,
+          ),
+        )
+      ],
+    );
+  }
+}
+
+class AddFriendIcon extends StatelessWidget {
+  String name;
+
+  @override
+  Widget build(BuildContext context) {
+    Random random = new Random();
+    int user = random.nextInt(4) + 1;
+
+    return Column(
+      children: [
+        FlatButton(
+          child: ClipRRect(
+            borderRadius: BorderRadius.circular(50),
+            child: Container(
+              color: Colors.black,
+              child: Icon(
+                Icons.add_circle_outline_rounded,
+                size: 60,
+                color: Colors.limeAccent[700],
+              ),
+            ),
+          ),
+          onPressed: () {},
+        ),
+        SizedBox(height: 1),
+        Text(
+          "Add Friend",
           style: TextStyle(
             color: Colors.white,
             fontFamily: "FredokaOne",

@@ -1,20 +1,18 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:dm_music/screens/main_screen.dart';
-import 'package:dm_music/user.dart';
+import 'package:dm_music/userinfo/user.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 
 class DmMusic extends StatelessWidget {
   String currentUserEmail;
-
   // This widget is the root of your application.
   Widget _setMainPage(QuerySnapshot snapshot) {
     final users = snapshot.docs;
-
-    print(currentUserEmail);
+    /*if (DMUser.fromNewFirestore(user).email.toString() == currentUserEmail) {
+        return MainScreen(DMUser(user));
+      } else */
     for (var user in users) {
-      if(user.id == currentUserEmail)
-      {
+      if (user.id == currentUserEmail) {
         return MainScreen(DMUser(user));
       }
     }
@@ -23,7 +21,6 @@ class DmMusic extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final users = FirebaseFirestore.instance.collection('users');
-
 
     return MaterialApp(
       title: 'DM Music',
