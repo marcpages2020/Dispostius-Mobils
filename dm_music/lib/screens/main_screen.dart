@@ -189,23 +189,18 @@ class Grid extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.center,
       children: [
         Row(
-          children: [
-            SongGridTile(),
-            SizedBox(width: 10),
-            SongGridTile(),
-          ],
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [SongGridTile(), SizedBox(width: 2), SongGridTile()],
         ),
-        SizedBox(
-          height: 5,
-        ),
+        SizedBox(height: 5),
         Row(
-          children: [SongGridTile(), SizedBox(width: 10), SongGridTile()],
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [SongGridTile(), SizedBox(width: 2), SongGridTile()],
         ),
-        SizedBox(
-          height: 5,
-        ),
+        SizedBox(height: 5),
         Row(
-          children: [SongGridTile(), SizedBox(width: 10), SongGridTile()],
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [SongGridTile(), SizedBox(width: 2), SongGridTile()],
         ),
       ],
     );
@@ -220,35 +215,33 @@ class SongGridTile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return FlatButton(
-      child: Container(
-        height: 55,
-        width: 140,
-        decoration: BoxDecoration(
-          color: Colors.grey[900],
-          borderRadius: BorderRadius.all(
-            Radius.circular(5.0),
-          ),
-        ),
-        child: Row(
-          children: [
-            ClipRRect(
-              borderRadius: BorderRadius.circular(5),
-              child: Image.asset(
-                'assets/images/note.png',
-                height: 200,
-              ),
+      color: Colors.grey[900],
+      padding: EdgeInsets.all(0),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.start,
+        children: [
+          ClipRRect(
+            borderRadius: BorderRadius.circular(5),
+            child: Image.asset(
+              'assets/images/note.png',
+              height: 54,
             ),
-            SizedBox(width: 10),
-            Text(
-              "Song",
+          ),
+          SizedBox(width: 10),
+          Container(
+            width: 120,
+            child: Text(
+              "Blinding Lights",
               style: TextStyle(
                   color: Colors.white,
                   fontFamily: "FredokaOne",
                   fontStyle: FontStyle.normal,
-                  fontSize: 14),
-            )
-          ],
-        ),
+                  fontSize: 12,),
+                  maxLines: 2,
+                  overflow: TextOverflow.ellipsis,
+            ),
+          )
+        ],
       ),
       onPressed: () {},
     );
