@@ -14,25 +14,20 @@ class BottomBar extends StatefulWidget {
 }
 
 class _BottomBarState extends State<BottomBar> {
-
   void _onItemTapped(int index) {
     if (index == widget._myIndex) return;
 
     setState(
       () {
-        Navigator.of(context)
-            .push(
-              AnimatedRoute.createRoute(
-                  scene: index == 0
-                      ? SearchScreen()
-                      : index == 1
-                          ? MainScreen()
-                          : UserProfileScreen(),
-                  offset: Offset.zero,
-                  curves: Curves.easeOut,
-                  durationMilli: 500),
-            )
-            .then((value) => widget._myIndex);
+        Navigator.of(context).push(
+          MaterialPageRoute(
+            builder: (context) => index == 0
+                ? SearchScreen()
+                : index == 1
+                    ? MainScreen()
+                    : UserProfileScreen(),
+          ),
+        );
       },
     );
   }
