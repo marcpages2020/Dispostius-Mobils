@@ -88,13 +88,13 @@ class _SignInScreenState extends State<SignInScreen> {
       backgroundColor: Colors.black,
       body: Stack(
         children: [
-          BackgroundRect(widhtPercentage: 0.7, heightPercentage: 0.5),
+          BackgroundRect(widhtPercentage: 0.7, heightPercentage: 0.45),
           Padding(
             padding: EdgeInsets.all(32),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
-                SizedBox(height: 100),
+                SizedBox(height: 50),
                 Container(
                   child: Text(
                     'Welcome Back',

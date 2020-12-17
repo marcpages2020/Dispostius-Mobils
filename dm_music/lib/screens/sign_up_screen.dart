@@ -59,7 +59,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                   ),
                 ),
               ),
-              SizedBox(height: 130),
+              SizedBox(height: 80),
               TextInput(
                   controller: _email,
                   hint: 'Enter Your Email',

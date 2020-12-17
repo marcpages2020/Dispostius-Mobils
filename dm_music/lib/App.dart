@@ -6,12 +6,16 @@ import 'package:flutter/services.dart';
 
 class DmMusic extends StatelessWidget {
   // This widget is the root of your application.
-  Widget _buildList(QuerySnapshot snapshot) {
-    final docs = snapshot.docs;
+  Widget _setMainPage(QuerySnapshot snapshot) {
+    final users = snapshot.docs;
 
-    
-
-    return MainScreen();
+    for (var user in users) {
+      if(user.id == "marcpages2020")
+      {
+        
+        return MainScreen(DMUser(user));
+      }
+    }
 
     /*
     return ListView.builder(
@@ -29,7 +33,7 @@ class DmMusic extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final stories = FirebaseFirestore.instance.collection('stories');
+    final users = FirebaseFirestore.instance.collection('users');
     return MaterialApp(
       title: 'DM Music',
       debugShowCheckedModeBanner: false,
@@ -43,7 +47,7 @@ class DmMusic extends StatelessWidget {
       ),
       home: Scaffold(
         body: StreamBuilder(
-          stream: stories.snapshots(),
+          stream: users.snapshots(),
           builder: (context, AsyncSnapshot<QuerySnapshot> snapshot) {
             if (snapshot.hasError) {
               return Center(
@@ -52,9 +56,9 @@ class DmMusic extends StatelessWidget {
             }
             switch (snapshot.connectionState) {
               case ConnectionState.waiting:
-                return Center(child: Text('loading...'));
+                return Center(child: CircularProgressIndicator());
               case ConnectionState.active:
-                return _buildList(snapshot.data);
+                return _setMainPage(snapshot.data);
               default:
                 return Center(child: Text('Unreachable: done or none!'));
             }

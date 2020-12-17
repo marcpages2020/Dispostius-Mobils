@@ -9,7 +9,9 @@ import '../user.dart';
 import 'sign_in_screen.dart';
 
 class MainScreen extends StatefulWidget {
-  User _user;
+  DMUser _user;
+
+  MainScreen(this._user);
 
   @override
   _MainScreenState createState() => _MainScreenState();
@@ -49,11 +51,7 @@ class _MainScreenState extends State<MainScreen> {
             ),
             label: "Search",
           ),
-          BottomNavigationBarItem(
-              icon: Icon(
-                Icons.home
-              ),
-              label: "Home"),
+          BottomNavigationBarItem(icon: Icon(Icons.home), label: "Home"),
           BottomNavigationBarItem(
               icon: Icon(
                 Icons.perm_identity,
@@ -89,7 +87,7 @@ class _MainScreenState extends State<MainScreen> {
               SizedBox(height: 16),
               Title("Friends", color: Colors.white),
               SizedBox(height: 2),
-              FriendList()
+              FriendList(widget._user.friends)
             ],
           ),
         ],
@@ -99,33 +97,28 @@ class _MainScreenState extends State<MainScreen> {
 }
 
 class FriendList extends StatelessWidget {
-  const FriendList({
-    Key key,
-  }) : super(key: key);
+  List<dynamic> friends;
+  FriendList(this.friends);
 
   @override
   Widget build(BuildContext context) {
     return Container(
       padding: EdgeInsets.only(top: 6, bottom: 6),
       height: 90,
-      child: ListView(
-        scrollDirection: Axis.horizontal,
-        children: [
-          FriendIcon(),
-          FriendIcon(),
-          FriendIcon(),
-          FriendIcon(),
-          FriendIcon(),
-        ],
-      ),
+      child: ListView.builder(
+          scrollDirection: Axis.horizontal,
+          itemCount: friends.length,
+          itemBuilder: (BuildContext context, int index) {
+            return FriendIcon(friends[index]);
+          }),
     );
   }
 }
 
 class FriendIcon extends StatelessWidget {
-  const FriendIcon({
-    Key key,
-  }) : super(key: key);
+  String name;
+
+  FriendIcon(this.name);
 
   @override
   Widget build(BuildContext context) {
@@ -146,7 +139,7 @@ class FriendIcon extends StatelessWidget {
         ),
         SizedBox(height: 1),
         Text(
-          "Name",
+          name,
           style: TextStyle(
             color: Colors.white,
             fontFamily: "FredokaOne",

@@ -1,13 +1,19 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 
-class User {
+class DMUser {
   String username;
   String email;
   String profilePicture;
+  List<dynamic> friends;
 
-  User(this.username, this.email);
+  //DMUser(this.username, this.email);
+  DMUser(QueryDocumentSnapshot snapshot){
+    username = snapshot.id;
+    email = snapshot.get("email");
+    friends = snapshot.get("friends");
+  }
 
-  User.fromFirestore(DocumentSnapshot doc) {
+  DMUser.fromFirestore(DocumentSnapshot doc) {
     this.username = doc.id;
     this.email = doc['email'];
   }
