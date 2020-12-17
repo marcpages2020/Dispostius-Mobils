@@ -1,11 +1,10 @@
-import 'package:dm_music/animations/animated_route.dart';
 import 'package:dm_music/screens/main_screen.dart';
 import 'package:dm_music/screens/search_screen.dart';
 import 'package:dm_music/screens/user_profile_screen.dart';
 import 'package:flutter/material.dart';
 
 class BottomBar extends StatefulWidget {
-  int _myIndex;
+  final int _myIndex;
 
   BottomBar(this._myIndex);
 

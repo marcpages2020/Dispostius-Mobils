@@ -22,6 +22,9 @@ class _MainScreenState extends State<MainScreen> {
   @override
   Widget build(BuildContext context) {
     final DMUser user = Provider.of<DMUser>(context);
+
+    if (user == null) print("null user");
+
     return Scaffold(
       resizeToAvoidBottomInset: false,
       bottomNavigationBar: BottomBar(1),
@@ -50,7 +53,8 @@ class _MainScreenState extends State<MainScreen> {
               HorizontalList(),
               Title("Friends", color: Colors.white),
               SizedBox(height: 2),
-              FriendList(user.friends, user)
+              //if (user.friends != null) 
+              //FriendList(user.friends)
             ],
           ),
         ],
@@ -60,9 +64,8 @@ class _MainScreenState extends State<MainScreen> {
 }
 
 class FriendList extends StatelessWidget {
-  List<dynamic> friends;
-  DMUser user;
-  FriendList(this.friends, this.user);
+  final List<String> friends;
+  FriendList(this.friends);
 
   @override
   Widget build(BuildContext context) {
@@ -71,10 +74,10 @@ class FriendList extends StatelessWidget {
       height: 90,
       child: ListView.builder(
           scrollDirection: Axis.horizontal,
-          itemCount: friends.length,
+          itemCount: friends.length + 1,
           itemBuilder: (BuildContext context, int index) {
-            if (index == 0) {
-              return AddFriendIcon(user);
+            if (index == friends.length) {
+              return AddFriendIcon();
             } else {
               return FriendIcon(friends[index]);
             }
@@ -121,14 +124,10 @@ class FriendIcon extends StatelessWidget {
 
 class AddFriendIcon extends StatelessWidget {
   String name;
-  DMUser user_;
 
-  AddFriendIcon(this.user_);
+  AddFriendIcon();
   @override
   Widget build(BuildContext context) {
-    Random random = new Random();
-    int user = random.nextInt(4) + 1;
-
     return Column(
       children: [
         FlatButton(
@@ -237,12 +236,13 @@ class SongGridTile extends StatelessWidget {
             child: Text(
               "Blinding Lights",
               style: TextStyle(
-                  color: Colors.white,
-                  fontFamily: "FredokaOne",
-                  fontStyle: FontStyle.normal,
-                  fontSize: 12,),
-                  maxLines: 2,
-                  overflow: TextOverflow.ellipsis,
+                color: Colors.white,
+                fontFamily: "FredokaOne",
+                fontStyle: FontStyle.normal,
+                fontSize: 12,
+              ),
+              maxLines: 2,
+              overflow: TextOverflow.ellipsis,
             ),
           )
         ],

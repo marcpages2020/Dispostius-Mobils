@@ -4,7 +4,7 @@ class DMUser {
   String username;
   String email;
   String profilePicture;
-  List<dynamic> friends;
+  List<String> friends;
 
   //DMUser(this.username, this.email);
   DMUser(QueryDocumentSnapshot snapshot) {
