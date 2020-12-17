@@ -56,14 +56,9 @@ class _UserProfileScreen extends State<UserProfileScreen> {
                     ),
                   ),
                   onPressed: () {
-                    Navigator.of(context).push(
-                      route.createRoute(
-                        scene: ChangeProfileImage(widget._user),
-                        offset: Offset.zero,
-                        curves: Curves.easeOut,
-                        durationMilli: 500,
-                      ),
-                    );
+                    Navigator.of(context).push(MaterialPageRoute(
+                      builder: (context) => ChangeProfileImage(user),
+                    ));
                   },
                 ),
               ),
