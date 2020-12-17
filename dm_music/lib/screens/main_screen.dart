@@ -36,18 +36,17 @@ class _MainScreenState extends State<MainScreen> {
             ),
           ),
           ListView(
-            padding: EdgeInsets.all(10),
+            padding: EdgeInsets.all(16),
             children: [
+              SizedBox(height: 40),
               Title("Good Evening", color: Colors.white),
               SizedBox(height: 10),
               Grid(),
-              SizedBox(height: 16),
+              SizedBox(height: 30),
               Title("Recent Songs", color: Colors.white),
               HorizontalList(),
-              SizedBox(height: 16),
               Title("Albums", color: Colors.white),
               HorizontalList(),
-              SizedBox(height: 16),
               Title("Friends", color: Colors.white),
               SizedBox(height: 2),
               FriendList(user.friends)
@@ -187,6 +186,7 @@ class Grid extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Column(
+      crossAxisAlignment: CrossAxisAlignment.center,
       children: [
         Row(
           children: [
@@ -219,10 +219,10 @@ class SongGridTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Expanded(
-      flex: 1,
+    return FlatButton(
       child: Container(
         height: 55,
+        width: 140,
         decoration: BoxDecoration(
           color: Colors.grey[900],
           borderRadius: BorderRadius.all(
@@ -250,6 +250,7 @@ class SongGridTile extends StatelessWidget {
           ],
         ),
       ),
+      onPressed: () {},
     );
   }
 }
