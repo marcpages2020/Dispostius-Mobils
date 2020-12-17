@@ -1,3 +1,4 @@
+import 'package:dm_music/animations/animated_route.dart';
 import 'package:dm_music/widgets/background_rect.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -190,7 +191,7 @@ class _SignInScreenState extends State<SignInScreen> {
                           onPressed: () {
                             Navigator.of(context)
                                 .push(
-                              route.createRoute(
+                              AnimatedRoute.createRoute(
                                 scene: SignUpScreen(),
                                 offset: Offset.zero,
                                 curves: Curves.easeOut,
@@ -272,27 +273,4 @@ class TextInput extends StatelessWidget {
   }
 }
 
-class route {
-  static Route createRoute(
-      {StatefulWidget scene, Curve curves, Offset offset, int durationMilli}) {
-    return PageRouteBuilder(
-      transitionDuration: Duration(milliseconds: durationMilli),
-      pageBuilder: (context, animation, secondaryAnimation) => scene,
-      transitionsBuilder: (context, animation, secondaryAnimation, child) {
-        return SlideTransition(
-          position: animation.drive(
-            Tween(
-              begin: Offset(1.0, 0.0),
-              end: offset,
-            ).chain(
-              CurveTween(
-                curve: curves,
-              ),
-            ),
-          ),
-          child: child,
-        );
-      },
-    );
-  }
-}
+
