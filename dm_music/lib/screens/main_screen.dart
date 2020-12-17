@@ -2,69 +2,28 @@ import 'dart:math';
 
 import 'package:dm_music/screens/search_screen.dart';
 import 'package:dm_music/screens/user_profile_screen.dart';
+import 'package:dm_music/widgets/bottom_bar.dart';
 import 'package:dm_music/widgets/horizontal_list.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import '../userinfo/user.dart';
 import 'sign_in_screen.dart';
 
 class MainScreen extends StatefulWidget {
-  DMUser _user;
-
-  MainScreen(this._user);
+  MainScreen();
 
   @override
   _MainScreenState createState() => _MainScreenState();
 }
 
 class _MainScreenState extends State<MainScreen> {
-  int _selectedIndex = 1;
-
-  void _onItemTapped(int index) {
-    setState(
-      () {
-        _selectedIndex = index;
-        Navigator.of(context)
-            .push(
-              route.createRoute(
-                  scene: index == 0
-                      ? SearchScreen()
-                      : index == 2
-                          ? UserProfileScreen(widget._user)
-                          : _selectedIndex = 1,
-                  offset: Offset.zero,
-                  curves: Curves.easeOut,
-                  durationMilli: 500),
-            )
-            .then((value) => _selectedIndex);
-      },
-    );
-  }
-
   @override
   Widget build(BuildContext context) {
+    final DMUser user = Provider.of<DMUser>(context);
     return Scaffold(
       resizeToAvoidBottomInset: false,
-      bottomNavigationBar: BottomNavigationBar(
-        backgroundColor: Colors.black,
-        unselectedItemColor: Colors.grey,
-        items: [
-          BottomNavigationBarItem(
-            icon: Icon(
-              Icons.search,
-            ),
-            label: "Search",
-          ),
-          BottomNavigationBarItem(icon: Icon(Icons.home), label: "Home"),
-          BottomNavigationBarItem(
-              icon: Icon(
-                Icons.perm_identity,
-              ),
-              label: "Profile"),
-        ],
-        currentIndex: _selectedIndex,
-        onTap: _onItemTapped,
-      ),
+      bottomNavigationBar: BottomBar(1),
       backgroundColor: Colors.black,
       body: Stack(
         children: [
@@ -91,7 +50,7 @@ class _MainScreenState extends State<MainScreen> {
               SizedBox(height: 16),
               Title("Friends", color: Colors.white),
               SizedBox(height: 2),
-              FriendList(widget._user.friends)
+              FriendList(user.friends)
             ],
           ),
         ],

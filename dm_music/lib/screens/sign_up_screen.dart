@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:dm_music/animations/animated_route.dart';
 import 'package:dm_music/widgets/background_rect.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -116,7 +117,7 @@ class TopElements extends StatelessWidget {
             splashRadius: 22.0,
             onPressed: () {
               Navigator.of(context).pop(
-                route.createRoute(
+                AnimatedRoute.createRoute(
                   scene: SignInScreen(),
                   curves: Curves.easeOut,
                   offset: Offset.infinite,
@@ -163,7 +164,7 @@ class Return extends StatelessWidget {
                   )),
               onPressed: () {
                 Navigator.of(context).pop(
-                  route.createRoute(
+                  AnimatedRoute.createRoute(
                     scene: SignInScreen(),
                     curves: Curves.easeOut,
                     offset: Offset.infinite,

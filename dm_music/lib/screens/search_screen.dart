@@ -1,4 +1,5 @@
 import 'package:dm_music/screens/sign_in_screen.dart';
+import 'package:dm_music/widgets/bottom_bar.dart';
 import 'package:flutter/material.dart';
 
 class SearchScreen extends StatefulWidget {
@@ -12,6 +13,7 @@ class _SearchScreenState extends State<SearchScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      bottomNavigationBar: BottomBar(0),
       body: Stack(
         children: [
           Container(
@@ -57,21 +59,7 @@ class _SearchScreenState extends State<SearchScreen> {
                     filled: true,
                   ),
                 ),
-                Expanded(
-                  child: Align(
-                    alignment: FractionalOffset.bottomRight,
-                    child: FloatingActionButton(
-                      child: Icon(Icons.arrow_back),
-                      onPressed: () {
-                        setState(
-                          () {
-                            Navigator.of(context).pop();
-                          },
-                        );
-                      },
-                    ),
-                  ),
-                ),
+               
               ],
             ),
           )

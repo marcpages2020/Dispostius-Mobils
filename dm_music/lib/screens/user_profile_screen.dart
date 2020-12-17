@@ -1,14 +1,14 @@
 import 'package:dm_music/screens/sign_in_screen.dart';
+import 'package:dm_music/widgets/bottom_bar.dart';
 import 'package:dm_music/widgets/horizontal_list.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 import '../userinfo/user.dart';
 
 class UserProfileScreen extends StatefulWidget {
-  DMUser _user;
-
-  UserProfileScreen(this._user);
+  UserProfileScreen();
 
   @override
   _UserProfileScreen createState() => _UserProfileScreen();
@@ -21,18 +21,10 @@ class _UserProfileScreen extends State<UserProfileScreen> {
   }
 
   Widget build(BuildContext context) {
+    final DMUser user = Provider.of<DMUser>(context);
     return Scaffold(
-      appBar: AppBar(
-        title: Text(
-          "User Profile",
-          style: TextStyle(
-            fontFamily: "FredokaOne",
-            fontStyle: FontStyle.normal,
-          ),
-        ),
-        backgroundColor: Colors.black,
-      ),
       backgroundColor: Colors.black,
+      bottomNavigationBar: BottomBar(2),
       body: Stack(
         children: [
           Container(
@@ -61,7 +53,7 @@ class _UserProfileScreen extends State<UserProfileScreen> {
               ),
               SizedBox(height: 10),
               Text(
-                widget._user.username,
+                user.username,
                 style: TextStyle(
                   fontSize: 30,
                   color: Colors.white,
