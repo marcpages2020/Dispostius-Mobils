@@ -1,4 +1,3 @@
-import 'package:dm_music/screens/sign_in_screen.dart';
 import 'package:dm_music/widgets/bottom_bar.dart';
 import 'package:flutter/material.dart';
 
@@ -59,7 +58,6 @@ class _SearchScreenState extends State<SearchScreen> {
                     filled: true,
                   ),
                 ),
-               
               ],
             ),
           )

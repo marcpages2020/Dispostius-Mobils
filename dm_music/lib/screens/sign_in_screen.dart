@@ -151,7 +151,6 @@ class _SignInScreenState extends State<SignInScreen> {
                           highlightColor: Colors.grey[900],
                           splashRadius: 52.0,
                           onPressed: () {
-                            
                             _signInWithEmailWithPassword(
                               email: _email.text,
                               password: _password.text,
@@ -272,5 +271,3 @@ class TextInput extends StatelessWidget {
     );
   }
 }
-
-

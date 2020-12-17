@@ -1,15 +1,11 @@
 import 'dart:math';
 
-import 'package:dm_music/screens/search_screen.dart';
-import 'package:dm_music/screens/user_profile_screen.dart';
 import 'package:dm_music/widgets/bottom_bar.dart';
 import 'package:dm_music/widgets/horizontal_list.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../userinfo/user.dart';
-import 'change_image_screen.dart';
-import 'sign_in_screen.dart';
 
 class MainScreen extends StatefulWidget {
   MainScreen();
@@ -53,8 +49,7 @@ class _MainScreenState extends State<MainScreen> {
               HorizontalList(),
               Title("Friends", color: Colors.white),
               SizedBox(height: 2),
-              //if (user.friends != null) 
-              //FriendList(user.friends)
+              FriendList(user.friends)
             ],
           ),
         ],
@@ -64,7 +59,7 @@ class _MainScreenState extends State<MainScreen> {
 }
 
 class FriendList extends StatelessWidget {
-  final List<String> friends;
+  final List<dynamic> friends;
   FriendList(this.friends);
 
   @override
