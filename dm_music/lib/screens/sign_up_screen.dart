@@ -1,7 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:dm_music/animations/animated_route.dart';
 import 'package:dm_music/widgets/background_rect.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
 import '../userinfo/user.dart';
@@ -195,6 +194,7 @@ class SignUp extends StatelessWidget {
   final TextEditingController _password;
   final TextEditingController _username;
   final List<dynamic> friends = [""];
+  final String profilePicture = 'assets/users_pictures/4.jpg';
 
   final users = FirebaseFirestore.instance.collection('users');
   @override
@@ -234,9 +234,9 @@ class SignUp extends StatelessWidget {
                   EmailAndPassword(_email.text, _password.text),
                 );
 
-                users
-                    .doc(_email.text)
-                    .set(NewUser(_username.text, friends).toFirestore());
+                users.doc(_email.text).set(
+                    DMUser.setUser(_username.text, friends, profilePicture)
+                        .toFirestore());
               },
             ),
           ),

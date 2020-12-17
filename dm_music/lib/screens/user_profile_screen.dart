@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import '../userinfo/user.dart';
+import 'change_image_screen.dart';
 
 class UserProfileScreen extends StatefulWidget {
   UserProfileScreen();
@@ -43,12 +44,22 @@ class _UserProfileScreen extends State<UserProfileScreen> {
               ),
               Container(
                 alignment: Alignment.center,
-                child: ClipRRect(
-                  borderRadius: BorderRadius.circular(70),
-                  child: Image.asset(
-                    'assets/users_pictures/4.jpg',
-                    height: 150,
+                child: FlatButton(
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(150),
                   ),
+                  child: ClipRRect(
+                    borderRadius: BorderRadius.circular(70),
+                    child: Image.asset(
+                      'assets/users_pictures/4.jpg',
+                      height: 150,
+                    ),
+                  ),
+                  onPressed: () {
+                    Navigator.of(context).push(MaterialPageRoute(
+                      builder: (context) => ChangeProfileImage(user),
+                    ));
+                  },
                 ),
               ),
               SizedBox(height: 10),
