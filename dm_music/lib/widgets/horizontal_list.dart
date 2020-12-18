@@ -1,3 +1,4 @@
+import 'package:dm_music/screens/main_screen.dart';
 import 'package:flutter/material.dart';
 
 class HorizontalList extends StatelessWidget {
@@ -20,8 +21,8 @@ class HorizontalList extends StatelessWidget {
                 FlatButton(
                   child: ClipRRect(
                     borderRadius: BorderRadius.circular(4),
-                    child: Image.asset(
-                      'assets/images/note.png',
+                    child: Image.network(
+                      getRandomImage(),
                       height: 70,
                     ),
                   ),
