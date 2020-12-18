@@ -185,7 +185,7 @@ class SignUp extends StatelessWidget {
   final TextEditingController _email;
   final TextEditingController _password;
   final TextEditingController _username;
-  List<String> friends;
+  final List<String> friends = [];
   final String profilePicture = getRandomImage();
 
   final users = FirebaseFirestore.instance.collection('users');
