@@ -5,7 +5,6 @@ import 'package:dm_music/widgets/custom_painters.dart';
 import 'package:dm_music/widgets/horizontal_list.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 
 import '../userinfo/user.dart';
 import 'change_image_screen.dart';

@@ -4,7 +4,6 @@ import 'package:dm_music/userinfo/user.dart';
 import 'package:dm_music/widgets/bottom_bar.dart';
 import 'package:dm_music/widgets/custom_painters.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 
 class SocialScreen extends StatefulWidget {
   @override
