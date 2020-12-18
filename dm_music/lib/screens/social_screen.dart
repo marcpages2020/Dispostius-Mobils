@@ -16,6 +16,7 @@ class SocialScreen extends StatefulWidget {
 class _SocialScreenState extends State<SocialScreen> {
   @override
   Widget build(BuildContext context) {
+    print(widget.user.friends);
     return Scaffold(
       backgroundColor: Colors.black,
       bottomNavigationBar: BottomBar(3, widget.user),
@@ -28,7 +29,7 @@ class _SocialScreenState extends State<SocialScreen> {
               SizedBox(height: MediaQuery.of(context).size.height * 0.05),
               SectionTitle("Friends", color: Colors.white),
               SizedBox(height: 10),
-              FriendList(widget.user.friends),
+              FriendsList(widget: widget),
             ],
           ),
         ],
@@ -37,9 +38,13 @@ class _SocialScreenState extends State<SocialScreen> {
   }
 }
 
-class FriendList extends StatelessWidget {
-  final List<dynamic> friends;
-  FriendList(this.friends);
+class FriendsList extends StatelessWidget {
+  const FriendsList({
+    Key key,
+    @required this.widget,
+  }) : super(key: key);
+
+  final SocialScreen widget;
 
   @override
   Widget build(BuildContext context) {
@@ -48,12 +53,12 @@ class FriendList extends StatelessWidget {
       height: 90,
       child: ListView.builder(
         scrollDirection: Axis.horizontal,
-        itemCount: friends.length + 1,
+        itemCount: widget.user.friends.length + 1,
         itemBuilder: (BuildContext context, int index) {
-          if (index == friends.length) {
+          if (index == widget.user.friends.length) {
             return AddFriendIcon();
           } else {
-            return FriendIcon(friends[index]);
+            return FriendIcon(widget: widget, index: index);
           }
         },
       ),
@@ -62,10 +67,14 @@ class FriendList extends StatelessWidget {
 }
 
 class FriendIcon extends StatelessWidget {
-  final DMUser user;
+  const FriendIcon({
+    Key key,
+    @required this.widget,
+    @required this.index,
+  }) : super(key: key);
 
-  FriendIcon(this.user);
-
+  final SocialScreen widget;
+  final int index;
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -80,15 +89,23 @@ class FriendIcon extends StatelessWidget {
           onPressed: () {},
         ),
         SizedBox(height: 1),
-        SectionTitle(user.username, color: Colors.white)
+        Text(
+          widget.user.friends[index],
+          style: TextStyle(
+            color: Colors.white,
+            fontFamily: "FredokaOne",
+            fontStyle: FontStyle.normal,
+            fontSize: 12,
+          ),
+          maxLines: 2,
+          overflow: TextOverflow.ellipsis,
+        )
       ],
     );
   }
 }
 
 class AddFriendIcon extends StatelessWidget {
-  //String name;
-
   AddFriendIcon();
   @override
   Widget build(BuildContext context) {

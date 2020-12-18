@@ -4,13 +4,15 @@ class DMUser {
   String username;
   String email;
   String profilePicture;
-  List<String> friends;
+  List<dynamic> friends;
 
   //DMUser(this.username, this.email);
-  DMUser(String g_email, String g_username, String g_profilePicture) {
+  DMUser(String g_email, String g_username, String g_profilePicture,
+      List<dynamic> g_friends) {
     email = g_email;
     username = g_username;
     profilePicture = g_profilePicture;
+    friends = g_friends;
   }
 
   DMUser.setUser(this.username, this.friends, this.profilePicture);
