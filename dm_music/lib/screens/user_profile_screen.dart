@@ -1,5 +1,6 @@
 import 'package:dm_music/screens/sign_in_screen.dart';
 import 'package:dm_music/widgets/bottom_bar.dart';
+import 'package:dm_music/widgets/custom_painters.dart';
 import 'package:dm_music/widgets/horizontal_list.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -29,11 +30,18 @@ class _UserProfileScreen extends State<UserProfileScreen> {
       body: Stack(
         children: [
           Container(
-            decoration: BoxDecoration(
-              gradient: LinearGradient(
-                  begin: Alignment.topLeft,
-                  end: Alignment.bottomRight,
-                  colors: [Theme.of(context).primaryColor, Colors.black]),
+            child: CustomPaint(
+              size: Size(
+                  MediaQuery.of(context).size.width,
+                  MediaQuery.of(context)
+                      .size
+                      .height), //You can Replace this with your desired WIDTH and HEIGHT
+              painter: CustomPainterProfile(
+                Color.fromARGB(255, 116, 66, 117),
+                Color.fromARGB(255, 106, 43, 108),
+                Color.fromARGB(255, 109, 0, 112),
+                Color.fromARGB(255, 112, 0, 136),
+              ),
             ),
           ),
           ListView(

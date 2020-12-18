@@ -99,9 +99,9 @@ class _SignInScreenState extends State<SignInScreen> {
                       .size
                       .height), //You can Replace this with your desired WIDTH and HEIGHT
               painter: CustomPainterSignInFlow(
-                Color.fromARGB(255, 116, 66, 117),
-                Color.fromARGB(255, 106, 43, 108),
-                Color.fromARGB(255, 109, 0, 112),
+                Colors.deepPurple[300],
+                Colors.lime[500],
+                Colors.deepPurple,
               ),
             ),
           ),

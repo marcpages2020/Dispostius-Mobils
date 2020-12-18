@@ -28,14 +28,6 @@ class _MainScreenState extends State<MainScreen> {
       backgroundColor: Colors.black,
       body: Stack(
         children: [
-          /*Container(
-            decoration: BoxDecoration(
-              gradient: LinearGradient(
-                  begin: Alignment.topLeft,
-                  end: Alignment.bottomRight,
-                  colors: [Theme.of(context).primaryColor, Colors.grey[900]]),
-            ),
-          ),*/
           Container(
             child: CustomPaint(
               size: Size(
@@ -44,9 +36,9 @@ class _MainScreenState extends State<MainScreen> {
                       .size
                       .height), //You can Replace this with your desired WIDTH and HEIGHT
               painter: CustomPainterMainScreen(
-                Color.fromARGB(255, 229, 168, 255),
-                Color.fromARGB(255, 217, 111, 253),
-                Color.fromARGB(255, 170, 34, 255),
+                Colors.deepPurple,
+                Colors.grey[900],
+                Colors.lime[500],
               ),
             ),
           ),
@@ -144,6 +136,24 @@ class Title extends StatelessWidget {
           fontSize: 22,
           fontFamily: "FredokaOne",
           fontStyle: FontStyle.normal,
+          shadows: [
+            Shadow(
+                // bottomLeft
+                offset: Offset(-1, -1),
+                color: Colors.black),
+            Shadow(
+                // bottomRight
+                offset: Offset(1, -1),
+                color: Colors.black),
+            Shadow(
+                // topRight
+                offset: Offset(1, 1),
+                color: Colors.black),
+            Shadow(
+                // topLeft
+                offset: Offset(-1, 1),
+                color: Colors.black),
+          ],
         ),
       ),
       alignment: Alignment.centerLeft,

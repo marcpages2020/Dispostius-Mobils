@@ -50,9 +50,9 @@ class _SignUpScreenState extends State<SignUpScreen> {
                     .size
                     .height), //You can Replace this with your desired WIDTH and HEIGHT
             painter: CustomPainterSignInFlow(
-              Colors.lime[200],
+              Colors.deepPurple[300],
               Colors.lime[500],
-              Colors.lime[800],
+              Colors.deepPurple,
             ),
           ),
         ),
