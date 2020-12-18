@@ -122,9 +122,9 @@ class _SignInScreenState extends State<SignInScreen> {
                 SizedBox(height: 40),
                 Container(
                   height: 45,
-                  alignment: Alignment.centerRight,
+                  alignment: Alignment.centerLeft,
                   child: FlatButton(
-                    color: Color.fromARGB(255, 106, 43, 108),
+                    color: Colors.lime[800],
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(30),
                     ),

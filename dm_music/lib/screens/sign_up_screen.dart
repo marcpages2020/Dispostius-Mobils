@@ -197,7 +197,7 @@ class SignUp extends StatelessWidget {
       children: [
         Container(
           height: 45,
-          alignment: Alignment.centerRight,
+          alignment: Alignment.centerLeft,
           child: FlatButton(
             color: Colors.lime[800],
             shape: RoundedRectangleBorder(
