@@ -7,10 +7,9 @@ class DMUser {
   List<dynamic> friends;
 
   //DMUser(this.username, this.email);
-  DMUser(QueryDocumentSnapshot snapshot) {
-    username = snapshot.get("username");
-    //email = snapshot.get("email");
-    friends = snapshot.get("friends");
+  DMUser(String g_email, String g_username) {
+    email = g_email;
+    username = g_username;
   }
 
   DMUser.setUser(this.username, this.friends, this.profilePicture);

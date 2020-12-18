@@ -1,8 +1,13 @@
 import 'package:dm_music/screens/main_screen.dart';
+import 'package:dm_music/userinfo/user.dart';
 import 'package:dm_music/widgets/bottom_bar.dart';
 import 'package:flutter/material.dart';
 
 class SearchScreen extends StatefulWidget {
+  final DMUser user;
+
+  SearchScreen(this.user);
+
   @override
   _SearchScreenState createState() => _SearchScreenState();
 }
@@ -15,7 +20,7 @@ class _SearchScreenState extends State<SearchScreen> {
     print(MediaQuery.of(context).size.width);
     print(MediaQuery.of(context).size.height);
     return Scaffold(
-      bottomNavigationBar: BottomBar(0),
+      bottomNavigationBar: BottomBar(0, widget.user),
       body: Stack(
         children: [
           BackgroundMainScreen(),

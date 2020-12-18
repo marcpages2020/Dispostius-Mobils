@@ -5,6 +5,10 @@ import 'package:dm_music/widgets/title.dart';
 import 'package:flutter/material.dart';
 
 class SocialScreen extends StatefulWidget {
+  final DMUser user;
+  
+  SocialScreen(this.user);
+
   @override
   _SocialScreenState createState() => _SocialScreenState();
 }
@@ -12,11 +16,10 @@ class SocialScreen extends StatefulWidget {
 class _SocialScreenState extends State<SocialScreen> {
   @override
   Widget build(BuildContext context) {
-    final DMUser user = Provider.of<DMUser>(context);
 
     return Scaffold(
       backgroundColor: Colors.black,
-      bottomNavigationBar: BottomBar(3),
+      bottomNavigationBar: BottomBar(3, widget.user),
       body: Stack(
         children: [
           BackgroundMainScreen(),
@@ -26,7 +29,7 @@ class _SocialScreenState extends State<SocialScreen> {
               SizedBox(height: MediaQuery.of(context).size.height * 0.05),
               SectionTitle("Friends", color: Colors.white),
               SizedBox(height: 10),
-              FriendList(user.friends),
+              FriendList(widget.user.friends),
             ],
           ),
         ],
@@ -85,7 +88,7 @@ class FriendIcon extends StatelessWidget {
 }
 
 class AddFriendIcon extends StatelessWidget {
-  String name;
+  //String name;
 
   AddFriendIcon();
   @override

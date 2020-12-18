@@ -1,30 +1,15 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:dm_music/screens/main_screen.dart';
 import 'package:dm_music/userinfo/user.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
 class DmMusic extends StatelessWidget {
-  String currentUserEmail;
-  DMUser _user;
-  // This widget is the root of your application.
-  Widget _setMainPage(QuerySnapshot snapshot) {
-    final users = snapshot.docs;
-
-    for (var user in users) {
-      if (user.id == currentUserEmail) {
-        _user = DMUser(user);
-      }
-    }
-
-    if(_user == null)
-    print("null user");
-
-    return MainScreen();
-  }
-
   @override
   Widget build(BuildContext context) {
-    final users = FirebaseFirestore.instance.collection('users');
+    final currentUser = FirebaseAuth.instance.currentUser;
+    final db = FirebaseFirestore.instance;
+    final fireBaseUser = db.collection('users').doc(currentUser.email);
 
     return MaterialApp(
       title: 'DM Music',
@@ -37,26 +22,18 @@ class DmMusic extends StatelessWidget {
           ),
         ),
       ),
-      home: Scaffold(
-        body: StreamBuilder(
-          stream: users.snapshots(),
-          builder: (context, AsyncSnapshot<QuerySnapshot> snapshot) {
-            if (snapshot.hasError) {
-              return Center(
-                child: Text('ERROR: ${snapshot.error.toString()}'),
-              );
-            }
-            switch (snapshot.connectionState) {
-              case ConnectionState.waiting:
-                return Center(child: CircularProgressIndicator());
-              case ConnectionState.active:
-                return _setMainPage(snapshot.data);
-              default:
-                return Center(child: Text('Unreachable: done or none!'));
-            }
-          },
-        ),
-      ),
+      home: StreamBuilder(
+          stream: fireBaseUser.snapshots(),
+          builder: (context, AsyncSnapshot<DocumentSnapshot> snapshot) {
+            builder:
+            (context, AsyncSnapshot<DocumentSnapshot> snapshot) {
+              String username;
+              if (snapshot.hasData) {
+                username = snapshot.data['username'];
+              }
+              return MainScreen(DMUser(currentUser.email, username));
+            };
+          }),
     );
   }
 }

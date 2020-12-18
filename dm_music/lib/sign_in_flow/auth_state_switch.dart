@@ -37,16 +37,10 @@ class AuthStateSwitch extends StatelessWidget {
                   home: SignInScreen(),
                 );
               }
-              else
-              {
-              app.currentUserEmail = user.email;
               return this.app;
-              }
             }
             break;
           case ConnectionState.done:
-            final user = snapshot.data;
-            app.currentUserEmail = user.email;
             return _buildSplash("unreachable (done!)");
           default:
             return _buildSplash("unreachable (none)");

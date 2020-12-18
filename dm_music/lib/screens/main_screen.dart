@@ -1,6 +1,7 @@
 import 'dart:math';
 
 import 'package:dm_music/userinfo/image_lists.dart';
+import 'package:dm_music/userinfo/user.dart';
 import 'package:dm_music/widgets/bottom_bar.dart';
 import 'package:dm_music/widgets/custom_painters.dart';
 import 'package:dm_music/widgets/horizontal_lists.dart';
@@ -9,18 +10,21 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
 class MainScreen extends StatefulWidget {
-  MainScreen();
+  final DMUser user;
+
+  MainScreen(this.user);
 
   @override
   _MainScreenState createState() => _MainScreenState();
 }
 
 class _MainScreenState extends State<MainScreen> {
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       resizeToAvoidBottomInset: false,
-      bottomNavigationBar: BottomBar(1),
+      bottomNavigationBar: BottomBar(1, widget.user),
       backgroundColor: Colors.black,
       body: Stack(
         children: [

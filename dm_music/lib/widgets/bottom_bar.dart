@@ -2,12 +2,14 @@ import 'package:dm_music/screens/main_screen.dart';
 import 'package:dm_music/screens/search_screen.dart';
 import 'package:dm_music/screens/social_screen.dart';
 import 'package:dm_music/screens/user_profile_screen.dart';
+import 'package:dm_music/userinfo/user.dart';
 import 'package:flutter/material.dart';
 
 class BottomBar extends StatefulWidget {
   final int _myIndex;
+  final DMUser user;
 
-  BottomBar(this._myIndex);
+  BottomBar(this._myIndex, this.user);
 
   @override
   _BottomBarState createState() => _BottomBarState();
@@ -22,19 +24,19 @@ class _BottomBarState extends State<BottomBar> {
         switch (index) {
           case 0:
             Navigator.of(context)
-                .push(MaterialPageRoute(builder: (context) => SearchScreen()));
+                .push(MaterialPageRoute(builder: (context) => SearchScreen(widget.user)));
             break;
           case 1:
             Navigator.of(context)
-                .push(MaterialPageRoute(builder: (context) => MainScreen()));
+                .push(MaterialPageRoute(builder: (context) => MainScreen(widget.user)));
             break;
           case 2:
             Navigator.of(context).push(
-                MaterialPageRoute(builder: (context) => UserProfileScreen()));
+                MaterialPageRoute(builder: (context) => UserProfileScreen(widget.user)));
             break;
           case 3:
             Navigator.of(context)
-                .push(MaterialPageRoute(builder: (context) => SocialScreen()));
+                .push(MaterialPageRoute(builder: (context) => SocialScreen(widget.user)));
             break;
           default:
             break;

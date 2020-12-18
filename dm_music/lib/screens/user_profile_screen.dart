@@ -10,7 +10,9 @@ import '../userinfo/user.dart';
 import 'change_image_screen.dart';
 
 class UserProfileScreen extends StatefulWidget {
-  UserProfileScreen();
+  final DMUser user;
+
+  UserProfileScreen(this.user);
 
   @override
   _UserProfileScreen createState() => _UserProfileScreen();
@@ -26,7 +28,7 @@ class _UserProfileScreen extends State<UserProfileScreen> {
     DMUser user;
     return Scaffold(
       backgroundColor: Colors.black,
-      bottomNavigationBar: BottomBar(2),
+      bottomNavigationBar: BottomBar(2, widget.user),
       body: Stack(
         children: [
           BackgroundUserScreen(),
