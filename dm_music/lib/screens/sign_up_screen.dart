@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:dm_music/animations/animated_route.dart';
 import 'package:dm_music/widgets/background_rect.dart';
+import 'package:dm_music/widgets/custom_painters.dart';
 import 'package:flutter/material.dart';
 
 import '../userinfo/user.dart';
@@ -48,7 +49,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                 MediaQuery.of(context)
                     .size
                     .height), //You can Replace this with your desired WIDTH and HEIGHT
-            painter: RPSCustomPainter(
+            painter: CustomPainterSignInFlow(
               Colors.lime[200],
               Colors.lime[500],
               Colors.lime[800],
