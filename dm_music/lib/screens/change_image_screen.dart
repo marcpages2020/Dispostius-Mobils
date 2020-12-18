@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 import '../userinfo/user.dart';
 
 class ChangeProfileImage extends StatefulWidget {
-  DMUser _user;
+  final DMUser _user;
 
   ChangeProfileImage(this._user);
 

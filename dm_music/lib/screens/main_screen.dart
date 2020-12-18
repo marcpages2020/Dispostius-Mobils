@@ -1,5 +1,3 @@
-import 'dart:math';
-
 import 'package:dm_music/widgets/bottom_bar.dart';
 import 'package:dm_music/widgets/custom_painters.dart';
 import 'package:dm_music/widgets/horizontal_list.dart';
@@ -52,66 +50,10 @@ class _MainScreenState extends State<MainScreen> {
               HorizontalList(),
               Title("Albums", color: Colors.white),
               HorizontalList(),
-              Title("Friends", color: Colors.white),
             ],
           ),
         ],
       ),
-    );
-  }
-}
-
-class FriendList extends StatelessWidget {
-  final List<dynamic> friends;
-  FriendList(this.friends);
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      padding: EdgeInsets.only(top: 6, bottom: 6),
-      height: 90,
-      child: ListView.builder(
-          scrollDirection: Axis.horizontal,
-          itemCount: friends.length,
-          itemBuilder: (BuildContext context, int index) {
-            return FriendIcon(friends[index]);
-          }),
-    );
-  }
-}
-
-class FriendIcon extends StatelessWidget {
-  String name;
-
-  FriendIcon(this.name);
-
-  @override
-  Widget build(BuildContext context) {
-    Random random = new Random();
-    int user = random.nextInt(4) + 1;
-
-    return Column(
-      children: [
-        FlatButton(
-          child: ClipRRect(
-            borderRadius: BorderRadius.circular(50),
-            child: Image.asset(
-              'assets/users_pictures/$user.jpg',
-              height: 60,
-            ),
-          ),
-          onPressed: () {},
-        ),
-        SizedBox(height: 1),
-        Text(
-          name,
-          style: TextStyle(
-            color: Colors.white,
-            fontFamily: "FredokaOne",
-            fontStyle: FontStyle.normal,
-          ),
-        )
-      ],
     );
   }
 }

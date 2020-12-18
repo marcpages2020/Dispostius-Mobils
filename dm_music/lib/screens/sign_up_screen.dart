@@ -1,6 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:dm_music/animations/animated_route.dart';
-import 'package:dm_music/widgets/background_rect.dart';
 import 'package:dm_music/widgets/custom_painters.dart';
 import 'package:flutter/material.dart';
 
