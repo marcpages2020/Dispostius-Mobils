@@ -35,7 +35,7 @@ class _MainScreenState extends State<MainScreen> {
                       .height), //You can Replace this with your desired WIDTH and HEIGHT
               painter: CustomPainterMainScreen(
                 Colors.deepPurple,
-                Colors.grey[900],
+                Colors.grey[850],
                 Colors.lime[500],
               ),
             ),
@@ -52,7 +52,6 @@ class _MainScreenState extends State<MainScreen> {
               HorizontalList(),
               SectionTitle("Albums", color: Colors.white),
               HorizontalList(),
-              SectionTitle("Friends", color: Colors.white),
             ],
           ),
         ],

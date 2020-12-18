@@ -1,5 +1,4 @@
 import 'package:dm_music/animations/animated_route.dart';
-import 'package:dm_music/widgets/background_rect.dart';
 import 'package:dm_music/widgets/custom_painters.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';

@@ -46,7 +46,7 @@ class _UserProfileScreen extends State<UserProfileScreen> {
             ),
           ),
           ListView(
-            padding: EdgeInsets.only(top: 8, left: 8, right: 8),
+            padding: EdgeInsets.only(top: 16, left: 16, right: 16),
             children: [
               SizedBox(
                 height: 40,

@@ -36,10 +36,13 @@ class AuthStateSwitch extends StatelessWidget {
                   debugShowCheckedModeBanner: false,
                   home: SignInScreen(),
                 );
-              }
+              }else
+              {
               app.currentUserEmail = user.email;
               return this.app;
+              }
             }
+            break;
           case ConnectionState.done:
             final user = snapshot.data;
             app.currentUserEmail = user.email;
