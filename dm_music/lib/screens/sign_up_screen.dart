@@ -48,7 +48,11 @@ class _SignUpScreenState extends State<SignUpScreen> {
                 MediaQuery.of(context)
                     .size
                     .height), //You can Replace this with your desired WIDTH and HEIGHT
-            painter: RPSCustomPainter(),
+            painter: RPSCustomPainter(
+              Colors.lime[200],
+              Colors.lime[500],
+              Colors.lime[800],
+            ),
           ),
         ),
         //BackgroundRect(widhtPercentage: 0.7, heightPercentage: 0.4),
@@ -213,41 +217,30 @@ class SignUp extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
         Container(
-          alignment: Alignment.centerLeft,
-          child: Text(
-            'Sign Up',
-            style: TextStyle(
-              fontSize: 24,
-              color: Colors.white,
-              fontFamily: "FredokaOne",
-              fontStyle: FontStyle.normal,
-            ),
-          ),
-        ),
-        SizedBox(width: 12),
-        Container(
+          height: 45,
           alignment: Alignment.centerRight,
-          margin: EdgeInsets.only(right: 40),
-          child: CircleAvatar(
-            backgroundColor: Theme.of(context).primaryColor,
-            radius: 40,
-            child: IconButton(
-              iconSize: (50),
-              icon: Icon(Icons.play_arrow),
-              hoverColor: Colors.black,
-              color: Colors.black,
-              highlightColor: Colors.grey[900],
-              splashRadius: 52.0,
-              onPressed: () {
-                //users.add(DMUser(_username.text, _email.text).toFirestore());
-                Navigator.of(context).pop(
-                  EmailAndPassword(_email.text, _password.text),
-                );
+          child: FlatButton(
+            color: Colors.lime[500],
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(30),
+            ),
+            onPressed: () {
+              Navigator.of(context).pop(
+                EmailAndPassword(_email.text, _password.text),
+              );
 
-                users.doc(_email.text).set(
-                    DMUser.setUser(_username.text, friends, profilePicture)
-                        .toFirestore());
-              },
+              users.doc(_email.text).set(
+                  DMUser.setUser(_username.text, friends, profilePicture)
+                      .toFirestore());
+            },
+            child: Text(
+              'Sign Up',
+              style: TextStyle(
+                fontSize: 34,
+                color: Colors.black,
+                fontFamily: "FredokaOne",
+                fontStyle: FontStyle.normal,
+              ),
             ),
           ),
         ),

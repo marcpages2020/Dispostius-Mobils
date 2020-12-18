@@ -12,10 +12,18 @@ class SignInScreen extends StatefulWidget {
 }
 
 class RPSCustomPainter extends CustomPainter {
+  final Color primaryColor;
+  final Color secondaryColor;
+  final Color thirdColor;
+  RPSCustomPainter(this.primaryColor, this.secondaryColor, this.thirdColor);
+
   @override
-  void paint(Canvas canvas, Size size) {
+  void paint(
+    Canvas canvas,
+    Size size,
+  ) {
     Paint paint_0 = new Paint()
-      ..color = Color.fromARGB(255, 116, 66, 117)
+      ..color = primaryColor
       ..style = PaintingStyle.fill
       ..strokeWidth = 1;
 
@@ -35,7 +43,7 @@ class RPSCustomPainter extends CustomPainter {
     canvas.drawPath(path_0, paint_0);
 
     Paint paint_1 = new Paint()
-      ..color = Color.fromARGB(255, 106, 43, 108)
+      ..color = secondaryColor
       ..style = PaintingStyle.fill
       ..strokeWidth = 1;
 
@@ -59,7 +67,7 @@ class RPSCustomPainter extends CustomPainter {
     canvas.drawPath(path_1, paint_1);
 
     Paint paint_2 = new Paint()
-      ..color = Color.fromARGB(255, 109, 0, 112)
+      ..color = thirdColor
       ..style = PaintingStyle.fill
       ..strokeWidth = 1;
 
@@ -172,7 +180,11 @@ class _SignInScreenState extends State<SignInScreen> {
                   MediaQuery.of(context)
                       .size
                       .height), //You can Replace this with your desired WIDTH and HEIGHT
-              painter: RPSCustomPainter(),
+              painter: RPSCustomPainter(
+                Color.fromARGB(255, 116, 66, 117),
+                Color.fromARGB(255, 106, 43, 108),
+                Color.fromARGB(255, 109, 0, 112),
+              ),
             ),
           ),
           Padding(
