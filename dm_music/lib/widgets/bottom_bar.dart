@@ -1,5 +1,6 @@
 import 'package:dm_music/screens/main_screen.dart';
 import 'package:dm_music/screens/search_screen.dart';
+import 'package:dm_music/screens/social_screen.dart';
 import 'package:dm_music/screens/user_profile_screen.dart';
 import 'package:flutter/material.dart';
 
@@ -14,22 +15,30 @@ class BottomBar extends StatefulWidget {
 
 class _BottomBarState extends State<BottomBar> {
   void _onItemTapped(int index) {
-    if (index == widget._myIndex) return;
+    if (index == widget._myIndex) 
+    return;
 
     setState(
       () {
-        if (index == 0) {
-          Navigator.of(context)
-              .push(MaterialPageRoute(builder: (context) => SearchScreen()));
-        } else if (index == 1) {
-          Navigator.of(context)
-              .push(MaterialPageRoute(builder: (context) => MainScreen()));
-        } else if (index == 2) {
-          Navigator.of(context).push(
-              MaterialPageRoute(builder: (context) => UserProfileScreen()));
-        } else if (index == 3) {
-          Navigator.of(context)
-              .push(MaterialPageRoute(builder: (context) => SearchScreen()));
+        switch (index) {
+          case 0:
+            Navigator.of(context)
+                .push(MaterialPageRoute(builder: (context) => SearchScreen()));
+            break;
+          case 1:
+            Navigator.of(context)
+                .push(MaterialPageRoute(builder: (context) => MainScreen()));
+            break;
+          case 2:
+            Navigator.of(context).push(
+                MaterialPageRoute(builder: (context) => UserProfileScreen()));
+            break;
+          case 3:
+            Navigator.of(context)
+                .push(MaterialPageRoute(builder: (context) => SocialScreen()));
+            break;
+          default:
+            break;
         }
       },
     );
@@ -53,15 +62,16 @@ class _BottomBarState extends State<BottomBar> {
           label: "Home",
         ),
         BottomNavigationBarItem(
-            icon: Icon(
-              Icons.perm_identity,
-            ),
-            label: "Profile"),
+          icon: Icon(
+            Icons.perm_identity,
+          ),
+          label: "Profile",
+        ),
         BottomNavigationBarItem(
           icon: Icon(
             Icons.person_add_alt,
           ),
-          label: "Add Friend",
+          label: "Social",
         ),
       ],
       currentIndex: widget._myIndex,

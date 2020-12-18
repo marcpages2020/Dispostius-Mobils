@@ -20,8 +20,6 @@ class _MainScreenState extends State<MainScreen> {
   Widget build(BuildContext context) {
     final DMUser user = Provider.of<DMUser>(context);
 
-    if (user == null) print("null user");
-
     return Scaffold(
       resizeToAvoidBottomInset: false,
       bottomNavigationBar: BottomBar(1),
@@ -55,8 +53,6 @@ class _MainScreenState extends State<MainScreen> {
               Title("Albums", color: Colors.white),
               HorizontalList(),
               Title("Friends", color: Colors.white),
-              SizedBox(height: 2),
-              FriendList(user.friends)
             ],
           ),
         ],
@@ -207,12 +203,12 @@ class SongGridTile extends StatelessWidget {
             borderRadius: BorderRadius.circular(5),
             child: Image.asset(
               'assets/images/note.png',
-              height: 54,
+              height: MediaQuery.of(context).size.height * 0.075,
             ),
           ),
           SizedBox(width: 10),
           Container(
-            width: 120,
+            width: MediaQuery.of(context).size.width * 0.3,
             child: Text(
               "Blinding Lights",
               style: TextStyle(

@@ -16,10 +16,9 @@ class DmMusic extends StatelessWidget {
     for (var user in users) {
       if (user.id == currentUserEmail) {
         _user = DMUser(user);
+        return MainScreen();
       }
     }
-
-    return MainScreen();
   }
 
   @override
