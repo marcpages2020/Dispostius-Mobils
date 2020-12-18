@@ -76,7 +76,7 @@ class UsernameTitle extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
         SectionTitle(
-          widget._user.username,
+          widget._user == null ? "user" : widget._user.username,
           color: Colors.white,
         )
       ],
