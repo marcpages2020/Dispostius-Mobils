@@ -13,19 +13,18 @@ class _SocialScreenState extends State<SocialScreen> {
     return Scaffold(
       backgroundColor: Colors.black,
       bottomNavigationBar: BottomBar(3),
-            body: Stack(
+      body: Stack(
         children: [
           Container(
             child: CustomPaint(
               size: Size(
-                  MediaQuery.of(context).size.width,
-                  MediaQuery.of(context)
-                      .size
-                      .height), //You can Replace this with your desired WIDTH and HEIGHT
+                MediaQuery.of(context).size.width,
+                MediaQuery.of(context).size.height,
+              ), //You can Replace this with your desired WIDTH and HEIGHT
               painter: CustomPainterMainScreen(
-                Color.fromARGB(255, 229, 168, 255),
-                Color.fromARGB(255, 217, 111, 253),
-                Color.fromARGB(255, 170, 34, 255),
+                Colors.deepPurple,
+                Colors.grey[900],
+                Colors.lime[500],
               ),
             ),
           ),

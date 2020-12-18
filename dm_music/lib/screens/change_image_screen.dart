@@ -1,8 +1,10 @@
 import 'package:dm_music/userinfo/image_lists.dart';
+import 'package:dm_music/widgets/custom_painters.dart';
 import 'package:dm_music/widgets/horitzontal_image_list.dart';
 import 'package:flutter/material.dart';
 
 import '../userinfo/user.dart';
+import 'main_screen.dart';
 
 class ChangeProfileImage extends StatefulWidget {
   DMUser _user;
@@ -30,11 +32,16 @@ class _ChangeProfileImage extends State<ChangeProfileImage> {
       body: Stack(
         children: [
           Container(
-            decoration: BoxDecoration(
-              gradient: LinearGradient(
-                  begin: Alignment.topLeft,
-                  end: Alignment.bottomRight,
-                  colors: [Theme.of(context).primaryColor, Colors.black]),
+            child: CustomPaint(
+              size: Size(
+                MediaQuery.of(context).size.width,
+                MediaQuery.of(context).size.height,
+              ), //You can Replace this with your desired WIDTH and HEIGHT
+              painter: CustomPainterMainScreen(
+                Colors.deepPurple,
+                Colors.grey[900],
+                Colors.lime[500],
+              ),
             ),
           ),
           ListView(
@@ -54,14 +61,9 @@ class _ChangeProfileImage extends State<ChangeProfileImage> {
                 textAlign: TextAlign.center,
               ),
               SizedBox(height: 15),
-              Text(
+              SectionTitle(
                 "Spain",
-                style: TextStyle(
-                  color: Colors.white,
-                  fontSize: 22,
-                  fontFamily: "FredokaOne",
-                  fontStyle: FontStyle.normal,
-                ),
+                color: Colors.white,
               ),
               HorizontalImageList(images: spain),
               Text(

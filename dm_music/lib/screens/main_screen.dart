@@ -44,15 +44,15 @@ class _MainScreenState extends State<MainScreen> {
             padding: EdgeInsets.all(16),
             children: [
               SizedBox(height: 40),
-              Title("Good Evening", color: Colors.white),
+              SectionTitle("Good Evening", color: Colors.white),
               SizedBox(height: 10),
               Grid(),
               SizedBox(height: 30),
-              Title("Recent Songs", color: Colors.white),
+              SectionTitle("Recent Songs", color: Colors.white),
               HorizontalList(),
-              Title("Albums", color: Colors.white),
+              SectionTitle("Albums", color: Colors.white),
               HorizontalList(),
-              Title("Friends", color: Colors.white),
+              SectionTitle("Friends", color: Colors.white),
             ],
           ),
         ],
@@ -116,11 +116,11 @@ class FriendIcon extends StatelessWidget {
   }
 }
 
-class Title extends StatelessWidget {
+class SectionTitle extends StatelessWidget {
   final String text;
   final Color color;
 
-  Title(this.text, {@required this.color});
+  SectionTitle(this.text, {@required this.color});
 
   @override
   Widget build(BuildContext context) {
@@ -208,7 +208,7 @@ class SongGridTile extends StatelessWidget {
           ),
           SizedBox(width: 10),
           Container(
-            width: MediaQuery.of(context).size.width * 0.3,
+            width: MediaQuery.of(context).size.width * 0.27,
             child: Text(
               "Blinding Lights",
               style: TextStyle(

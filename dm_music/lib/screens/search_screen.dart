@@ -12,6 +12,8 @@ class _SearchScreenState extends State<SearchScreen> {
 
   @override
   Widget build(BuildContext context) {
+    print(MediaQuery.of(context).size.width);
+    print(MediaQuery.of(context).size.height);
     return Scaffold(
       bottomNavigationBar: BottomBar(0),
       body: Stack(
@@ -19,14 +21,13 @@ class _SearchScreenState extends State<SearchScreen> {
           Container(
             child: CustomPaint(
               size: Size(
-                  MediaQuery.of(context).size.width,
-                  MediaQuery.of(context)
-                      .size
-                      .height), //You can Replace this with your desired WIDTH and HEIGHT
+                MediaQuery.of(context).size.width,
+                MediaQuery.of(context).size.height,
+              ), //You can Replace this with your desired WIDTH and HEIGHT
               painter: CustomPainterMainScreen(
-                Color.fromARGB(255, 229, 168, 255),
-                Color.fromARGB(255, 217, 111, 253),
-                Color.fromARGB(255, 170, 34, 255),
+                Colors.deepPurple,
+                Colors.grey[900],
+                Colors.lime[500],
               ),
             ),
           ),
@@ -54,7 +55,7 @@ class _SearchScreenState extends State<SearchScreen> {
                     hintText: "Search",
                     hintStyle: TextStyle(color: Colors.grey),
                     enabledBorder: OutlineInputBorder(
-                      borderSide: BorderSide(color: Colors.white),
+                      borderSide: BorderSide(color: Colors.black),
                       borderRadius: BorderRadius.circular(10),
                     ),
                     focusedBorder: OutlineInputBorder(

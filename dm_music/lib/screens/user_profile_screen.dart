@@ -1,3 +1,4 @@
+import 'package:dm_music/screens/main_screen.dart';
 import 'package:dm_music/screens/sign_in_screen.dart';
 import 'package:dm_music/widgets/bottom_bar.dart';
 import 'package:dm_music/widgets/custom_painters.dart';
@@ -37,10 +38,10 @@ class _UserProfileScreen extends State<UserProfileScreen> {
                       .size
                       .height), //You can Replace this with your desired WIDTH and HEIGHT
               painter: CustomPainterProfile(
-                Color.fromARGB(255, 116, 66, 117),
-                Color.fromARGB(255, 106, 43, 108),
-                Color.fromARGB(255, 109, 0, 112),
-                Color.fromARGB(255, 112, 0, 136),
+                Colors.deepPurple[300],
+                Colors.lime[500],
+                Colors.deepPurple,
+                Colors.grey[900],
               ),
             ),
           ),
@@ -84,24 +85,14 @@ class _UserProfileScreen extends State<UserProfileScreen> {
               SizedBox(
                 height: 15,
               ),
-              Text(
+              SectionTitle(
                 "Songs",
-                style: TextStyle(
-                  color: Colors.white,
-                  fontSize: 22,
-                  fontFamily: "FredokaOne",
-                  fontStyle: FontStyle.normal,
-                ),
+                color: Colors.white,
               ),
               HorizontalList(),
-              Text(
+              SectionTitle(
                 "Albums",
-                style: TextStyle(
-                  color: Colors.white,
-                  fontSize: 22,
-                  fontFamily: "FredokaOne",
-                  fontStyle: FontStyle.normal,
-                ),
+                color: Colors.white,
               ),
               HorizontalList(),
               SizedBox(height: 10),

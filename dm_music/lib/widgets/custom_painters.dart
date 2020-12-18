@@ -245,9 +245,8 @@ class CustomPainterProfile extends CustomPainter {
     path_3.cubicTo(size.width * 0.73, size.height * 0.17, size.width * 0.62,
         size.height * 0.29, size.width * 0.70, size.height * 0.33);
     path_3.cubicTo(size.width * 0.75, size.height * 0.36, size.width * 0.90,
-        size.height * 0.43, size.width * 0.99, size.height * 0.39);
-    path_3.quadraticBezierTo(
-        size.width * 0.99, size.height * 0.29, size.width, 0);
+        size.height * 0.43, size.width, size.height * 0.39);
+    path_3.quadraticBezierTo(size.width, size.height * 0.29, size.width, 0);
     path_3.lineTo(0, 0);
 
     canvas.drawPath(path_3, paint_3);
