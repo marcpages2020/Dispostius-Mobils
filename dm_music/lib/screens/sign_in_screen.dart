@@ -213,7 +213,7 @@ class BackgroundSignInFlow extends StatelessWidget {
         ),
         painter: CustomPainterSignInFlow(
           Colors.deepPurple[300],
-          Colors.lime[500],
+          Colors.lime[800],
           Colors.deepPurple,
         ),
       ),
@@ -251,22 +251,22 @@ class TextInput extends StatelessWidget {
         hintText: _hint,
         labelText: _label,
         labelStyle: TextStyle(
-          color: Theme.of(context).primaryColor,
+          color: Colors.white,
           fontFamily: "FredokaOne",
           fontStyle: FontStyle.normal,
         ),
         enabledBorder: UnderlineInputBorder(
-          borderSide: BorderSide(color: Theme.of(context).primaryColor),
+          borderSide: BorderSide(color: Colors.white),
         ),
         focusedBorder: UnderlineInputBorder(
-          borderSide: BorderSide(color: Theme.of(context).primaryColor),
+          borderSide: BorderSide(color: Colors.white),
         ),
         border: UnderlineInputBorder(
-          borderSide: BorderSide(color: Theme.of(context).primaryColor),
+          borderSide: BorderSide(color: Colors.white),
         ),
       ),
       style: TextStyle(
-        color: Theme.of(context).primaryColor,
+        color: Colors.white,
         fontFamily: "FredokaOne",
         fontStyle: FontStyle.normal,
       ),

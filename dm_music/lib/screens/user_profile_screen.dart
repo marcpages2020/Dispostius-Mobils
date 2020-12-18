@@ -105,7 +105,7 @@ class BackgroundUserScreen extends StatelessWidget {
         ),
         painter: CustomPainterProfile(
           Colors.deepPurple[300],
-          Colors.lime[500],
+          Colors.lime[800],
           Colors.deepPurple,
           Colors.grey[900],
         ),

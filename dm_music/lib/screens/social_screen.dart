@@ -72,7 +72,9 @@ class FriendIcon extends StatelessWidget {
         FlatButton(
           child: ClipRRect(
             borderRadius: BorderRadius.circular(50),
-            child: Image.network(user.profilePicture, height: 60),
+            child: Image.network(
+                "https://i.scdn.co/image/aa46a79617c6e05f61d2718b189d8fa0dc29863b",
+                height: 60),
           ),
           onPressed: () {},
         ),

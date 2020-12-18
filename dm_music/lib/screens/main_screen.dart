@@ -59,7 +59,7 @@ class BackgroundMainScreen extends StatelessWidget {
         painter: CustomPainterMainScreen(
           Colors.deepPurple,
           Colors.grey[850],
-          Colors.lime[500],
+          Colors.lime[800],
         ),
       ),
     );

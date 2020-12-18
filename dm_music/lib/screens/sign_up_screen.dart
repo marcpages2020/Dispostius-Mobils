@@ -199,7 +199,7 @@ class SignUp extends StatelessWidget {
           height: 45,
           alignment: Alignment.centerRight,
           child: FlatButton(
-            color: Colors.lime[500],
+            color: Colors.lime[800],
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(30),
             ),
