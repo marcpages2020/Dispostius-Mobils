@@ -54,7 +54,7 @@ class _SignInScreenState extends State<SignInScreen> {
     }
     ScaffoldMessenger.of(context).showSnackBar(SnackBar(
       content: Text(message),
-       backgroundColor: Colors.red,
+      backgroundColor: Colors.red,
     ));
   }
 
@@ -64,8 +64,6 @@ class _SignInScreenState extends State<SignInScreen> {
         email: email,
         password: password,
       );
-      // } on FirebaseAuthException catch (e) {
-      //  _showError(e);
     } catch (e) {
       _showError(e);
     }
@@ -89,21 +87,7 @@ class _SignInScreenState extends State<SignInScreen> {
       backgroundColor: Colors.black,
       body: Stack(
         children: [
-          //BackgroundRect(widhtPercentage: 0.7, heightPercentage: 0.45),
-          Container(
-            child: CustomPaint(
-              size: Size(
-                  MediaQuery.of(context).size.width,
-                  MediaQuery.of(context)
-                      .size
-                      .height), //You can Replace this with your desired WIDTH and HEIGHT
-              painter: CustomPainterSignInFlow(
-                Colors.deepPurple[300],
-                Colors.lime[500],
-                Colors.deepPurple,
-              ),
-            ),
-          ),
+          BackgroundSignInFlow(),
           Padding(
             padding: EdgeInsets.all(32),
             child: Column(
@@ -123,10 +107,11 @@ class _SignInScreenState extends State<SignInScreen> {
                 ),
                 SizedBox(height: 130),
                 TextInput(
-                    controller: _email,
-                    hint: 'Enter Your Email',
-                    label: 'Email',
-                    hide: false),
+                  controller: _email,
+                  hint: 'Enter Your Email',
+                  label: 'Email',
+                  hide: false,
+                ),
                 SizedBox(height: 24),
                 TextInput(
                   controller: _password,
@@ -212,6 +197,25 @@ class _SignInScreenState extends State<SignInScreen> {
             ),
           ),
         ],
+      ),
+    );
+  }
+}
+
+class BackgroundSignInFlow extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      child: CustomPaint(
+        size: Size(
+          MediaQuery.of(context).size.width,
+          MediaQuery.of(context).size.height,
+        ),
+        painter: CustomPainterSignInFlow(
+          Colors.deepPurple[300],
+          Colors.lime[500],
+          Colors.deepPurple,
+        ),
       ),
     );
   }

@@ -9,13 +9,8 @@ class AnimatedRoute {
       transitionsBuilder: (context, animation, secondaryAnimation, child) {
         return SlideTransition(
           position: animation.drive(
-            Tween(
-              begin: Offset(1.0, 0.0),
-              end: offset,
-            ).chain(
-              CurveTween(
-                curve: curves,
-              ),
+            Tween(begin: Offset(1.0, 0.0), end: offset).chain(
+              CurveTween(curve: curves),
             ),
           ),
           child: child,

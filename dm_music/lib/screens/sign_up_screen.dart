@@ -1,9 +1,9 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:dm_music/animations/animated_route.dart';
-import 'package:dm_music/widgets/custom_painters.dart';
 import 'package:flutter/material.dart';
 
 import '../userinfo/user.dart';
+import 'main_screen.dart';
 import 'sign_in_screen.dart';
 
 class EmailAndPassword {
@@ -41,21 +41,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
       resizeToAvoidBottomInset: false,
       backgroundColor: Colors.black,
       body: Stack(children: [
-        Container(
-          child: CustomPaint(
-            size: Size(
-                MediaQuery.of(context).size.width,
-                MediaQuery.of(context)
-                    .size
-                    .height), //You can Replace this with your desired WIDTH and HEIGHT
-            painter: CustomPainterSignInFlow(
-              Colors.deepPurple[300],
-              Colors.lime[500],
-              Colors.deepPurple,
-            ),
-          ),
-        ),
-        //BackgroundRect(widhtPercentage: 0.7, heightPercentage: 0.4),
+        BackgroundSignInFlow(),
         Padding(
           padding: EdgeInsets.all(32),
           child: Column(
@@ -110,10 +96,6 @@ class _SignUpScreenState extends State<SignUpScreen> {
 }
 
 class TopElements extends StatelessWidget {
-  const TopElements({
-    Key key,
-  }) : super(key: key);
-
   @override
   Widget build(BuildContext context) {
     return Row(
@@ -146,10 +128,6 @@ class TopElements extends StatelessWidget {
 }
 
 class Return extends StatelessWidget {
-  const Return({
-    Key key,
-  }) : super(key: key);
-
   @override
   Widget build(BuildContext context) {
     return Expanded(
@@ -208,9 +186,10 @@ class SignUp extends StatelessWidget {
   final TextEditingController _password;
   final TextEditingController _username;
   List<String> friends;
-  final String profilePicture = 'assets/users_pictures/4.jpg';
+  final String profilePicture = getRandomImage();
 
   final users = FirebaseFirestore.instance.collection('users');
+
   @override
   Widget build(BuildContext context) {
     return Row(
