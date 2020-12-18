@@ -11,6 +11,81 @@ class SignInScreen extends StatefulWidget {
   _SignInScreenState createState() => _SignInScreenState();
 }
 
+class RPSCustomPainter extends CustomPainter {
+  @override
+  void paint(Canvas canvas, Size size) {
+    Paint paint_0 = new Paint()
+      ..color = Color.fromARGB(255, 116, 66, 117)
+      ..style = PaintingStyle.fill
+      ..strokeWidth = 1;
+
+    Path path_0 = Path();
+    path_0.moveTo(0, size.height * 0.63);
+    path_0.quadraticBezierTo(size.width * 0.10, size.height * 0.66,
+        size.width * 0.20, size.height * 0.63);
+    path_0.cubicTo(size.width * 0.32, size.height * 0.58, size.width * 0.23,
+        size.height * 0.53, size.width * 0.41, size.height * 0.49);
+    path_0.cubicTo(size.width * 0.63, size.height * 0.47, size.width * 0.61,
+        size.height * 0.36, size.width * 0.81, size.height * 0.36);
+    path_0.quadraticBezierTo(
+        size.width * 0.93, size.height * 0.33, size.width, size.height * 0.25);
+    path_0.lineTo(size.width, 0);
+    path_0.lineTo(0, 0);
+
+    canvas.drawPath(path_0, paint_0);
+
+    Paint paint_1 = new Paint()
+      ..color = Color.fromARGB(255, 106, 43, 108)
+      ..style = PaintingStyle.fill
+      ..strokeWidth = 1;
+
+    Path path_1 = Path();
+    path_1.moveTo(size.width, size.height * 0.60);
+    path_1.quadraticBezierTo(size.width * 0.78, size.height * 0.61,
+        size.width * 0.73, size.height * 0.58);
+    path_1.cubicTo(size.width * 0.67, size.height * 0.56, size.width * 0.63,
+        size.height * 0.51, size.width * 0.69, size.height * 0.46);
+    path_1.cubicTo(size.width * 0.71, size.height * 0.41, size.width * 0.50,
+        size.height * 0.39, size.width * 0.49, size.height * 0.35);
+    path_1.cubicTo(size.width * 0.42, size.height * 0.29, size.width * 0.47,
+        size.height * 0.23, size.width * 0.55, size.height * 0.19);
+    path_1.cubicTo(size.width * 0.65, size.height * 0.16, size.width * 0.67,
+        size.height * 0.18, size.width * 0.74, size.height * 0.14);
+    path_1.cubicTo(size.width * 0.81, size.height * 0.11, size.width * 0.75,
+        size.height * 0.07, size.width * 0.82, size.height * 0.03);
+    path_1.quadraticBezierTo(
+        size.width * 0.85, size.height * 0.01, size.width, 0);
+
+    canvas.drawPath(path_1, paint_1);
+
+    Paint paint_2 = new Paint()
+      ..color = Color.fromARGB(255, 109, 0, 112)
+      ..style = PaintingStyle.fill
+      ..strokeWidth = 1;
+
+    Path path_2 = Path();
+    path_2.moveTo(0, size.height * 0.52);
+    path_2.quadraticBezierTo(size.width * 0.21, size.height * 0.51,
+        size.width * 0.30, size.height * 0.47);
+    path_2.cubicTo(size.width * 0.40, size.height * 0.44, size.width * 0.41,
+        size.height * 0.34, size.width * 0.51, size.height * 0.31);
+    path_2.cubicTo(size.width * 0.63, size.height * 0.27, size.width * 0.71,
+        size.height * 0.30, size.width * 0.81, size.height * 0.27);
+    path_2.cubicTo(size.width * 0.90, size.height * 0.25, size.width * 0.96,
+        size.height * 0.22, size.width * 0.99, size.height * 0.18);
+    path_2.quadraticBezierTo(
+        size.width * 0.99, size.height * 0.14, size.width, 0);
+    path_2.lineTo(0, 0);
+
+    canvas.drawPath(path_2, paint_2);
+  }
+
+  @override
+  bool shouldRepaint(covariant CustomPainter oldDelegate) {
+    return true;
+  }
+}
+
 class _SignInScreenState extends State<SignInScreen> {
   TextEditingController _email, _password;
 
@@ -89,7 +164,17 @@ class _SignInScreenState extends State<SignInScreen> {
       backgroundColor: Colors.black,
       body: Stack(
         children: [
-          BackgroundRect(widhtPercentage: 0.7, heightPercentage: 0.45),
+          //BackgroundRect(widhtPercentage: 0.7, heightPercentage: 0.45),
+          Container(
+            child: CustomPaint(
+              size: Size(
+                  MediaQuery.of(context).size.width,
+                  MediaQuery.of(context)
+                      .size
+                      .height), //You can Replace this with your desired WIDTH and HEIGHT
+              painter: RPSCustomPainter(),
+            ),
+          ),
           Padding(
             padding: EdgeInsets.all(32),
             child: Column(
@@ -120,46 +205,31 @@ class _SignInScreenState extends State<SignInScreen> {
                   label: 'Password',
                   hide: true,
                 ),
-                SizedBox(height: 30),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Container(
-                      alignment: Alignment.centerLeft,
-                      child: Text(
-                        'Sign In',
-                        style: TextStyle(
-                          fontSize: 24,
-                          color: Colors.white,
-                          fontFamily: "FredokaOne",
-                          fontStyle: FontStyle.normal,
-                        ),
+                SizedBox(height: 40),
+                Container(
+                  height: 45,
+                  alignment: Alignment.centerRight,
+                  child: FlatButton(
+                    color: Color.fromARGB(255, 106, 43, 108),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(30),
+                    ),
+                    onPressed: () {
+                      _signInWithEmailWithPassword(
+                        email: _email.text,
+                        password: _password.text,
+                      );
+                    },
+                    child: Text(
+                      'Sign In',
+                      style: TextStyle(
+                        fontSize: 34,
+                        color: Colors.black,
+                        fontFamily: "FredokaOne",
+                        fontStyle: FontStyle.normal,
                       ),
                     ),
-                    SizedBox(width: 12),
-                    Container(
-                      alignment: Alignment.centerRight,
-                      margin: EdgeInsets.only(right: 40),
-                      child: CircleAvatar(
-                        backgroundColor: Theme.of(context).primaryColor,
-                        radius: 40,
-                        child: IconButton(
-                          iconSize: (50),
-                          icon: Icon(Icons.play_arrow),
-                          hoverColor: Colors.black,
-                          color: Colors.black,
-                          highlightColor: Colors.grey[900],
-                          splashRadius: 52.0,
-                          onPressed: () {
-                            _signInWithEmailWithPassword(
-                              email: _email.text,
-                              password: _password.text,
-                            );
-                          },
-                        ),
-                      ),
-                    ),
-                  ],
+                  ),
                 ),
                 SizedBox(height: 40),
                 Expanded(

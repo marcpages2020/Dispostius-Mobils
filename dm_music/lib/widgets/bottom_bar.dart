@@ -18,15 +18,19 @@ class _BottomBarState extends State<BottomBar> {
 
     setState(
       () {
-        Navigator.of(context).push(
-          MaterialPageRoute(
-            builder: (context) => index == 0
-                ? SearchScreen()
-                : index == 1
-                    ? MainScreen()
-                    : UserProfileScreen(),
-          ),
-        );
+        if (index == 0) {
+          Navigator.of(context)
+              .push(MaterialPageRoute(builder: (context) => SearchScreen()));
+        } else if (index == 1) {
+          Navigator.of(context)
+              .push(MaterialPageRoute(builder: (context) => MainScreen()));
+        } else if (index == 2) {
+          Navigator.of(context).push(
+              MaterialPageRoute(builder: (context) => UserProfileScreen()));
+        } else if (index == 3) {
+          Navigator.of(context)
+              .push(MaterialPageRoute(builder: (context) => SearchScreen()));
+        }
       },
     );
   }
@@ -52,6 +56,12 @@ class _BottomBarState extends State<BottomBar> {
               Icons.perm_identity,
             ),
             label: "Profile"),
+        BottomNavigationBarItem(
+          icon: Icon(
+            Icons.person_add,
+          ),
+          label: "Add Friend",
+        ),
       ],
       currentIndex: widget._myIndex,
       onTap: _onItemTapped,

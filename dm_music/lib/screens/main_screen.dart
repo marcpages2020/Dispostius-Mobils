@@ -69,13 +69,9 @@ class FriendList extends StatelessWidget {
       height: 90,
       child: ListView.builder(
           scrollDirection: Axis.horizontal,
-          itemCount: friends.length + 1,
+          itemCount: friends.length,
           itemBuilder: (BuildContext context, int index) {
-            if (index == friends.length) {
-              return AddFriendIcon();
-            } else {
-              return FriendIcon(friends[index]);
-            }
+            return FriendIcon(friends[index]);
           }),
     );
   }
@@ -106,42 +102,6 @@ class FriendIcon extends StatelessWidget {
         SizedBox(height: 1),
         Text(
           name,
-          style: TextStyle(
-            color: Colors.white,
-            fontFamily: "FredokaOne",
-            fontStyle: FontStyle.normal,
-          ),
-        )
-      ],
-    );
-  }
-}
-
-class AddFriendIcon extends StatelessWidget {
-  String name;
-
-  AddFriendIcon();
-  @override
-  Widget build(BuildContext context) {
-    return Column(
-      children: [
-        FlatButton(
-          child: ClipRRect(
-            borderRadius: BorderRadius.circular(50),
-            child: Container(
-              color: Colors.black,
-              child: Icon(
-                Icons.add_circle_outline_rounded,
-                size: 60,
-                color: Colors.limeAccent[700],
-              ),
-            ),
-          ),
-          onPressed: () {},
-        ),
-        SizedBox(height: 1),
-        Text(
-          "Add Friend",
           style: TextStyle(
             color: Colors.white,
             fontFamily: "FredokaOne",

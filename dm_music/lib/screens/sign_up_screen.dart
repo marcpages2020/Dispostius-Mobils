@@ -41,7 +41,17 @@ class _SignUpScreenState extends State<SignUpScreen> {
       resizeToAvoidBottomInset: false,
       backgroundColor: Colors.black,
       body: Stack(children: [
-        BackgroundRect(widhtPercentage: 0.7, heightPercentage: 0.4),
+        Container(
+          child: CustomPaint(
+            size: Size(
+                MediaQuery.of(context).size.width,
+                MediaQuery.of(context)
+                    .size
+                    .height), //You can Replace this with your desired WIDTH and HEIGHT
+            painter: RPSCustomPainter(),
+          ),
+        ),
+        //BackgroundRect(widhtPercentage: 0.7, heightPercentage: 0.4),
         Padding(
           padding: EdgeInsets.all(32),
           child: Column(
