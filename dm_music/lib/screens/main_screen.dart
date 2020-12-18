@@ -1,12 +1,11 @@
 import 'dart:math';
 
+import 'package:dm_music/userinfo/image_lists.dart';
 import 'package:dm_music/widgets/bottom_bar.dart';
 import 'package:dm_music/widgets/custom_painters.dart';
 import 'package:dm_music/widgets/horizontal_list.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
-import '../userinfo/user.dart';
 
 class MainScreen extends StatefulWidget {
   MainScreen();
@@ -18,28 +17,13 @@ class MainScreen extends StatefulWidget {
 class _MainScreenState extends State<MainScreen> {
   @override
   Widget build(BuildContext context) {
-    final DMUser user = Provider.of<DMUser>(context);
-
     return Scaffold(
       resizeToAvoidBottomInset: false,
       bottomNavigationBar: BottomBar(1),
       backgroundColor: Colors.black,
       body: Stack(
         children: [
-          Container(
-            child: CustomPaint(
-              size: Size(
-                  MediaQuery.of(context).size.width,
-                  MediaQuery.of(context)
-                      .size
-                      .height), //You can Replace this with your desired WIDTH and HEIGHT
-              painter: CustomPainterMainScreen(
-                Colors.deepPurple,
-                Colors.grey[850],
-                Colors.lime[500],
-              ),
-            ),
-          ),
+          BackgroundMainScreen(),
           ListView(
             padding: EdgeInsets.all(16),
             children: [
@@ -60,57 +44,23 @@ class _MainScreenState extends State<MainScreen> {
   }
 }
 
-class FriendList extends StatelessWidget {
-  final List<dynamic> friends;
-  FriendList(this.friends);
+class BackgroundMainScreen extends StatelessWidget {
+  const BackgroundMainScreen({
+    Key key,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: EdgeInsets.only(top: 6, bottom: 6),
-      height: 90,
-      child: ListView.builder(
-          scrollDirection: Axis.horizontal,
-          itemCount: friends.length,
-          itemBuilder: (BuildContext context, int index) {
-            return FriendIcon(friends[index]);
-          }),
-    );
-  }
-}
-
-class FriendIcon extends StatelessWidget {
-  String name;
-
-  FriendIcon(this.name);
-
-  @override
-  Widget build(BuildContext context) {
-    Random random = new Random();
-    int user = random.nextInt(4) + 1;
-
-    return Column(
-      children: [
-        FlatButton(
-          child: ClipRRect(
-            borderRadius: BorderRadius.circular(50),
-            child: Image.asset(
-              'assets/users_pictures/$user.jpg',
-              height: 60,
-            ),
-          ),
-          onPressed: () {},
+      child: CustomPaint(
+        size: Size(MediaQuery.of(context).size.width,
+            MediaQuery.of(context).size.height),
+        painter: CustomPainterMainScreen(
+          Colors.deepPurple,
+          Colors.grey[850],
+          Colors.lime[500],
         ),
-        SizedBox(height: 1),
-        Text(
-          name,
-          style: TextStyle(
-            color: Colors.white,
-            fontFamily: "FredokaOne",
-            fontStyle: FontStyle.normal,
-          ),
-        )
-      ],
+      ),
     );
   }
 }
@@ -124,6 +74,7 @@ class SectionTitle extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
+      alignment: Alignment.centerLeft,
       child: Text(
         text,
         style: TextStyle(
@@ -151,45 +102,41 @@ class SectionTitle extends StatelessWidget {
           ],
         ),
       ),
-      alignment: Alignment.centerLeft,
     );
   }
 }
 
 class Grid extends StatelessWidget {
-  const Grid({
-    Key key,
-  }) : super(key: key);
-
   @override
   Widget build(BuildContext context) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.center,
       children: [
-        Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [SongGridTile(), SizedBox(width: 2), SongGridTile()],
-        ),
+        GridRow(),
         SizedBox(height: 5),
-        Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [SongGridTile(), SizedBox(width: 2), SongGridTile()],
-        ),
+        GridRow(),
         SizedBox(height: 5),
-        Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [SongGridTile(), SizedBox(width: 2), SongGridTile()],
-        ),
+        GridRow(),
+      ],
+    );
+  }
+}
+
+class GridRow extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        SongGridTile(),
+        SizedBox(width: 2),
+        SongGridTile(),
       ],
     );
   }
 }
 
 class SongGridTile extends StatelessWidget {
-  const SongGridTile({
-    Key key,
-  }) : super(key: key);
-
   @override
   Widget build(BuildContext context) {
     return FlatButton(
@@ -200,8 +147,8 @@ class SongGridTile extends StatelessWidget {
         children: [
           ClipRRect(
             borderRadius: BorderRadius.circular(5),
-            child: Image.asset(
-              'assets/images/note.png',
+            child: Image.network(
+              getRandomImage(),
               height: MediaQuery.of(context).size.height * 0.075,
             ),
           ),
@@ -225,4 +172,13 @@ class SongGridTile extends StatelessWidget {
       onPressed: () {},
     );
   }
+}
+
+String getRandomImage() {
+  List<List> genresList = [spain, international, videogames, dj];
+  int randomGenre = new Random().nextInt(4);
+  List genre = genresList[randomGenre];
+  int randomSinger = new Random().nextInt(genre.length);
+
+  return genre[randomSinger];
 }
