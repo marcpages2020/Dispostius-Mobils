@@ -1,5 +1,6 @@
 import 'package:dm_music/userinfo/image_lists.dart';
-import 'package:dm_music/widgets/horitzontal_image_list.dart';
+import 'package:dm_music/widgets/horizontal_lists.dart';
+import 'package:dm_music/widgets/title.dart';
 import 'package:flutter/material.dart';
 
 import '../userinfo/user.dart';
@@ -75,7 +76,7 @@ class UsernameTitle extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
         SectionTitle(
-          widget._user.username,
+          widget._user == null ? "user" : widget._user.username,
           color: Colors.white,
         )
       ],

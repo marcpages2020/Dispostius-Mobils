@@ -15,8 +15,7 @@ class BottomBar extends StatefulWidget {
 
 class _BottomBarState extends State<BottomBar> {
   void _onItemTapped(int index) {
-    if (index == widget._myIndex) 
-    return;
+    if (index == widget._myIndex) return;
 
     setState(
       () {
@@ -51,28 +50,12 @@ class _BottomBarState extends State<BottomBar> {
       backgroundColor: Colors.black,
       unselectedItemColor: Colors.grey,
       items: [
+        BottomNavigationBarItem(icon: Icon(Icons.search), label: "Search"),
+        BottomNavigationBarItem(icon: Icon(Icons.home), label: "Home"),
         BottomNavigationBarItem(
-          icon: Icon(
-            Icons.search,
-          ),
-          label: "Search",
-        ),
+            icon: Icon(Icons.perm_identity), label: "Profile"),
         BottomNavigationBarItem(
-          icon: Icon(Icons.home),
-          label: "Home",
-        ),
-        BottomNavigationBarItem(
-          icon: Icon(
-            Icons.perm_identity,
-          ),
-          label: "Profile",
-        ),
-        BottomNavigationBarItem(
-          icon: Icon(
-            Icons.person_add_alt,
-          ),
-          label: "Social",
-        ),
+            icon: Icon(Icons.person_add_alt), label: "Social"),
       ],
       currentIndex: widget._myIndex,
       onTap: _onItemTapped,

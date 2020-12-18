@@ -3,7 +3,8 @@ import 'dart:math';
 import 'package:dm_music/userinfo/image_lists.dart';
 import 'package:dm_music/widgets/bottom_bar.dart';
 import 'package:dm_music/widgets/custom_painters.dart';
-import 'package:dm_music/widgets/horizontal_list.dart';
+import 'package:dm_music/widgets/horizontal_lists.dart';
+import 'package:dm_music/widgets/title.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
@@ -58,48 +59,7 @@ class BackgroundMainScreen extends StatelessWidget {
         painter: CustomPainterMainScreen(
           Colors.deepPurple,
           Colors.grey[850],
-          Colors.lime[500],
-        ),
-      ),
-    );
-  }
-}
-
-class SectionTitle extends StatelessWidget {
-  final String text;
-  final Color color;
-
-  SectionTitle(this.text, {@required this.color});
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      alignment: Alignment.centerLeft,
-      child: Text(
-        text,
-        style: TextStyle(
-          color: color,
-          fontSize: 22,
-          fontFamily: "FredokaOne",
-          fontStyle: FontStyle.normal,
-          shadows: [
-            Shadow(
-                // bottomLeft
-                offset: Offset(-1, -1),
-                color: Colors.black),
-            Shadow(
-                // bottomRight
-                offset: Offset(1, -1),
-                color: Colors.black),
-            Shadow(
-                // topRight
-                offset: Offset(1, 1),
-                color: Colors.black),
-            Shadow(
-                // topLeft
-                offset: Offset(-1, 1),
-                color: Colors.black),
-          ],
+          Colors.lime[800],
         ),
       ),
     );

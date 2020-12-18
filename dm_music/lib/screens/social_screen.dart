@@ -1,8 +1,7 @@
-import 'dart:math';
-
+import 'package:dm_music/screens/main_screen.dart';
 import 'package:dm_music/userinfo/user.dart';
 import 'package:dm_music/widgets/bottom_bar.dart';
-import 'package:dm_music/widgets/custom_painters.dart';
+import 'package:dm_music/widgets/title.dart';
 import 'package:flutter/material.dart';
 
 class SocialScreen extends StatefulWidget {
@@ -20,35 +19,13 @@ class _SocialScreenState extends State<SocialScreen> {
       bottomNavigationBar: BottomBar(3),
       body: Stack(
         children: [
-          Container(
-            child: CustomPaint(
-              size: Size(
-                MediaQuery.of(context).size.width,
-                MediaQuery.of(context).size.height,
-              ), //You can Replace this with your desired WIDTH and HEIGHT
-              painter: CustomPainterMainScreen(
-                Colors.deepPurple,
-                Colors.grey[900],
-                Colors.lime[500],
-              ),
-            ),
-          ),
+          BackgroundMainScreen(),
           ListView(
             padding: EdgeInsets.all(16),
             children: [
               SizedBox(height: MediaQuery.of(context).size.height * 0.05),
-              Text(
-                "Friends",
-                style: TextStyle(
-                  color: Colors.white,
-                  fontFamily: "FredokaOne",
-                  fontStyle: FontStyle.normal,
-                  fontSize: 34,
-                ),
-              ),
-              SizedBox(
-                height: 10,
-              ),
+              SectionTitle("Friends", color: Colors.white),
+              SizedBox(height: 10),
               FriendList(user.friends),
             ],
           ),
@@ -68,50 +45,40 @@ class FriendList extends StatelessWidget {
       padding: EdgeInsets.only(top: 6, bottom: 6),
       height: 90,
       child: ListView.builder(
-          scrollDirection: Axis.horizontal,
-          itemCount: friends.length + 1,
-          itemBuilder: (BuildContext context, int index) {
-            if (index == friends.length) {
-              return AddFriendIcon();
-            } else {
-              return FriendIcon(friends[index]);
-            }
-          }),
+        scrollDirection: Axis.horizontal,
+        itemCount: friends.length + 1,
+        itemBuilder: (BuildContext context, int index) {
+          if (index == friends.length) {
+            return AddFriendIcon();
+          } else {
+            return FriendIcon(friends[index]);
+          }
+        },
+      ),
     );
   }
 }
 
 class FriendIcon extends StatelessWidget {
-  final String name;
+  final DMUser user;
 
-  FriendIcon(this.name);
+  FriendIcon(this.user);
 
   @override
   Widget build(BuildContext context) {
-    Random random = new Random();
-    int user = random.nextInt(4) + 1;
-
     return Column(
       children: [
         FlatButton(
           child: ClipRRect(
             borderRadius: BorderRadius.circular(50),
-            child: Image.asset(
-              'assets/users_pictures/$user.jpg',
-              height: 60,
-            ),
+            child: Image.network(
+                "https://i.scdn.co/image/aa46a79617c6e05f61d2718b189d8fa0dc29863b",
+                height: 60),
           ),
           onPressed: () {},
         ),
         SizedBox(height: 1),
-        Text(
-          name,
-          style: TextStyle(
-            color: Colors.white,
-            fontFamily: "FredokaOne",
-            fontStyle: FontStyle.normal,
-          ),
-        )
+        SectionTitle(user.username, color: Colors.white)
       ],
     );
   }
@@ -146,8 +113,11 @@ class AddFriendIcon extends StatelessWidget {
             color: Colors.white,
             fontFamily: "FredokaOne",
             fontStyle: FontStyle.normal,
+            fontSize: 12,
           ),
-        )
+          maxLines: 2,
+          overflow: TextOverflow.ellipsis,
+        ),
       ],
     );
   }
