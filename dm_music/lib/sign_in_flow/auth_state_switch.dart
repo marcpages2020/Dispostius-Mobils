@@ -36,7 +36,8 @@ class AuthStateSwitch extends StatelessWidget {
                   debugShowCheckedModeBanner: false,
                   home: SignInScreen(),
                 );
-              }else
+              }
+              else
               {
               app.currentUserEmail = user.email;
               return this.app;

@@ -51,7 +51,7 @@ class _ChangeProfileImage extends State<ChangeProfileImage> {
                 height: 40,
               ),
               Text(
-                widget._user.username,
+                widget._user != null ? widget._user.username : "user",
                 style: TextStyle(
                   fontSize: 30,
                   color: Colors.white,

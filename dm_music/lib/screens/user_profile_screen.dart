@@ -73,7 +73,7 @@ class _UserProfileScreen extends State<UserProfileScreen> {
               ),
               SizedBox(height: 10),
               Text(
-                user.username,
+                user == null ? "user" : user.username,
                 style: TextStyle(
                   fontSize: 30,
                   color: Colors.white,
