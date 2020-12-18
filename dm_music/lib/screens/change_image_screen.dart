@@ -7,9 +7,9 @@ import '../userinfo/user.dart';
 import 'main_screen.dart';
 
 class ChangeProfileImage extends StatefulWidget {
-  final DMUser _user;
+  final DMUser user;
 
-  ChangeProfileImage(this._user);
+  ChangeProfileImage(this.user);
 
   @override
   _ChangeProfileImage createState() => _ChangeProfileImage();
@@ -76,9 +76,9 @@ class UsernameTitle extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
         SectionTitle(
-          widget._user == null ? "user" : widget._user.username,
+          widget.user == null ? "user" : widget.user.username,
           color: Colors.white,
-        )
+        ),
       ],
     );
   }

@@ -26,10 +26,15 @@ class DmMusic extends StatelessWidget {
           stream: fireBaseUser.snapshots(),
           builder: (context, AsyncSnapshot<DocumentSnapshot> snapshot) {
             String username;
+            String profilePicture;
+            //List<dynamic> friends;
             if (snapshot.hasData) {
               username = snapshot.data['username'];
+              profilePicture = snapshot.data['profilePicture'];
+              //friends = snapshot.data['friends'];
             }
-            return MainScreen(DMUser(currentUser.email, username));
+            return MainScreen(
+                DMUser(currentUser.email, username, profilePicture));
           }),
     );
   }

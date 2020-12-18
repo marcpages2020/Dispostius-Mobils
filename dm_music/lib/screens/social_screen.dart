@@ -6,7 +6,7 @@ import 'package:flutter/material.dart';
 
 class SocialScreen extends StatefulWidget {
   final DMUser user;
-  
+
   SocialScreen(this.user);
 
   @override
@@ -16,7 +16,6 @@ class SocialScreen extends StatefulWidget {
 class _SocialScreenState extends State<SocialScreen> {
   @override
   Widget build(BuildContext context) {
-
     return Scaffold(
       backgroundColor: Colors.black,
       bottomNavigationBar: BottomBar(3, widget.user),

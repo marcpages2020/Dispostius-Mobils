@@ -23,20 +23,20 @@ class _BottomBarState extends State<BottomBar> {
       () {
         switch (index) {
           case 0:
-            Navigator.of(context)
-                .push(MaterialPageRoute(builder: (context) => SearchScreen(widget.user)));
+            Navigator.of(context).push(MaterialPageRoute(
+                builder: (context) => SearchScreen(widget.user)));
             break;
           case 1:
-            Navigator.of(context)
-                .push(MaterialPageRoute(builder: (context) => MainScreen(widget.user)));
+            Navigator.of(context).push(MaterialPageRoute(
+                builder: (context) => MainScreen(widget.user)));
             break;
           case 2:
-            Navigator.of(context).push(
-                MaterialPageRoute(builder: (context) => UserProfileScreen(widget.user)));
+            Navigator.of(context).push(MaterialPageRoute(
+                builder: (context) => UserProfileScreen(widget.user)));
             break;
           case 3:
-            Navigator.of(context)
-                .push(MaterialPageRoute(builder: (context) => SocialScreen(widget.user)));
+            Navigator.of(context).push(MaterialPageRoute(
+                builder: (context) => SocialScreen(widget.user)));
             break;
           default:
             break;

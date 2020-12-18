@@ -25,7 +25,6 @@ class _UserProfileScreen extends State<UserProfileScreen> {
   }
 
   Widget build(BuildContext context) {
-    DMUser user;
     return Scaffold(
       backgroundColor: Colors.black,
       bottomNavigationBar: BottomBar(2, widget.user),
@@ -44,14 +43,13 @@ class _UserProfileScreen extends State<UserProfileScreen> {
                   ),
                   child: ClipRRect(
                     borderRadius: BorderRadius.circular(70),
-                    child: Image.network(
-                        'https://pbs.twimg.com/profile_images/1306654479601864715/5rJogQzq_400x400.jpg',
-                        height: 150),
+                    child:
+                        Image.network(widget.user.profilePicture, height: 150),
                   ),
                   onPressed: () {
                     Navigator.of(context).push(
                       MaterialPageRoute(
-                        builder: (context) => ChangeProfileImage(user),
+                        builder: (context) => ChangeProfileImage(widget.user),
                       ),
                     );
                   },
@@ -59,7 +57,7 @@ class _UserProfileScreen extends State<UserProfileScreen> {
               ),
               SizedBox(height: 10),
               Text(
-                user == null ? "user" : user.username,
+                widget.user == null ? "user" : widget.user.username,
                 style: TextStyle(
                   fontSize: 30,
                   color: Colors.white,
