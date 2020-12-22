@@ -1,10 +1,10 @@
 import 'dart:math';
 
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:dm_music/userinfo/image_lists.dart';
 import 'package:dm_music/userinfo/user.dart';
 import 'package:dm_music/widgets/bottom_bar.dart';
 import 'package:dm_music/widgets/custom_painters.dart';
-import 'package:dm_music/widgets/horizontal_lists.dart';
 import 'package:dm_music/widgets/title.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -21,28 +21,49 @@ class MainScreen extends StatefulWidget {
 class _MainScreenState extends State<MainScreen> {
   @override
   Widget build(BuildContext context) {
+    final db = FirebaseFirestore.instance;
+    final songs = db.collection('users').doc(widget.user.email).collection('songs');
+
     return Scaffold(
       resizeToAvoidBottomInset: false,
       bottomNavigationBar: BottomBar(1, widget.user),
       backgroundColor: Colors.black,
-      body: Stack(
-        children: [
-          BackgroundMainScreen(),
-          ListView(
-            padding: EdgeInsets.all(16),
+      body: StreamBuilder(
+        stream: db.collection('users').doc(widget.user.email).collection('songs').snapshots(),
+        builder: (context, snapshot) {
+          return Stack(
             children: [
-              SizedBox(height: 40),
-              SectionTitle("Good Evening", color: Colors.white),
-              SizedBox(height: 10),
-              Grid(),
-              SizedBox(height: 30),
-              SectionTitle("Recent Songs", color: Colors.white),
-              HorizontalList(),
-              SectionTitle("Albums", color: Colors.white),
-              HorizontalList(),
+              BackgroundMainScreen(),
+              Column(
+                children: [
+                  SizedBox(height: 20),
+                  Expanded(
+                    flex: 1,
+                    child: Padding(
+                      padding: const EdgeInsets.all(12.0),
+                      child: SectionTitle("Your Songs", color: Colors.white,),
+                    ),
+                  ),
+                  Expanded(
+                    flex: 11,
+                    child: ListView.separated(
+                      padding: EdgeInsets.all(10),
+                      itemCount: snapshot.data.docs.length,
+                      separatorBuilder: (BuildContext context, int index) => Divider(),
+                      itemBuilder: (context, int index){
+                        return ListTile(
+                          title: Text(snapshot.data.docs[index].id),
+                          tileColor: Colors.white,
+                          onTap: (){},
+                        );
+                      },
+                    ),
+                  ),
+                ],
+              ),
             ],
-          ),
-        ],
+          );
+        }
       ),
     );
   }
