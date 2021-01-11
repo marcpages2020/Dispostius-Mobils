@@ -1,7 +1,10 @@
+import 'dart:convert';
+
 import 'package:dm_music/screens/main_screen.dart';
 import 'package:dm_music/userinfo/user.dart';
 import 'package:dm_music/widgets/bottom_bar.dart';
 import 'package:flutter/material.dart';
+import 'package:http/http.dart' as http;
 
 class SearchScreen extends StatefulWidget {
   final DMUser user;
@@ -13,7 +16,28 @@ class SearchScreen extends StatefulWidget {
 }
 
 class _SearchScreenState extends State<SearchScreen> {
+  String lyrics;
+  bool loading;
   TextEditingController _controller;
+
+  @override
+  void initState() {
+    lyrics = "loading";
+    loading = true;
+
+    _loadLyrics();
+    super.initState();
+  }
+
+  void _loadLyrics() async {
+    final response = await http
+        .get("https://api.lyrics.ovh/v1/Coldplay/Adventure of a Lifetime");
+    final tmplyrics = jsonDecode(response.body);
+    setState(() {
+      lyrics = tmplyrics['lyrics'];
+      loading = false;
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -38,25 +62,21 @@ class _SearchScreenState extends State<SearchScreen> {
                       fontWeight: FontWeight.bold,
                       shadows: [
                         Shadow(
-                          // bottomLeft
-                          offset: Offset(-1, -1),
-                          color: Colors.black,
-                        ),
+                            // bottomLeft
+                            offset: Offset(-1, -1),
+                            color: Colors.black),
                         Shadow(
-                          // bottomRight
-                          offset: Offset(1, -1),
-                          color: Colors.black,
-                        ),
+                            // bottomRight
+                            offset: Offset(1, -1),
+                            color: Colors.black),
                         Shadow(
-                          // topRight
-                          offset: Offset(1, 1),
-                          color: Colors.black,
-                        ),
+                            // topRight
+                            offset: Offset(1, 1),
+                            color: Colors.black),
                         Shadow(
-                          // topLeft
-                          offset: Offset(-1, 1),
-                          color: Colors.black,
-                        ),
+                            // topLeft
+                            offset: Offset(-1, 1),
+                            color: Colors.black),
                       ],
                     ),
                     textAlign: TextAlign.start,
@@ -64,6 +84,10 @@ class _SearchScreenState extends State<SearchScreen> {
                 ),
                 SizedBox(height: 10),
                 TextSearch(controller: _controller),
+                Expanded(
+                  child: Container(
+                      child: SingleChildScrollView(child: Text(lyrics, style: TextStyle(fontSize: 16),))),
+                )
               ],
             ),
           )
