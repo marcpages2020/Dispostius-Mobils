@@ -1,14 +1,16 @@
 import 'dart:convert';
 
+import 'package:dm_music/screens/lyrics_preview_screen.dart';
 import 'package:dm_music/screens/main_screen.dart';
 import 'package:dm_music/userinfo/user.dart';
 import 'package:dm_music/widgets/bottom_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 
+import '../song.dart';
+
 class SearchScreen extends StatefulWidget {
   final DMUser user;
-
   SearchScreen(this.user);
 
   @override
@@ -16,33 +18,40 @@ class SearchScreen extends StatefulWidget {
 }
 
 class _SearchScreenState extends State<SearchScreen> {
-  String lyrics;
+  List<Song> suggestions;
   bool loading;
   TextEditingController _controller;
 
   @override
   void initState() {
-    lyrics = "loading";
-    loading = true;
-
-    _loadLyrics();
+    suggestions = [];
+    _controller = TextEditingController();
     super.initState();
   }
 
-  void _loadLyrics() async {
-    final response = await http
-        .get("https://api.lyrics.ovh/v1/Coldplay/Adventure of a Lifetime");
-    final tmplyrics = jsonDecode(response.body);
+  @override
+  void dispose() {
+    _controller.dispose();
+    super.dispose();
+  }
+
+  _loadSuggestions() async {
+    final response =
+        await http.get("https://api.lyrics.ovh/suggest/${_controller.text}");
+    final json = jsonDecode(response.body);
+    List<Song> _suggestions = [];
+
+    for (var jsonSuggestion in json['data']) {
+      _suggestions.add(Song.fromJson(jsonSuggestion));
+    }
+
     setState(() {
-      lyrics = tmplyrics['lyrics'];
-      loading = false;
+      suggestions = _suggestions;
     });
   }
 
   @override
   Widget build(BuildContext context) {
-    print(MediaQuery.of(context).size.width);
-    print(MediaQuery.of(context).size.height);
     return Scaffold(
       bottomNavigationBar: BottomBar(0, widget.user),
       body: Stack(
@@ -60,34 +69,53 @@ class _SearchScreenState extends State<SearchScreen> {
                       fontSize: 30,
                       color: Colors.white,
                       fontWeight: FontWeight.bold,
-                      shadows: [
-                        Shadow(
-                            // bottomLeft
-                            offset: Offset(-1, -1),
-                            color: Colors.black),
-                        Shadow(
-                            // bottomRight
-                            offset: Offset(1, -1),
-                            color: Colors.black),
-                        Shadow(
-                            // topRight
-                            offset: Offset(1, 1),
-                            color: Colors.black),
-                        Shadow(
-                            // topLeft
-                            offset: Offset(-1, 1),
-                            color: Colors.black),
-                      ],
                     ),
                     textAlign: TextAlign.start,
                   ),
                 ),
                 SizedBox(height: 10),
                 TextSearch(controller: _controller),
+                SizedBox(height: 10),
                 Expanded(
-                  child: Container(
-                      child: SingleChildScrollView(child: Text(lyrics, style: TextStyle(fontSize: 16),))),
-                )
+                  child: ListView.separated(
+                    itemCount: suggestions.length,
+                    separatorBuilder: (BuildContext context, int index) =>
+                        Divider(
+                      height: 6,
+                    ),
+                    itemBuilder: (BuildContext context, int index) {
+                      return ListTile(
+                        tileColor: Colors.blueGrey[800],
+                        title: Text(
+                          suggestions[index].title,
+                          style: TextStyle(color: Colors.white),
+                        ),
+                        subtitle: Text(suggestions[index].artist,
+                            style: TextStyle(color: Colors.white)),
+                        //trailing: Image.network(suggestions[index].album_cover_url),
+                        onTap: () {
+                          Navigator.of(context).push(
+                            MaterialPageRoute(
+                              builder: (context) => LyricsPreviewScreen(suggestions[index]),
+                            ),
+                          );
+                        },
+                      );
+                    },
+                  ),
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.end,
+                  children: [
+                    FloatingActionButton(
+                      backgroundColor: Colors.grey[900],
+                      child: Icon(Icons.search),
+                      onPressed: () {
+                        _loadSuggestions();
+                      },
+                    )
+                  ],
+                ),
               ],
             ),
           )
@@ -115,7 +143,7 @@ class TextSearch extends StatelessWidget {
         hintText: "Search",
         hintStyle: TextStyle(color: Colors.grey),
         enabledBorder: OutlineInputBorder(
-          borderSide: BorderSide(color: Colors.black),
+          borderSide: BorderSide(color: Colors.white),
           borderRadius: BorderRadius.circular(10),
         ),
         focusedBorder: OutlineInputBorder(
