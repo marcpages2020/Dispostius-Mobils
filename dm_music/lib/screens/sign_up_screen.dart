@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:dm_music/animations/animated_route.dart';
 import 'package:flutter/material.dart';
 
+import '../song.dart';
 import '../userinfo/user.dart';
 import 'main_screen.dart';
 import 'sign_in_screen.dart';
@@ -187,6 +188,11 @@ class SignUp extends StatelessWidget {
   final TextEditingController _username;
   final List<String> friends = [];
   final String profilePicture = getRandomImage();
+  final String title = "Add Song";
+  final String artist = "";
+  final String album = "";
+  final String albumCoverUrl = "";
+  final String lyrics = "";
 
   final users = FirebaseFirestore.instance.collection('users');
 
@@ -211,6 +217,10 @@ class SignUp extends StatelessWidget {
               users.doc(_email.text).set(
                   DMUser.setUser(_username.text, friends, profilePicture)
                       .toFirestore());
+
+              users.doc(_email.text).collection('songs').doc(title).set(
+                    Song(title, artist, album, albumCoverUrl).toFirestore(),
+                  );
             },
             child: Text(
               'Sign Up',
