@@ -37,6 +37,18 @@ class _MainScreenState extends State<MainScreen> {
               .collection('songs')
               .snapshots(),
           builder: (context, snapshot) {
+            if (snapshot.hasError) {
+              return Container(
+                child: Text(
+                  snapshot.error.toString(),
+                ),
+              );
+            }
+            if (!snapshot.hasData) {
+              return Center(
+                child: CircularProgressIndicator(),
+              );
+            }
             return Stack(
               children: [
                 BackgroundMainScreen(),

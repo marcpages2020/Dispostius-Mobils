@@ -1,14 +1,18 @@
 import 'dart:convert';
 
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:dm_music/song.dart';
+import 'package:dm_music/userinfo/user.dart';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:http/http.dart' as http;
 
 class LyricsPreviewScreen extends StatefulWidget {
   final Song song;
+  final DMUser user;
 
-  LyricsPreviewScreen(this.song);
+  LyricsPreviewScreen(this.song, this.user);
 
   @override
   _LyricsPreviewScreenState createState() => _LyricsPreviewScreenState();
@@ -16,12 +20,14 @@ class LyricsPreviewScreen extends StatefulWidget {
 
 class _LyricsPreviewScreenState extends State<LyricsPreviewScreen> {
   String lyrics;
-
+  var user;
   @override
   void initState() {
     lyrics = "loading";
     _loadLyrics();
     super.initState();
+    user =
+        FirebaseFirestore.instance.collection('users').doc(widget.user.email);
   }
 
   void _loadLyrics() async {
@@ -34,7 +40,7 @@ class _LyricsPreviewScreenState extends State<LyricsPreviewScreen> {
     setState(() {
       lyrics = json['lyrics'];
 
-      if(lyrics == ""){
+      if (lyrics == "") {
         lyrics = "No lyrics available";
       }
     });
@@ -45,6 +51,17 @@ class _LyricsPreviewScreenState extends State<LyricsPreviewScreen> {
     return Scaffold(
       appBar: AppBar(
         title: Text("Preview"),
+        actions: [
+          FloatingActionButton(onPressed: () {
+            user.collection('songs').doc(widget.song.title).set(Song(
+                    widget.song.title,
+                    widget.song.artist,
+                    widget.song.album,
+                    widget.song.albumCoverUrl,
+                    lyrics)
+                .toFirestore());
+          }),
+        ],
       ),
       backgroundColor: Colors.purple,
       body: Row(
@@ -55,12 +72,18 @@ class _LyricsPreviewScreenState extends State<LyricsPreviewScreen> {
               SizedBox(height: 10),
               Text(
                 widget.song.title,
-                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 26, color: Colors.white),
+                style: TextStyle(
+                    fontWeight: FontWeight.bold,
+                    fontSize: 26,
+                    color: Colors.white),
               ),
               SizedBox(height: 10),
               Text(
                 widget.song.artist,
-                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 22, color: Colors.white),
+                style: TextStyle(
+                    fontWeight: FontWeight.bold,
+                    fontSize: 22,
+                    color: Colors.white),
               ),
               SizedBox(height: 10),
               Expanded(

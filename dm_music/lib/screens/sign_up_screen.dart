@@ -219,7 +219,8 @@ class SignUp extends StatelessWidget {
                       .toFirestore());
 
               users.doc(_email.text).collection('songs').doc(title).set(
-                    Song(title, artist, album, albumCoverUrl).toFirestore(),
+                    Song(title, artist, album, albumCoverUrl, lyrics)
+                        .toFirestore(),
                   );
             },
             child: Text(

@@ -92,11 +92,14 @@ class _SearchScreenState extends State<SearchScreen> {
                         ),
                         subtitle: Text(suggestions[index].artist,
                             style: TextStyle(color: Colors.white)),
-                        //trailing: Image.network(suggestions[index].album_cover_url),
+                        trailing: Image.network(
+                          suggestions[index].albumCoverUrl,
+                        ),
                         onTap: () {
                           Navigator.of(context).push(
                             MaterialPageRoute(
-                              builder: (context) => LyricsPreviewScreen(suggestions[index]),
+                              builder: (context) => LyricsPreviewScreen(
+                                  suggestions[index], widget.user),
                             ),
                           );
                         },
