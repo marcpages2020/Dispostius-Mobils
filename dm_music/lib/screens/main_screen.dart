@@ -22,15 +22,18 @@ class MainScreen extends StatefulWidget {
 }
 
 class _MainScreenState extends State<MainScreen> {
-  void _editSong(Song song) {
+  void _editSong(String oldSong, Song newSong) {
     final db = FirebaseFirestore.instance;
-    final firestoreSong = db.collection('users').doc(widget.user.email).collection('songs').doc(song.title);
-   
-    if(song.title != firestoreSong.id){
-      firestoreSong.delete();
-    }
+    final songs =
+        db.collection('users').doc(widget.user.email).collection('songs');
+    final firestoreSong = songs.doc(oldSong);
 
-    firestoreSong.set(song.toFirestore());
+    if (newSong.title != oldSong) {
+      firestoreSong.delete();
+      songs.doc(newSong.title).set(newSong.toFirestore());
+    } else {
+      firestoreSong.set(newSong.toFirestore());
+    }
   }
 
   @override
@@ -97,7 +100,10 @@ class _MainScreenState extends State<MainScreen> {
                                   .then(
                                 (changedSong) {
                                   setState(() {
-                                    _editSong(changedSong);
+                                    if (changedSong != null) {
+                                      _editSong(snapshot.data.docs[index].id,
+                                          changedSong);
+                                    }
                                   });
                                 },
                               );
