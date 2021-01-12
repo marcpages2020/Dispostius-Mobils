@@ -1,54 +1,79 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:dm_music/song.dart';
 import 'package:dm_music/userinfo/user.dart';
 import 'package:flutter/material.dart';
 
 class EditSongScreen extends StatefulWidget {
-  DMUser user;
-  String song_id;
-  EditSongScreen(this.song_id, this.user);
+  final DMUser user;
+  final Song song;
+
+  EditSongScreen(this.song, this.user);
   @override
   _EditSongScreenState createState() => _EditSongScreenState();
 }
 
 class _EditSongScreenState extends State<EditSongScreen> {
-  TextEditingController title;
-  TextEditingController content;
+  TextEditingController _titleController;
+  TextEditingController _contentController;
 
-@override
+  @override
   void initState() {
-    title = TextEditingController();
-    content = TextEditingController();
+    _titleController = TextEditingController();
+    _titleController.text = widget.song.title;
+    _contentController = TextEditingController();
+    _contentController.text = widget.song.lyrics;
     super.initState();
   }
 
-@override
+  void _editSong() {
+    widget.song.title = _titleController.text;
+    widget.song.lyrics = _contentController.text;
+  }
+
+  @override
   void dispose() {
-    title.dispose();
-    content.dispose();
+    _titleController.dispose();
+    _contentController.dispose();
     super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
-    final db = FirebaseFirestore.instance;
-    final song = db
-        .collection('users')
-        .doc(widget.user.email)
-        .collection('songs')
-        .doc(widget.song_id)
-        .snapshots();
     return Scaffold(
-        body: Column(
-      children: [
-        SizedBox(height: 30, child: Container(color: Colors.lime,),),
-        TextField(
-          controller: title,
+        appBar: AppBar(
+          title: TextField(
+            controller: _titleController,
+          ),
+          actions: [
+            IconButton(
+              icon: Icon(Icons.check),
+              onPressed: () {
+                _editSong();
+                Navigator.of(context).pop(widget.song);
+              },
+            ),
+          ],
         ),
-        TextField(
-          controller: content,
-          maxLines: 10,
-        )
-      ],
-    ));
+        body: Column(
+          children: [
+            SizedBox(
+              height: 10,
+              child: Container(
+                color: Colors.lime,
+              ),
+            ),
+            Expanded(
+              child: Container(
+                width: MediaQuery.of(context).size.width * 0.9,
+                color: Colors.white,
+                child: SingleChildScrollView(
+                    child: TextField(
+                  controller: _contentController,
+                  keyboardType: TextInputType.multiline,
+                  maxLines: null,
+                )),
+              ),
+            )
+          ],
+        ));
   }
 }

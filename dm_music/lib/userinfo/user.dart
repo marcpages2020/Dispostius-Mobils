@@ -7,17 +7,11 @@ class DMUser {
   List<dynamic> friends;
 
   //DMUser(this.username, this.email);
-  DMUser(String g_email, String g_username, String g_profilePicture,
-      List<dynamic> g_friends) {
-    email = g_email;
-    username = g_username;
-    profilePicture = g_profilePicture;
-    friends = g_friends;
-  }
+  DMUser(this.email, this.username, this.profilePicture, this.friends);
 
   DMUser.setUser(this.username, this.friends, this.profilePicture);
 
-  DMUser.fromNewFirestore(QueryDocumentSnapshot doc) {
+  DMUser.fromFirestore(QueryDocumentSnapshot doc) {
     this.username = doc.id;
     this.email = doc['email'];
   }

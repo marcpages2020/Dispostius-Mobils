@@ -52,7 +52,9 @@ class _LyricsPreviewScreenState extends State<LyricsPreviewScreen> {
       appBar: AppBar(
         title: Text("Preview"),
         actions: [
-          FloatingActionButton(onPressed: () {
+          IconButton(
+            icon: Icon(Icons.add),
+            onPressed: () {
             user.collection('songs').doc(widget.song.title).set(Song(
                     widget.song.title,
                     widget.song.artist,

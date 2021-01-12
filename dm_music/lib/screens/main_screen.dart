@@ -10,6 +10,8 @@ import 'package:dm_music/widgets/title.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
+import '../song.dart';
+
 class MainScreen extends StatefulWidget {
   final DMUser user;
 
@@ -20,11 +22,20 @@ class MainScreen extends StatefulWidget {
 }
 
 class _MainScreenState extends State<MainScreen> {
+  void _editSong(Song song) {
+    final db = FirebaseFirestore.instance;
+    final firestoreSong = db.collection('users').doc(widget.user.email).collection('songs').doc(song.title);
+   
+    if(song.title != firestoreSong.id){
+      firestoreSong.delete();
+    }
+
+    firestoreSong.set(song.toFirestore());
+  }
+
   @override
   Widget build(BuildContext context) {
     final db = FirebaseFirestore.instance;
-    final songs =
-        db.collection('users').doc(widget.user.email).collection('songs');
 
     return Scaffold(
       resizeToAvoidBottomInset: false,
@@ -77,10 +88,19 @@ class _MainScreenState extends State<MainScreen> {
                             title: Text(snapshot.data.docs[index].id),
                             tileColor: Colors.white,
                             onTap: () {
-                              Navigator.of(context).push(MaterialPageRoute(
-                                  builder: (context) => EditSongScreen(
-                                      snapshot.data.docs[index].id,
-                                      widget.user)));
+                              Navigator.of(context)
+                                  .push(MaterialPageRoute(
+                                      builder: (context) => EditSongScreen(
+                                          Song.fromNewFirestore(
+                                              snapshot.data.docs[index]),
+                                          widget.user)))
+                                  .then(
+                                (changedSong) {
+                                  setState(() {
+                                    _editSong(changedSong);
+                                  });
+                                },
+                              );
                             },
                           );
                         },
