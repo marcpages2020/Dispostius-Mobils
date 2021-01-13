@@ -31,8 +31,6 @@ class _LyricsPreviewScreenState extends State<LyricsPreviewScreen> {
   }
 
   void _loadLyrics() async {
-    print(
-        'https://api.lyrics.ovh/v1/${widget.song.artist}/${widget.song.title}');
     final response = await http.get(
         'https://api.lyrics.ovh/v1/${widget.song.artist}/${widget.song.title}');
     final json = jsonDecode(response.body);

@@ -61,7 +61,6 @@ class _MainScreenState extends State<MainScreen> {
               );
             }
             if (!snapshot.hasData) {
-              print("no data");
               return Center(
                 child: CircularProgressIndicator(),
               );

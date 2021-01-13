@@ -30,7 +30,6 @@ class _UserProfileScreen extends State<UserProfileScreen> {
 
   @override
   void initState() {
-    print(widget.user.username);
     super.initState();
   }
 
@@ -88,19 +87,28 @@ class _UserProfileScreen extends State<UserProfileScreen> {
                           itemBuilder: (context, int index) {
                             return Container(
                               color: Colors.white,
-                              child: Column(
+                              width: 140,
+                              height: 100,
+                              /*
+                              child: Center(
+                              
                                 children: [
-                                  Text(
-                                    snapshot.data.docs[index].id,
-                                  ),
+                                  SizedBox(height: 10),
+                                  Text(snapshot.data.docs[index].id),
                                   Row(
+                                    mainAxisAlignment: MainAxisAlignment.center,
                                     children: [
                                       Text("1"),
-                                      Icon(Icons.star, color: Colors.yellow,),
+                                      Icon(
+                                        Icons.star,
+                                        color: Colors.yellow,
+                                      )
                                     ],
-                                  )
+                                  ),
                                 ],
+                                
                               ),
+                              */
                             );
                           },
                         ),

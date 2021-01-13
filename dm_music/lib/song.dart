@@ -18,7 +18,6 @@ class Song {
             json['album']['cover'].replaceFirst("http://", "https://");
 
   Song.fromNewFirestore(QueryDocumentSnapshot doc) {
-    print(doc.id);
     this.title = doc['title'];
     this.lyrics = doc['lyrics'];
     this.artist = doc['artist'];

@@ -66,8 +66,6 @@ class _AddFriendsScreenState extends State<AddFriendsScreen> {
                           DMUser.setFriend(widget.user.friends).toFirestore(),
                         );
                       }
-
-                      print(widget.user.friends.length);
                     },
                   ),
                 )
