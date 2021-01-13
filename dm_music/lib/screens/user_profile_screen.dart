@@ -65,76 +65,104 @@ class _UserProfileScreen extends State<UserProfileScreen> {
                     padding: const EdgeInsets.all(8.0),
                     child: Column(
                       children: [
-                        SizedBox(height: 50),
-                        ProfilePicture(widget: widget),
-                        SizedBox(height: 10),
-                        Text(
-                          widget.user == null ? "user" : widget.user.username,
-                          style: TextStyle(
-                            fontSize: 30,
-                            color: Colors.white,
-                            fontStyle: FontStyle.normal,
-                          ),
-                          textAlign: TextAlign.center,
-                        ),
-                        //SizedBox(height: 15),
-                        SectionTitle("Songs", color: Colors.white),
                         Expanded(
                           flex: 2,
-                          child: ListView.separated(
-                            itemCount: snapshot.data.docs.length,
-                            scrollDirection: Axis.horizontal,
-                            separatorBuilder:
-                                (BuildContext context, int index) => Divider(),
-                            itemBuilder: (context, int index) {
-                              return Container(
-                                  decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.circular(6),
-                                    color: Colors.grey[850],
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Column(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceEvenly,
+                                children: [
+                                  ProfilePicture(widget: widget),
+                                  Text(
+                                    widget.user == null
+                                        ? "user"
+                                        : widget.user.username,
+                                    style: TextStyle(
+                                      fontSize: 30,
+                                      color: Colors.white,
+                                      fontStyle: FontStyle.normal,
+                                    ),
+                                    textAlign: TextAlign.center,
                                   ),
-                                  margin: EdgeInsets.all(10),
-                                  width: 140,
-                                  height: 100,
-                                  child: Column(
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    children: [
-                                      SizedBox(height: 10),
-                                      Text(
-                                        snapshot.data.docs[index].id,
-                                        style: TextStyle(
-                                            color: Colors.white,
-                                            fontWeight: FontWeight.bold,
-                                            fontSize: 16),
-                                      ),
-                                      SizedBox(height: 10),
-                                      Row(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.end,
-                                        children: [
-                                          Text(
-                                            snapshot.data.docs[index]
-                                                .get("likes")
-                                                .toString(),
-                                            style: TextStyle(
-                                                color: Colors.white,
-                                                fontWeight: FontWeight.bold,
-                                                fontSize: 20),
-                                          ),
-                                          Icon(
-                                            Icons.star,
-                                            color: Colors.yellow,
-                                          ),
-                                          SizedBox(width: 10),
-                                        ],
-                                      ),
-                                    ],
-                                  ));
-                            },
+                                ],
+                              ),
+                            ],
                           ),
                         ),
                         Expanded(
-                          child: SizedBox(),
                           flex: 3,
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                            children: [
+                              Expanded(
+                                  flex: 1,
+                                  child: SectionTitle("Songs",
+                                      color: Colors.white)),
+                              Expanded(
+                                flex: 2,
+                                child: ListView.separated(
+                                  itemCount: snapshot.data.docs.length,
+                                  scrollDirection: Axis.horizontal,
+                                  separatorBuilder:
+                                      (BuildContext context, int index) =>
+                                          Divider(),
+                                  itemBuilder: (context, int index) {
+                                    return Container(
+                                        decoration: BoxDecoration(
+                                          borderRadius:
+                                              BorderRadius.circular(6),
+                                          color: Colors.grey[850],
+                                        ),
+                                        margin: EdgeInsets.all(10),
+                                        width: 140,
+                                        height: 100,
+                                        child: Column(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.center,
+                                          children: [
+                                            SizedBox(height: 10),
+                                            Text(
+                                              snapshot.data.docs[index].id,
+                                              style: TextStyle(
+                                                  color: Colors.white,
+                                                  fontWeight: FontWeight.bold,
+                                                  fontSize: 16),
+                                            ),
+                                            SizedBox(height: 10),
+                                            Row(
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment.end,
+                                              children: [
+                                                Text(
+                                                  snapshot.data.docs[index]
+                                                      .get("likes")
+                                                      .toString(),
+                                                  style: TextStyle(
+                                                      color: Colors.white,
+                                                      fontWeight:
+                                                          FontWeight.bold,
+                                                      fontSize: 20),
+                                                ),
+                                                Icon(
+                                                  Icons.star,
+                                                  color: Colors.yellow,
+                                                ),
+                                                SizedBox(width: 10),
+                                              ],
+                                            ),
+                                          ],
+                                        ));
+                                  },
+                                ),
+                              ),
+                              Expanded(
+                                flex: 1,
+                                child: Container(),
+                              ),
+                            ],
+                          ),
                         ),
                       ],
                     ),
