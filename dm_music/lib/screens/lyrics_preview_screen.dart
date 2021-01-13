@@ -58,7 +58,7 @@ class _LyricsPreviewScreenState extends State<LyricsPreviewScreen> {
                     widget.song.artist,
                     widget.song.album,
                     widget.song.albumCoverUrl,
-                    lyrics)
+                    lyrics, widget.song.likes)
                 .toFirestore());
           }),
         ],

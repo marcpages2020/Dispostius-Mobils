@@ -8,7 +8,7 @@ class Song {
   String lyrics;
   int likes = 0;
 
-  Song(this.title, this.artist, this.album, this.albumCoverUrl, this.lyrics);
+  Song(this.title, this.artist, this.album, this.albumCoverUrl, this.lyrics, this.likes);
   
   Song.fromJson(Map<String, dynamic> json)
       : title = json['title'],
@@ -32,5 +32,6 @@ class Song {
         'artist': artist,
         'album': album,
         'albumCover': albumCoverUrl,
+        'likes' : likes,
       };
 }
