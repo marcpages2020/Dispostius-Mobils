@@ -6,6 +6,7 @@ class Song {
   String album = "unknown";
   String albumCoverUrl;
   String lyrics;
+  int likes = 0;
 
   Song(this.title, this.artist, this.album, this.albumCoverUrl, this.lyrics);
   
@@ -23,6 +24,7 @@ class Song {
     this.artist = doc['artist'];
     this.album = doc['album'];
     this.albumCoverUrl = doc['albumCover'];
+    this.likes = doc['likes'];
   }
 
   Map<String, dynamic> toFirestore() => {

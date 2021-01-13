@@ -1,8 +1,13 @@
 import 'package:dm_music/screens/main_screen.dart';
+import 'package:dm_music/song.dart';
 import 'package:flutter/material.dart';
 
 class HorizontalList extends StatelessWidget {
   @override
+  List<Song> songs;
+
+  HorizontalList(this.songs);
+
   Widget build(BuildContext context) {
     return Container(
       padding: EdgeInsets.only(top: 8, bottom: 8),

@@ -22,7 +22,9 @@ class MainScreen extends StatefulWidget {
 }
 
 class _MainScreenState extends State<MainScreen> {
-  void _editSong(String oldSong, Song newSong) {
+
+  void _editSong(String oldSong, Song newSong) 
+  {
     final db = FirebaseFirestore.instance;
     final songs =
         db.collection('users').doc(widget.user.email).collection('songs');
@@ -59,6 +61,7 @@ class _MainScreenState extends State<MainScreen> {
               );
             }
             if (!snapshot.hasData) {
+              print("no data");
               return Center(
                 child: CircularProgressIndicator(),
               );
