@@ -1,3 +1,4 @@
+import 'package:dm_music/screens/add_friends_screen.dart';
 import 'package:dm_music/screens/main_screen.dart';
 import 'package:dm_music/userinfo/user.dart';
 import 'package:dm_music/widgets/bottom_bar.dart';
@@ -56,12 +57,59 @@ class FriendsList extends StatelessWidget {
         itemCount: widget.user.friends.length + 1,
         itemBuilder: (BuildContext context, int index) {
           if (index == widget.user.friends.length) {
-            return AddFriendIcon();
+            return AddFriendIcon(widget: widget);
           } else {
             return FriendIcon(widget: widget, index: index);
           }
         },
       ),
+    );
+  }
+}
+
+class AddFriendIcon extends StatelessWidget {
+  const AddFriendIcon({
+    Key key,
+    @required this.widget,
+  }) : super(key: key);
+
+  final SocialScreen widget;
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      children: [
+        FlatButton(
+          child: ClipRRect(
+            borderRadius: BorderRadius.circular(50),
+            child: Container(
+              color: Colors.black,
+              child: Icon(
+                Icons.add_circle_outline_rounded,
+                size: 60,
+                color: Colors.limeAccent[700],
+              ),
+            ),
+          ),
+          onPressed: () {
+            Navigator.of(context).push(MaterialPageRoute(
+              builder: (context) => AddFriendsScreen(widget.user),
+            ));
+          },
+        ),
+        SizedBox(height: 1),
+        Text(
+          "Add Friend",
+          style: TextStyle(
+            color: Colors.white,
+            fontFamily: "FredokaOne",
+            fontStyle: FontStyle.normal,
+            fontSize: 12,
+          ),
+          maxLines: 2,
+          overflow: TextOverflow.ellipsis,
+        ),
+      ],
     );
   }
 }
@@ -98,43 +146,6 @@ class FriendIcon extends StatelessWidget {
           maxLines: 2,
           overflow: TextOverflow.ellipsis,
         )
-      ],
-    );
-  }
-}
-
-class AddFriendIcon extends StatelessWidget {
-  AddFriendIcon();
-  @override
-  Widget build(BuildContext context) {
-    return Column(
-      children: [
-        FlatButton(
-          child: ClipRRect(
-            borderRadius: BorderRadius.circular(50),
-            child: Container(
-              color: Colors.black,
-              child: Icon(
-                Icons.add_circle_outline_rounded,
-                size: 60,
-                color: Colors.limeAccent[700],
-              ),
-            ),
-          ),
-          onPressed: () {},
-        ),
-        SizedBox(height: 1),
-        Text(
-          "Add Friend",
-          style: TextStyle(
-            color: Colors.white,
-            fontFamily: "FredokaOne",
-            fontStyle: FontStyle.normal,
-            fontSize: 12,
-          ),
-          maxLines: 2,
-          overflow: TextOverflow.ellipsis,
-        ),
       ],
     );
   }

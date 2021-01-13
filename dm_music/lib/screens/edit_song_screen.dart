@@ -39,41 +39,42 @@ class _EditSongScreenState extends State<EditSongScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(
-          title: TextField(
-            controller: _titleController,
-          ),
-          actions: [
-            IconButton(
-              icon: Icon(Icons.check),
-              onPressed: () {
-                _editSong();
-                Navigator.of(context).pop(widget.song);
-              },
-            ),
-          ],
+      appBar: AppBar(
+        title: TextField(
+          controller: _titleController,
         ),
-        body: Column(
-          children: [
-            SizedBox(
-              height: 10,
-              child: Container(
-                color: Colors.lime,
-              ),
+        actions: [
+          IconButton(
+            icon: Icon(Icons.check),
+            onPressed: () {
+              _editSong();
+              Navigator.of(context).pop(widget.song);
+            },
+          ),
+        ],
+      ),
+      body: Column(
+        children: [
+          SizedBox(
+            height: 10,
+            child: Container(
+              color: Colors.lime,
             ),
-            Expanded(
-              child: Container(
-                width: MediaQuery.of(context).size.width * 0.9,
-                color: Colors.white,
-                child: SingleChildScrollView(
-                    child: TextField(
-                  controller: _contentController,
-                  keyboardType: TextInputType.multiline,
-                  maxLines: null,
-                )),
-              ),
-            )
-          ],
-        ));
+          ),
+          Expanded(
+            child: Container(
+              width: MediaQuery.of(context).size.width * 0.9,
+              color: Colors.white,
+              child: SingleChildScrollView(
+                  child: TextField(
+                controller: _contentController,
+                keyboardType: TextInputType.multiline,
+                maxLines: null,
+              )),
+            ),
+          )
+        ],
+      ),
+    );
   }
 }
