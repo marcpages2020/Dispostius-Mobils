@@ -121,7 +121,8 @@ class _UserProfileScreen extends State<UserProfileScreen> {
                                                   .image,
                                               fit: BoxFit.fill,
                                               colorFilter: ColorFilter.mode(
-                                                  Colors.black.withOpacity(0.35),
+                                                  Colors.black
+                                                      .withOpacity(0.35),
                                                   BlendMode.dstATop)),
                                           color: Colors.grey[850],
                                         ),
@@ -181,7 +182,7 @@ class _UserProfileScreen extends State<UserProfileScreen> {
   }
 }
 
-class ProfilePicture extends StatelessWidget {
+class ProfilePicture extends StatefulWidget {
   const ProfilePicture({
     Key key,
     @required this.widget,
@@ -189,6 +190,11 @@ class ProfilePicture extends StatelessWidget {
 
   final UserProfileScreen widget;
 
+  @override
+  _ProfilePictureState createState() => _ProfilePictureState();
+}
+
+class _ProfilePictureState extends State<ProfilePicture> {
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -199,14 +205,18 @@ class ProfilePicture extends StatelessWidget {
         ),
         child: ClipRRect(
           borderRadius: BorderRadius.circular(70),
-          child: Image.network(widget.user.profilePicture, height: 150),
+          child: Image.network(widget.widget.user.profilePicture, height: 150),
         ),
         onPressed: () {
-          Navigator.of(context).push(
+          Navigator.of(context)
+              .push(
             MaterialPageRoute(
-              builder: (context) => ChangeProfileImage(widget.user),
+              builder: (context) => ChangeProfileImage(widget.widget.user),
             ),
-          );
+          )
+              .then((value) {
+            setState(() {});
+          });
         },
       ),
     );

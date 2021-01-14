@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:dm_music/userinfo/image_lists.dart';
 import 'package:dm_music/widgets/horizontal_lists.dart';
 import 'package:dm_music/widgets/title.dart';
@@ -50,13 +51,13 @@ class HoritzontalListOfImages extends StatelessWidget {
         UsernameTitle(widget: widget),
         SizedBox(height: 15),
         SectionTitle("Spain", color: Colors.white),
-        HorizontalImageList(images: spain),
+        HorizontalImageList(images: spain, widget: widget),
         SectionTitle("International", color: Colors.white),
-        HorizontalImageList(images: international),
+        HorizontalImageList(images: international, widget: widget),
         SectionTitle("Videogames", color: Colors.white),
-        HorizontalImageList(images: videogames),
+        HorizontalImageList(images: videogames, widget: widget),
         SectionTitle("DJ", color: Colors.white),
-        HorizontalImageList(images: dj),
+        HorizontalImageList(images: dj, widget: widget),
       ],
     );
   }

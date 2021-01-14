@@ -11,8 +11,6 @@ class DMUser {
 
   DMUser.setUser(this.username, this.friends, this.profilePicture);
 
-  DMUser.setFriend(this.friends);
-
   DMUser.fromFirestore(QueryDocumentSnapshot doc) {
     this.username = doc.id;
     this.email = doc['email'];
