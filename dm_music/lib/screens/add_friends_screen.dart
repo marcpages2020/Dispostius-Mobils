@@ -1,9 +1,9 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:dm_music/screens/search_screen.dart';
+import 'main_screens/search_screen.dart';
 import 'package:dm_music/userinfo/user.dart';
 import 'package:flutter/material.dart';
 
-import 'main_screen.dart';
+import 'main_screens/home_screen.dart';
 
 class AddFriendsScreen extends StatefulWidget {
   final DMUser user;
@@ -45,7 +45,7 @@ class _AddFriendsScreenState extends State<AddFriendsScreen> {
             child: Stack(
               children: [
                 TextSearch(
-                  controller: _friendsController,
+                  _friendsController, null
                 ),
                 Container(
                   alignment: Alignment.bottomRight,

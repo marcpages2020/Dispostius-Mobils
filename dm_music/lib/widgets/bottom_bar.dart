@@ -1,7 +1,7 @@
-import 'package:dm_music/screens/main_screen.dart';
-import 'package:dm_music/screens/search_screen.dart';
-import 'package:dm_music/screens/social_screen.dart';
-import 'package:dm_music/screens/user_profile_screen.dart';
+import 'package:dm_music/screens/main_screens/home_screen.dart';
+import 'package:dm_music/screens/main_screens/search_screen.dart';
+import 'package:dm_music/screens/main_screens/social_screen.dart';
+import 'package:dm_music/screens/main_screens/user_profile_screen.dart';
 import 'package:dm_music/userinfo/user.dart';
 import 'package:flutter/material.dart';
 
@@ -28,11 +28,11 @@ class _BottomBarState extends State<BottomBar> {
             break;
           case 1:
             Navigator.of(context).push(MaterialPageRoute(
-                builder: (context) => MainScreen(widget.user)));
+                builder: (context) => HomeScreen(widget.user)));
             break;
           case 2:
             Navigator.of(context).push(MaterialPageRoute(
-                builder: (context) => UserProfileScreen(widget.user)));
+                builder: (context) => UserProfileScreen(widget.user, true)));
             break;
           case 3:
             Navigator.of(context).push(MaterialPageRoute(

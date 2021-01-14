@@ -1,5 +1,6 @@
 import 'package:dm_music/screens/add_friends_screen.dart';
-import 'package:dm_music/screens/main_screen.dart';
+import 'package:dm_music/screens/main_screens/home_screen.dart';
+import 'package:dm_music/screens/main_screens/user_profile_screen.dart';
 import 'package:dm_music/userinfo/user.dart';
 import 'package:dm_music/widgets/bottom_bar.dart';
 import 'package:dm_music/widgets/title.dart';
@@ -59,7 +60,7 @@ class FriendsList extends StatelessWidget {
           if (index == widget.user.friends.length) {
             return AddFriendIcon(widget: widget);
           } else {
-            return FriendIcon(widget: widget, index: index);
+            return FriendIcon(socialScreen: widget, index: index);
           }
         },
       ),
@@ -114,15 +115,26 @@ class AddFriendIcon extends StatelessWidget {
   }
 }
 
-class FriendIcon extends StatelessWidget {
+class FriendIcon extends StatefulWidget {
+  final SocialScreen socialScreen;
+
   const FriendIcon({
     Key key,
-    @required this.widget,
+    @required this.socialScreen,
     @required this.index,
   }) : super(key: key);
 
-  final SocialScreen widget;
   final int index;
+
+  DMUser _getFriend(String user){
+
+  }
+
+  @override
+  _FriendIconState createState() => _FriendIconState();
+}
+
+class _FriendIconState extends State<FriendIcon> {
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -132,11 +144,19 @@ class FriendIcon extends StatelessWidget {
             borderRadius: BorderRadius.circular(50),
             child: Image.network(getRandomImage(), height: 60),
           ),
-          onPressed: () {},
+          onPressed: () {
+            Navigator.of(context).push(
+              MaterialPageRoute(
+                builder: (context) {
+                  return UserProfileScreen(widget.socialScreen.user, false);
+                },
+              ),
+            );
+          },
         ),
         SizedBox(height: 1),
         Text(
-          widget.user.friends[index],
+          widget.socialScreen.user.friends[widget.index],
           style: TextStyle(
             color: Colors.white,
             fontFamily: "FredokaOne",

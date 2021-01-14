@@ -2,19 +2,18 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:dm_music/screens/sign_in_screen.dart';
 import 'package:dm_music/widgets/bottom_bar.dart';
 import 'package:dm_music/widgets/custom_painters.dart';
-import 'package:dm_music/widgets/horizontal_lists.dart';
 import 'package:dm_music/widgets/title.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
-import '../song.dart';
-import '../userinfo/user.dart';
-import 'change_image_screen.dart';
+import '../../song.dart';
+import '../../userinfo/user.dart';
+import '../change_image_screen.dart';
 
 class UserProfileScreen extends StatefulWidget {
   final DMUser user;
-
-  UserProfileScreen(this.user);
+  final bool ownProfile;
+  UserProfileScreen(this.user, this.ownProfile);
 
   @override
   _UserProfileScreen createState() => _UserProfileScreen();
@@ -37,8 +36,9 @@ class _UserProfileScreen extends State<UserProfileScreen> {
     final db = FirebaseFirestore.instance;
 
     return Scaffold(
+      appBar: !widget.ownProfile ? AppBar() : null,
       backgroundColor: Colors.black,
-      bottomNavigationBar: BottomBar(2, widget.user),
+      bottomNavigationBar: widget.ownProfile ? BottomBar(2, widget.user) : null,
       body: StreamBuilder(
           stream: db
               .collection('users')
@@ -62,11 +62,11 @@ class _UserProfileScreen extends State<UserProfileScreen> {
                 children: [
                   BackgroundUserScreen(),
                   Padding(
-                    padding: const EdgeInsets.all(8.0),
+                    padding: const EdgeInsets.all(14.0),
                     child: Column(
                       children: [
                         Expanded(
-                          flex: 2,
+                          flex: 3,
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
@@ -145,10 +145,8 @@ class _UserProfileScreen extends State<UserProfileScreen> {
                                                           FontWeight.bold,
                                                       fontSize: 20),
                                                 ),
-                                                Icon(
-                                                  Icons.star,
-                                                  color: Colors.yellow,
-                                                ),
+                                                Icon(Icons.star,
+                                                    color: Colors.yellow),
                                                 SizedBox(width: 10),
                                               ],
                                             ),

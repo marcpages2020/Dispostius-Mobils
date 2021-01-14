@@ -10,18 +10,18 @@ import 'package:dm_music/widgets/title.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
-import '../song.dart';
+import '../../song.dart';
 
-class MainScreen extends StatefulWidget {
+class HomeScreen extends StatefulWidget {
   final DMUser user;
 
-  MainScreen(this.user);
+  HomeScreen(this.user);
 
   @override
-  _MainScreenState createState() => _MainScreenState();
+  _HomeScreenState createState() => _HomeScreenState();
 }
 
-class _MainScreenState extends State<MainScreen> {
+class _HomeScreenState extends State<HomeScreen> {
 
   void _editSong(String oldSong, Song newSong) 
   {
@@ -82,7 +82,7 @@ class _MainScreenState extends State<MainScreen> {
                       ),
                     ),
                     Expanded(
-                      flex: 11,
+                      flex: 10,
                       child: ListView.separated(
                         padding: EdgeInsets.all(10),
                         itemCount: snapshot.data.docs.length,

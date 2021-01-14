@@ -1,5 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:dm_music/screens/main_screen.dart';
+import 'package:dm_music/screens/main_screens/home_screen.dart';
 import 'package:dm_music/userinfo/user.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -33,7 +33,7 @@ class DmMusic extends StatelessWidget {
               profilePicture = snapshot.data['profilePicture'];
               friends = snapshot.data['friends'];
             }
-            return MainScreen(
+            return HomeScreen(
                 DMUser(currentUser.email, username, profilePicture, friends));
           }),
     );

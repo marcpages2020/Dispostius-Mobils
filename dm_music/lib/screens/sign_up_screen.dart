@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 
 import '../song.dart';
 import '../userinfo/user.dart';
-import 'main_screen.dart';
+import 'main_screens/home_screen.dart';
 import 'sign_in_screen.dart';
 
 class EmailAndPassword {

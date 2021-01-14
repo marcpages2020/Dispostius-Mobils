@@ -14,7 +14,7 @@ class SectionTitle extends StatelessWidget {
         text,
         style: TextStyle(
           color: color,
-          fontSize: 22,
+          fontSize: 26,
           fontFamily: "FredokaOne",
           fontStyle: FontStyle.normal,
           shadows: [
