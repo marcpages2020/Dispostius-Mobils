@@ -4,7 +4,7 @@ class DMUser {
   String username;
   String email;
   String profilePicture;
-  List<dynamic> friends;
+  List<dynamic> friends = [];
 
   //DMUser(this.username, this.email);
   DMUser(this.email, this.username, this.profilePicture, this.friends);
