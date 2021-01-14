@@ -159,7 +159,8 @@ class _FriendIconState extends State<FriendIcon> {
         FlatButton(
           child: ClipRRect(
             borderRadius: BorderRadius.circular(50),
-            child: Image.network(friendUser.profilePicture, height: 60),
+            child: Image.network(friendUser == null ? "https://pbs.twimg.com/profile_images/1306654479601864715/5rJogQzq_400x400.jpg" : 
+            friendUser.profilePicture, height: 60),
           ),
           onPressed: () {
             Navigator.of(context).push(
@@ -173,6 +174,7 @@ class _FriendIconState extends State<FriendIcon> {
         ),
         SizedBox(height: 1),
         Text(
+          friendUser == null ? "user" : 
           friendUser.username,
           style: TextStyle(
             color: Colors.white,
