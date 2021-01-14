@@ -18,6 +18,8 @@ class _AddFriendsScreenState extends State<AddFriendsScreen> {
   var user;
   var listUsers;
   List<DMUser> userList = [];
+  List<String> names = [];
+
   @override
   void initState() {
     _friendsController = TextEditingController();
@@ -34,82 +36,105 @@ class _AddFriendsScreenState extends State<AddFriendsScreen> {
   }
 
   void initList() async {
-    listUsers = FirebaseFirestore.instance.collection('users').snapshots();
-    List<String> names = [];
-    for (int i = 0; i < listUsers.lenght; i++) {
-      if (listUsers[i].id.toString().contains(_friendsController.text)) {
-        names.add(listUsers[i].id.toString());
-      }
+    if (listUsers.id.toString().contains(_friendsController.text)) {
+      //names.add(listUsers[i].id.toString());
     }
   }
 
   @override
   Widget build(BuildContext context) {
+    final db = FirebaseFirestore.instance;
+
     return Scaffold(
       appBar: AppBar(
         title: Text("Add Friends"),
       ),
-      body: Stack(
-        children: [
-          BackgroundMainScreen(),
-          Padding(
-            padding: const EdgeInsets.all(32.0),
-            child: Stack(
-              children: [
-                TextSearch(
-                  controller: _friendsController,
-                ),
-                Container(
-                  alignment: Alignment.bottomRight,
-                  child: FloatingActionButton(
-                    backgroundColor: Colors.grey[900],
-                    child: Icon(Icons.search),
-                    onPressed: () => initList(),
-                  ),
-                ),
-                ListView.separated(
-                  itemCount: userList.length,
-                  separatorBuilder: (BuildContext context, int index) =>
-                      Divider(height: 6),
-                  itemBuilder: (BuildContext context, int index) {
-                    print(index);
-                    if (index != 0) {
-                      return ListTile(
-                        tileColor: Colors.blueGrey[800],
-                        title: Text(
-                          userList[index].username,
-                          style: TextStyle(color: Colors.white),
-                        ),
-                        trailing: Image.network(
-                          userList[index].profilePicture,
-                        ),
-                        onTap: () {
-                          bool exist = false;
-                          for (int i = 0; i < widget.user.friends.length; i++) {
-                            if (_friendsController == widget.user.friends[i])
-                              exist = true;
-                            else
-                              exist = false;
-                          }
-                          if (!exist) {
-                            widget.user.friends.add(_friendsController.text);
-                            user.set(
-                              DMUser.setUser(
-                                      widget.user.email,
-                                      widget.user.friends,
-                                      widget.user.profilePicture)
-                                  .toFirestore(),
-                            );
-                          }
+      resizeToAvoidBottomInset: false,
+      backgroundColor: Colors.black,
+      body: StreamBuilder(
+        stream: db.collection('users').snapshots(),
+        builder: (context, snapshot) {
+          if (snapshot.hasError) {
+            return Container(
+              child: Text(
+                snapshot.error.toString(),
+              ),
+            );
+          }
+          if (!snapshot.hasData) {
+            print("no data");
+            return Center(
+              child: CircularProgressIndicator(),
+            );
+          }
+          return Stack(
+            children: [
+              BackgroundMainScreen(),
+              Padding(
+                padding: const EdgeInsets.all(32.0),
+                child: Column(
+                  children: [
+                    TextSearch(
+                      controller: _friendsController,
+                    ),
+                    SizedBox(height: 20),
+                    Expanded(
+                      child: ListView.separated(
+                        padding: EdgeInsets.all(10),
+                        itemCount:
+                            4 /*snapshot.data.docs.getDocuments().lenght*/,
+                        separatorBuilder: (BuildContext context, int index) =>
+                            Divider(),
+                        itemBuilder: (context, int index) {
+                          return ListTile(
+                            title: Text(snapshot.data.docs[index].id),
+                            trailing: Image.network(snapshot.data.docs[index]
+                                .get('profilePicture')),
+                            tileColor: Colors.white,
+                            onTap: () {
+                              bool exist = false;
+                              for (int i = 0;
+                                  i < widget.user.friends.length;
+                                  i++) {
+                                if (_friendsController ==
+                                    widget.user.friends[i])
+                                  exist = true;
+                                else
+                                  exist = false;
+                              }
+                              if (!exist) {
+                                widget.user.friends
+                                    .add(_friendsController.text);
+                                user.set(
+                                  DMUser.setUser(
+                                          widget.user.email,
+                                          widget.user.friends,
+                                          widget.user.profilePicture)
+                                      .toFirestore(),
+                                );
+                              }
+                            },
+                          );
                         },
-                      );
-                    }
-                  },
+                      ),
+                    ),
+                    SizedBox(
+                      height: 20,
+                    ),
+                    Container(
+                      alignment: Alignment.bottomRight,
+                      child: FloatingActionButton(
+                        backgroundColor: Colors.grey[900],
+                        child: Icon(Icons.search),
+                        onPressed: () => initList(),
+                      ),
+                    ),
+                  ],
                 ),
-              ],
-            ),
-          ),
-        ],
+              )
+            ],
+          );
+        },
       ),
     );
   }
