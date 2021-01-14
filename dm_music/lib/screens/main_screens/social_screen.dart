@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:dm_music/screens/add_friends_screen.dart';
 import 'package:dm_music/screens/main_screens/home_screen.dart';
 import 'package:dm_music/screens/main_screens/user_profile_screen.dart';
@@ -126,15 +127,32 @@ class FriendIcon extends StatefulWidget {
 
   final int index;
 
-  DMUser _getFriend(String user){
-
-  }
-
   @override
   _FriendIconState createState() => _FriendIconState();
 }
 
 class _FriendIconState extends State<FriendIcon> {
+  DMUser friendUser;
+  var friend;
+  @override
+  void initState() {
+    initUser();
+    super.initState();
+  }
+
+  void initUser() async {
+    final db = FirebaseFirestore.instance;
+    friend = await db
+        .collection('users')
+        .doc(widget.socialScreen.user.friends[widget.index])
+        .get();
+
+    setState(() {
+      friendUser = DMUser(widget.socialScreen.user.friends[widget.index],
+          friend["username"], friend["profilePicture"], friend["friends"]);
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -142,7 +160,7 @@ class _FriendIconState extends State<FriendIcon> {
         FlatButton(
           child: ClipRRect(
             borderRadius: BorderRadius.circular(50),
-            child: Image.network(getRandomImage(), height: 60),
+            child: Image.network(friendUser.profilePicture, height: 60),
           ),
           onPressed: () {
             Navigator.of(context).push(
@@ -156,7 +174,7 @@ class _FriendIconState extends State<FriendIcon> {
         ),
         SizedBox(height: 1),
         Text(
-          widget.socialScreen.user.friends[widget.index],
+          friendUser.username,
           style: TextStyle(
             color: Colors.white,
             fontFamily: "FredokaOne",

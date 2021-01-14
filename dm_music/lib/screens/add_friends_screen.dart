@@ -73,10 +73,7 @@ class _AddFriendsScreenState extends State<AddFriendsScreen> {
                 padding: const EdgeInsets.all(32.0),
                 child: Column(
                   children: [
-                    TextSearch(
-                      _friendsController,
-                      initList,
-                    ),
+                    TextSearch(_friendsController, initList),
                     SizedBox(height: 20),
                     Expanded(
                       child: ListView.separated(
@@ -116,17 +113,6 @@ class _AddFriendsScreenState extends State<AddFriendsScreen> {
                             },
                           );
                         },
-                      ),
-                    ),
-                    SizedBox(
-                      height: 20,
-                    ),
-                    Container(
-                      alignment: Alignment.bottomRight,
-                      child: FloatingActionButton(
-                        backgroundColor: Colors.grey[900],
-                        child: Icon(Icons.search),
-                        onPressed: () => initList(),
                       ),
                     ),
                   ],
