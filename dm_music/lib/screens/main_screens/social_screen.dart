@@ -166,7 +166,7 @@ class _FriendIconState extends State<FriendIcon> {
             Navigator.of(context).push(
               MaterialPageRoute(
                 builder: (context) {
-                  return UserProfileScreen(widget.socialScreen.user, false);
+                  return UserProfileScreen(friendUser, false);
                 },
               ),
             );

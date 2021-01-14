@@ -103,7 +103,7 @@ class _AddFriendsScreenState extends State<AddFriendsScreen> {
                                     .add(_friendsController.text);
                                 user.set(
                                   DMUser.setUser(
-                                          widget.user.email,
+                                          widget.user.username,
                                           widget.user.friends,
                                           widget.user.profilePicture)
                                       .toFirestore(),
