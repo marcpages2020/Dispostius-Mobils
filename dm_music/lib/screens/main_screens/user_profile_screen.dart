@@ -112,7 +112,17 @@ class _UserProfileScreen extends State<UserProfileScreen> {
                                     return Container(
                                         decoration: BoxDecoration(
                                           borderRadius:
-                                              BorderRadius.circular(6),
+                                              BorderRadius.circular(18),
+                                          image: DecorationImage(
+                                              image: Image.network(snapshot
+                                                      .data.docs[index]
+                                                      .get("albumCover")
+                                                      .toString())
+                                                  .image,
+                                              fit: BoxFit.fill,
+                                              colorFilter: ColorFilter.mode(
+                                                  Colors.black.withOpacity(0.35),
+                                                  BlendMode.dstATop)),
                                           color: Colors.grey[850],
                                         ),
                                         margin: EdgeInsets.all(10),
@@ -123,13 +133,11 @@ class _UserProfileScreen extends State<UserProfileScreen> {
                                               MainAxisAlignment.center,
                                           children: [
                                             SizedBox(height: 10),
-                                            Text(
-                                              snapshot.data.docs[index].id,
-                                              style: TextStyle(
-                                                  color: Colors.white,
-                                                  fontWeight: FontWeight.bold,
-                                                  fontSize: 16),
-                                            ),
+                                            Text(snapshot.data.docs[index].id,
+                                                style: TextStyle(
+                                                    color: Colors.white,
+                                                    fontWeight: FontWeight.bold,
+                                                    fontSize: 16)),
                                             SizedBox(height: 10),
                                             Row(
                                               mainAxisAlignment:
@@ -147,7 +155,7 @@ class _UserProfileScreen extends State<UserProfileScreen> {
                                                 ),
                                                 Icon(Icons.star,
                                                     color: Colors.yellow),
-                                                SizedBox(width: 10),
+                                                SizedBox(width: 15),
                                               ],
                                             ),
                                           ],
@@ -224,27 +232,3 @@ class BackgroundUserScreen extends StatelessWidget {
     );
   }
 }
-
-/*
-
-                
-                
-                
-                
-                SizedBox(height: 10),
-                Container(
-                  color: Colors.white,
-                  child: FlatButton(
-                    onPressed: () {
-                      _signOut();
-                    },
-                    child: Text(
-                      "Sign Out",
-                      style: TextStyle(
-                        fontFamily: "FredokaOne",
-                        fontStyle: FontStyle.normal,
-                      ),
-                    ),
-                  ),
-                ),
-*/

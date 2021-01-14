@@ -134,6 +134,9 @@ class TextSearch extends StatelessWidget {
         Expanded(
           flex: 6,
           child: TextField(
+            onSubmitted: (value) {
+              functionToDo();
+            },
             controller: _controller,
             decoration: InputDecoration(
               hintText: "Search",
