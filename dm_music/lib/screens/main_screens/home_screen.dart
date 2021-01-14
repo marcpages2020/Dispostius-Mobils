@@ -22,9 +22,7 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-
-  void _editSong(String oldSong, Song newSong) 
-  {
+  void _editSong(String oldSong, Song newSong) {
     final db = FirebaseFirestore.instance;
     final songs =
         db.collection('users').doc(widget.user.email).collection('songs');
@@ -36,6 +34,45 @@ class _HomeScreenState extends State<HomeScreen> {
     } else {
       firestoreSong.set(newSong.toFirestore());
     }
+  }
+
+  Widget _buildDeleteSongDialog(BuildContext context, String songName) {
+    return new AlertDialog(
+      title: Text('Do you want to delete this song?'),
+      actions: <Widget>[
+        FlatButton(
+          textColor: Theme.of(context).primaryColor,
+          child: Text(
+            'Delete',
+            style: TextStyle(fontSize: 16),
+          ),
+          onPressed: () {
+            _deleteSong(songName);
+            Navigator.of(context).pop();
+          },
+        ),
+        FlatButton(
+          onPressed: () {
+            Navigator.of(context).pop();
+          },
+          textColor: Theme.of(context).primaryColor,
+          child: Text(
+            "Cancel",
+            style: TextStyle(fontSize: 16),
+          ),
+        ),
+      ],
+    );
+  }
+
+  _deleteSong(String songId) {
+    final db = FirebaseFirestore.instance;
+    db
+        .collection('users')
+        .doc(widget.user.email)
+        .collection('songs')
+        .doc(songId)
+        .delete();
   }
 
   @override
@@ -90,8 +127,17 @@ class _HomeScreenState extends State<HomeScreen> {
                             Divider(),
                         itemBuilder: (context, int index) {
                           return ListTile(
-                            title: Text(snapshot.data.docs[index].id),
-                            tileColor: Colors.white,
+                            title: Text(
+                              snapshot.data.docs[index].id,
+                              style: TextStyle(color: Colors.white),
+                            ),
+                            subtitle: Text(
+                              snapshot.data.docs[index].get('artist'),
+                              style: TextStyle(color: Colors.white),
+                            ),
+                            trailing: Image.network(
+                                snapshot.data.docs[index].get('albumCover')),
+                            tileColor: Colors.grey[850],
                             onTap: () {
                               Navigator.of(context)
                                   .push(MaterialPageRoute(
@@ -109,6 +155,13 @@ class _HomeScreenState extends State<HomeScreen> {
                                   });
                                 },
                               );
+                            },
+                            onLongPress: () {
+                              showDialog(
+                                  context: context,
+                                  builder: (BuildContext context) =>
+                                      _buildDeleteSongDialog(context,
+                                          snapshot.data.docs[index].id));
                             },
                           );
                         },
@@ -136,7 +189,7 @@ class BackgroundMainScreen extends StatelessWidget {
             MediaQuery.of(context).size.height),
         painter: CustomPainterMainScreen(
           Colors.deepPurple,
-          Colors.grey[850],
+          Colors.grey[900],
           Colors.lime[800],
         ),
       ),

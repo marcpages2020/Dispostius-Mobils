@@ -19,7 +19,6 @@ class SocialScreen extends StatefulWidget {
 class _SocialScreenState extends State<SocialScreen> {
   @override
   Widget build(BuildContext context) {
-    print(widget.user.friends);
     return Scaffold(
       backgroundColor: Colors.black,
       bottomNavigationBar: BottomBar(3, widget.user),

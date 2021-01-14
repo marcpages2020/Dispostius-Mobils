@@ -61,7 +61,6 @@ class _AddFriendsScreenState extends State<AddFriendsScreen> {
             );
           }
           if (!snapshot.hasData) {
-            print("no data");
             return Center(
               child: CircularProgressIndicator(),
             );
