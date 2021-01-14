@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 
 import '../song.dart';
 import '../userinfo/user.dart';
-import 'main_screen.dart';
+import 'main_screens/home_screen.dart';
 import 'sign_in_screen.dart';
 
 class EmailAndPassword {
@@ -193,6 +193,7 @@ class SignUp extends StatelessWidget {
   final String album = "";
   final String albumCoverUrl = "";
   final String lyrics = "";
+  final int likes = 0;
 
   final users = FirebaseFirestore.instance.collection('users');
 
@@ -219,7 +220,7 @@ class SignUp extends StatelessWidget {
                       .toFirestore());
 
               users.doc(_email.text).collection('songs').doc(title).set(
-                    Song(title, artist, album, albumCoverUrl, lyrics)
+                    Song(title, artist, album, albumCoverUrl, lyrics, likes)
                         .toFirestore(),
                   );
             },

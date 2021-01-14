@@ -31,8 +31,6 @@ class _LyricsPreviewScreenState extends State<LyricsPreviewScreen> {
   }
 
   void _loadLyrics() async {
-    print(
-        'https://api.lyrics.ovh/v1/${widget.song.artist}/${widget.song.title}');
     final response = await http.get(
         'https://api.lyrics.ovh/v1/${widget.song.artist}/${widget.song.title}');
     final json = jsonDecode(response.body);
@@ -46,6 +44,21 @@ class _LyricsPreviewScreenState extends State<LyricsPreviewScreen> {
     });
   }
 
+  Widget _buildPopupDialog(BuildContext context) {
+    return new AlertDialog(
+      title: Text('Song added to Your Songs'),
+      actions: <Widget>[
+        FlatButton(
+          onPressed: () {
+            Navigator.of(context).pop();
+          },
+          textColor: Theme.of(context).primaryColor,
+          child: Text('Close', style: TextStyle(fontSize: 16),),
+        ),
+      ],
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -53,19 +66,24 @@ class _LyricsPreviewScreenState extends State<LyricsPreviewScreen> {
         title: Text("Preview"),
         actions: [
           IconButton(
-            icon: Icon(Icons.add),
-            onPressed: () {
-            user.collection('songs').doc(widget.song.title).set(Song(
-                    widget.song.title,
-                    widget.song.artist,
-                    widget.song.album,
-                    widget.song.albumCoverUrl,
-                    lyrics)
-                .toFirestore());
-          }),
+              icon: Icon(Icons.add),
+              onPressed: () {
+                user.collection('songs').doc(widget.song.title).set(Song(
+                        widget.song.title,
+                        widget.song.artist,
+                        widget.song.album,
+                        widget.song.albumCoverUrl,
+                        lyrics,
+                        widget.song.likes)
+                    .toFirestore());
+                showDialog(
+                    context: context,
+                    builder: (BuildContext context) =>
+                        _buildPopupDialog(context));
+              }),
         ],
       ),
-      backgroundColor: Colors.purple,
+      backgroundColor: Colors.grey[900],
       body: Row(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
@@ -79,13 +97,10 @@ class _LyricsPreviewScreenState extends State<LyricsPreviewScreen> {
                     fontSize: 26,
                     color: Colors.white),
               ),
-              SizedBox(height: 10),
+              SizedBox(height: 6),
               Text(
                 widget.song.artist,
-                style: TextStyle(
-                    fontWeight: FontWeight.bold,
-                    fontSize: 22,
-                    color: Colors.white),
+                style: TextStyle(fontSize: 20, color: Colors.white),
               ),
               SizedBox(height: 10),
               Expanded(
@@ -93,11 +108,10 @@ class _LyricsPreviewScreenState extends State<LyricsPreviewScreen> {
                   width: MediaQuery.of(context).size.width * 0.95,
                   color: Colors.white,
                   child: SingleChildScrollView(
-                    child: Text(
-                      lyrics,
-                      style: TextStyle(fontSize: 16),
-                      textAlign: TextAlign.center,
-                    ),
+                    padding: EdgeInsets.fromLTRB(0.0, 15.0, 0.0, 0.0),
+                    child: Text(lyrics,
+                        style: TextStyle(fontSize: 16),
+                        textAlign: TextAlign.center),
                   ),
                 ),
               )

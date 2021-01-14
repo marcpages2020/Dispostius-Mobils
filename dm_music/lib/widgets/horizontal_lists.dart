@@ -1,4 +1,4 @@
-import 'package:dm_music/screens/main_screen.dart';
+import 'package:dm_music/screens/main_screens/home_screen.dart';
 import 'package:dm_music/song.dart';
 import 'package:flutter/material.dart';
 

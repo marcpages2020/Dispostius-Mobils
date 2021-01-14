@@ -8,7 +8,7 @@ class Song {
   String lyrics;
   int likes = 0;
 
-  Song(this.title, this.artist, this.album, this.albumCoverUrl, this.lyrics);
+  Song(this.title, this.artist, this.album, this.albumCoverUrl, this.lyrics, this.likes);
   
   Song.fromJson(Map<String, dynamic> json)
       : title = json['title'],
@@ -18,7 +18,6 @@ class Song {
             json['album']['cover'].replaceFirst("http://", "https://");
 
   Song.fromNewFirestore(QueryDocumentSnapshot doc) {
-    print(doc.id);
     this.title = doc['title'];
     this.lyrics = doc['lyrics'];
     this.artist = doc['artist'];
@@ -33,5 +32,6 @@ class Song {
         'artist': artist,
         'album': album,
         'albumCover': albumCoverUrl,
+        'likes' : likes,
       };
 }

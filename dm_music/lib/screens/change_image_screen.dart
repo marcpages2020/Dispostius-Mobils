@@ -4,7 +4,7 @@ import 'package:dm_music/widgets/title.dart';
 import 'package:flutter/material.dart';
 
 import '../userinfo/user.dart';
-import 'main_screen.dart';
+import 'main_screens/home_screen.dart';
 
 class ChangeProfileImage extends StatefulWidget {
   final DMUser user;

@@ -41,6 +41,8 @@ class _EditSongScreenState extends State<EditSongScreen> {
     return Scaffold(
       appBar: AppBar(
         title: TextField(
+          style: TextStyle(color: Colors.white, fontSize: 18),
+          cursorColor: Colors.white,
           controller: _titleController,
         ),
         actions: [
@@ -53,13 +55,12 @@ class _EditSongScreenState extends State<EditSongScreen> {
           ),
         ],
       ),
+      backgroundColor: Colors.white,
       body: Column(
         children: [
           SizedBox(
             height: 10,
-            child: Container(
-              color: Colors.lime,
-            ),
+            child: Container(),
           ),
           Expanded(
             child: Container(

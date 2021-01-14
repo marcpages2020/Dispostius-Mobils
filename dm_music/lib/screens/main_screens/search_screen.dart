@@ -1,13 +1,13 @@
 import 'dart:convert';
 
 import 'package:dm_music/screens/lyrics_preview_screen.dart';
-import 'package:dm_music/screens/main_screen.dart';
+import 'package:dm_music/screens/main_screens/home_screen.dart';
 import 'package:dm_music/userinfo/user.dart';
 import 'package:dm_music/widgets/bottom_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 
-import '../song.dart';
+import '../../song.dart';
 
 class SearchScreen extends StatefulWidget {
   final DMUser user;
@@ -35,7 +35,7 @@ class _SearchScreenState extends State<SearchScreen> {
     super.dispose();
   }
 
-  _loadSuggestions() async {
+  void _loadSuggestions() async {
     final response =
         await http.get("https://api.lyrics.ovh/suggest/${_controller.text}");
     final json = jsonDecode(response.body);
@@ -61,6 +61,9 @@ class _SearchScreenState extends State<SearchScreen> {
             padding: EdgeInsets.all(16),
             child: Column(
               children: [
+                SizedBox(
+                  height: 15.0,
+                ),
                 Container(
                   alignment: Alignment.centerLeft,
                   child: Text(
@@ -74,18 +77,20 @@ class _SearchScreenState extends State<SearchScreen> {
                   ),
                 ),
                 SizedBox(height: 10),
-                TextSearch(controller: _controller),
+                TextSearch(_controller, _loadSuggestions),
                 SizedBox(height: 10),
                 Expanded(
                   child: ListView.separated(
                     itemCount: suggestions.length,
                     separatorBuilder: (BuildContext context, int index) =>
                         Divider(
-                      height: 6,
+                      height: 8,
                     ),
                     itemBuilder: (BuildContext context, int index) {
                       return ListTile(
                         tileColor: Colors.blueGrey[800],
+                        shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(100)),
                         title: Text(
                           suggestions[index].title,
                           style: TextStyle(color: Colors.white),
@@ -107,18 +112,6 @@ class _SearchScreenState extends State<SearchScreen> {
                     },
                   ),
                 ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.end,
-                  children: [
-                    FloatingActionButton(
-                      backgroundColor: Colors.grey[900],
-                      child: Icon(Icons.search),
-                      onPressed: () {
-                        _loadSuggestions();
-                      },
-                    )
-                  ],
-                ),
               ],
             ),
           )
@@ -129,33 +122,45 @@ class _SearchScreenState extends State<SearchScreen> {
 }
 
 class TextSearch extends StatelessWidget {
-  const TextSearch({
-    Key key,
-    @required TextEditingController controller,
-  })  : _controller = controller,
-        super(key: key);
-
+  final functionToDo;
   final TextEditingController _controller;
+
+  TextSearch(this._controller, this.functionToDo);
 
   @override
   Widget build(BuildContext context) {
-    return TextField(
-      controller: _controller,
-      decoration: InputDecoration(
-        prefixIcon: Icon(Icons.search),
-        hintText: "Search",
-        hintStyle: TextStyle(color: Colors.grey),
-        enabledBorder: OutlineInputBorder(
-          borderSide: BorderSide(color: Colors.white),
-          borderRadius: BorderRadius.circular(10),
+    return Row(
+      children: [
+        Expanded(
+          flex: 6,
+          child: TextField(
+            controller: _controller,
+            decoration: InputDecoration(
+              hintText: "Search",
+              hintStyle: TextStyle(color: Colors.grey),
+              enabledBorder: OutlineInputBorder(
+                borderSide: BorderSide(color: Colors.white),
+                borderRadius: BorderRadius.circular(10),
+              ),
+              focusedBorder: OutlineInputBorder(
+                borderSide: BorderSide(color: Colors.white),
+                borderRadius: BorderRadius.circular(10),
+              ),
+              fillColor: Colors.white,
+              filled: true,
+            ),
+          ),
         ),
-        focusedBorder: OutlineInputBorder(
-          borderSide: BorderSide(color: Colors.white),
-          borderRadius: BorderRadius.circular(10),
-        ),
-        fillColor: Colors.white,
-        filled: true,
-      ),
+        SizedBox(width: 10),
+        Expanded(
+            flex: 1,
+            child: FloatingActionButton(
+              child: Icon(Icons.search),
+              onPressed: () {
+                functionToDo();
+              },
+            )),
+      ],
     );
   }
 }
