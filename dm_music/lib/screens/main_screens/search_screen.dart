@@ -4,6 +4,7 @@ import 'package:dm_music/screens/lyrics_preview_screen.dart';
 import 'package:dm_music/screens/main_screens/home_screen.dart';
 import 'package:dm_music/userinfo/user.dart';
 import 'package:dm_music/widgets/bottom_bar.dart';
+import 'package:dm_music/widgets/title.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 
@@ -66,14 +67,9 @@ class _SearchScreenState extends State<SearchScreen> {
                 ),
                 Container(
                   alignment: Alignment.centerLeft,
-                  child: Text(
+                  child: SectionTitle(
                     "Search",
-                    style: TextStyle(
-                      fontSize: 30,
-                      color: Colors.white,
-                      fontWeight: FontWeight.bold,
-                    ),
-                    textAlign: TextAlign.start,
+                    color: Colors.white,
                   ),
                 ),
                 SizedBox(height: 10),
