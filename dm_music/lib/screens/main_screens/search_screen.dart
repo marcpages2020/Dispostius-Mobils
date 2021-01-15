@@ -87,27 +87,10 @@ class _SearchScreenState extends State<SearchScreen> {
                       height: 8,
                     ),
                     itemBuilder: (BuildContext context, int index) {
-                      return ListTile(
-                        tileColor: Colors.blueGrey[800],
-                        shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(100)),
-                        title: Text(
-                          suggestions[index].title,
-                          style: TextStyle(color: Colors.white),
-                        ),
-                        subtitle: Text(suggestions[index].artist,
-                            style: TextStyle(color: Colors.white)),
-                        trailing: Image.network(
-                          suggestions[index].albumCoverUrl,
-                        ),
-                        onTap: () {
-                          Navigator.of(context).push(
-                            MaterialPageRoute(
-                              builder: (context) => LyricsPreviewScreen(
-                                  suggestions[index], widget.user),
-                            ),
-                          );
-                        },
+                      return SearchTile(
+                        suggestions: suggestions,
+                        widget: widget,
+                        index: index,
                       );
                     },
                   ),
@@ -116,6 +99,55 @@ class _SearchScreenState extends State<SearchScreen> {
             ),
           )
         ],
+      ),
+    );
+  }
+}
+
+class SearchTile extends StatelessWidget {
+  const SearchTile(
+      {Key key,
+      @required this.suggestions,
+      @required this.widget,
+      @required this.index})
+      : super(key: key);
+
+  final List<Song> suggestions;
+  final SearchScreen widget;
+  final int index;
+  @override
+  Widget build(BuildContext context) {
+    return Card(
+      color: Colors.blueGrey[800],
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.all(Radius.circular(20)),
+      ),
+      child: ListTile(
+        title: Text(
+          suggestions[index].title,
+          style: TextStyle(color: Colors.white),
+        ),
+        subtitle: Text(suggestions[index].artist,
+            style: TextStyle(color: Colors.white)),
+        trailing: Container(
+          width: 60,
+          height: 60,
+          decoration: BoxDecoration(
+            shape: BoxShape.circle,
+            image: DecorationImage(
+              fit: BoxFit.fill,
+              image: NetworkImage(suggestions[index].albumCoverUrl),
+            ),
+          ),
+        ),
+        onTap: () {
+          Navigator.of(context).push(
+            MaterialPageRoute(
+              builder: (context) =>
+                  LyricsPreviewScreen(suggestions[index], widget.user),
+            ),
+          );
+        },
       ),
     );
   }

@@ -126,43 +126,60 @@ class _HomeScreenState extends State<HomeScreen> {
                         separatorBuilder: (BuildContext context, int index) =>
                             Divider(),
                         itemBuilder: (context, int index) {
-                          return ListTile(
-                            title: Text(
-                              snapshot.data.docs[index].id,
-                              style: TextStyle(color: Colors.white),
+                          return Card(
+                            color: Colors.grey[850],
+                            shape: RoundedRectangleBorder(
+                              borderRadius:
+                                  BorderRadius.all(Radius.circular(20)),
                             ),
-                            subtitle: Text(
-                              snapshot.data.docs[index].get('artist'),
-                              style: TextStyle(color: Colors.white),
+                            child: ListTile(
+                              title: Text(
+                                snapshot.data.docs[index].id,
+                                style: TextStyle(color: Colors.white),
+                              ),
+                              subtitle: Text(
+                                snapshot.data.docs[index].get('artist'),
+                                style: TextStyle(color: Colors.white),
+                              ),
+                              trailing: Container(
+                                width: 60,
+                                height: 60,
+                                decoration: BoxDecoration(
+                                  shape: BoxShape.circle,
+                                  image: DecorationImage(
+                                    fit: BoxFit.fill,
+                                    image: NetworkImage(snapshot
+                                        .data.docs[index]
+                                        .get('albumCover')),
+                                  ),
+                                ),
+                              ),
+                              onTap: () {
+                                Navigator.of(context)
+                                    .push(MaterialPageRoute(
+                                        builder: (context) => EditSongScreen(
+                                            Song.fromNewFirestore(
+                                                snapshot.data.docs[index]),
+                                            widget.user)))
+                                    .then(
+                                  (changedSong) {
+                                    setState(() {
+                                      if (changedSong != null) {
+                                        _editSong(snapshot.data.docs[index].id,
+                                            changedSong);
+                                      }
+                                    });
+                                  },
+                                );
+                              },
+                              onLongPress: () {
+                                showDialog(
+                                    context: context,
+                                    builder: (BuildContext context) =>
+                                        _buildDeleteSongDialog(context,
+                                            snapshot.data.docs[index].id));
+                              },
                             ),
-                            trailing: Image.network(
-                                snapshot.data.docs[index].get('albumCover')),
-                            tileColor: Colors.grey[850],
-                            onTap: () {
-                              Navigator.of(context)
-                                  .push(MaterialPageRoute(
-                                      builder: (context) => EditSongScreen(
-                                          Song.fromNewFirestore(
-                                              snapshot.data.docs[index]),
-                                          widget.user)))
-                                  .then(
-                                (changedSong) {
-                                  setState(() {
-                                    if (changedSong != null) {
-                                      _editSong(snapshot.data.docs[index].id,
-                                          changedSong);
-                                    }
-                                  });
-                                },
-                              );
-                            },
-                            onLongPress: () {
-                              showDialog(
-                                  context: context,
-                                  builder: (BuildContext context) =>
-                                      _buildDeleteSongDialog(context,
-                                          snapshot.data.docs[index].id));
-                            },
                           );
                         },
                       ),

@@ -121,7 +121,43 @@ class CustomTile extends StatelessWidget {
   final user;
   final int index;
 
-  void checkyourfriends() {
+  Widget _buildPopupDialog(BuildContext context, bool exist) {
+    if (!exist) {
+      return new AlertDialog(
+        title: Text('Friend Added to your Friends'),
+        actions: <Widget>[
+          FlatButton(
+            onPressed: () {
+              Navigator.of(context).pop();
+            },
+            textColor: Theme.of(context).primaryColor,
+            child: Text(
+              'Close',
+              style: TextStyle(fontSize: 16),
+            ),
+          ),
+        ],
+      );
+    } else {
+      return new AlertDialog(
+        title: Text('This friends is already in you list'),
+        actions: <Widget>[
+          FlatButton(
+            onPressed: () {
+              Navigator.of(context).pop();
+            },
+            textColor: Theme.of(context).primaryColor,
+            child: Text(
+              'Close',
+              style: TextStyle(fontSize: 16),
+            ),
+          ),
+        ],
+      );
+    }
+  }
+
+  void checkyourfriends(BuildContext context) {
     bool exist = false;
     for (int i = 0; i < widget.user.friends.length; i++) {
       if (userList[index].email == widget.user.friends[i])
@@ -136,6 +172,9 @@ class CustomTile extends StatelessWidget {
                 widget.user.profilePicture)
             .toFirestore(),
       );
+      showDialog(
+          context: context,
+          builder: (BuildContext context) => _buildPopupDialog(context, exist));
     }
   }
 
@@ -167,7 +206,7 @@ class CustomTile extends StatelessWidget {
           ),
         ),
         onTap: () {
-          checkyourfriends();
+          checkyourfriends(context);
         },
       ),
     );

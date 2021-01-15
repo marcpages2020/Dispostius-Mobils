@@ -53,7 +53,10 @@ class _LyricsPreviewScreenState extends State<LyricsPreviewScreen> {
             Navigator.of(context).pop();
           },
           textColor: Theme.of(context).primaryColor,
-          child: Text('Close', style: TextStyle(fontSize: 16),),
+          child: Text(
+            'Close',
+            style: TextStyle(fontSize: 16),
+          ),
         ),
       ],
     );
