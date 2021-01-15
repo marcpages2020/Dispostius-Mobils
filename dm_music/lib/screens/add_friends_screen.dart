@@ -164,12 +164,15 @@ class _CustomTileState extends State<CustomTile> {
 
   void checkyourfriends(BuildContext context) {
     bool exist = false;
-    for (int i = 0; i < widget.widget.user.friends.length; i++) {
-      if (widget.userList[widget.index].email == widget.widget.user.friends[i])
+
+    for (int i = 0; i < widget.user.friends.length; i++) {
+      if (widget.userList[widget.index].email == widget.user.friends[i]) {
         exist = true;
-      else
+        break;
+      } else
         exist = false;
     }
+
     if (!exist) {
       widget.widget.user.friends.add(widget.userList[widget.index].email);
       widget.user.set(
@@ -179,10 +182,11 @@ class _CustomTileState extends State<CustomTile> {
       );
       showDialog(
           context: context,
-          builder: (BuildContext context) =>
-              _buildPopupDialog(context, exist)).then((value) {
-        Navigator.of(context).pop();
-      });
+          builder: (BuildContext context) => _buildPopupDialog(context, exist));
+    } else {
+      showDialog(
+          context: context,
+          builder: (BuildContext context) => _buildPopupDialog(context, exist));
     }
   }
 

@@ -170,26 +170,54 @@ class UserPictureAndUsername extends StatelessWidget {
   }) : super(key: key);
 
   final UserProfileScreen widget;
+  @override
+  Future<SignInScreen> _signOut() async {
+    await FirebaseAuth.instance.signOut();
+
+    return new SignInScreen();
+  }
 
   @override
   Widget build(BuildContext context) {
     return Expanded(
       flex: 3,
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.center,
+      child: Stack(
         children: [
-          Column(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              ProfilePicture(widget: widget),
-              Text(
-                widget.user == null ? "user" : widget.user.username,
-                style: TextStyle(
-                  fontSize: 30,
-                  color: Colors.white,
-                  fontStyle: FontStyle.normal,
+              Column(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: [
+                  ProfilePicture(widget: widget),
+                  Text(
+                    widget.user == null ? "user" : widget.user.username,
+                    style: TextStyle(
+                      fontSize: 30,
+                      color: Colors.white,
+                      fontStyle: FontStyle.normal,
+                    ),
+                    textAlign: TextAlign.center,
+                  ),
+                ],
+              ),
+            ],
+          ),
+          Column(
+            children: [
+              SizedBox(height: 20),
+              Align(
+                alignment: Alignment.topRight,
+                child: Container(
+                  height: 40,
+                  width: 40,
+                  child: FloatingActionButton(
+                    child: Icon(Icons.logout),
+                    onPressed: () {
+                      _signOut();
+                    },
+                  ),
                 ),
-                textAlign: TextAlign.center,
               ),
             ],
           ),
