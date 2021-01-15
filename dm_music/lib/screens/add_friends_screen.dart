@@ -106,7 +106,7 @@ class _AddFriendsScreenState extends State<AddFriendsScreen> {
   }
 }
 
-class CustomTile extends StatelessWidget {
+class CustomTile extends StatefulWidget {
   const CustomTile({
     Key key,
     @required this.userList,
@@ -121,37 +121,42 @@ class CustomTile extends StatelessWidget {
   final user;
   final int index;
 
+  @override
+  _CustomTileState createState() => _CustomTileState();
+}
+
+class _CustomTileState extends State<CustomTile> {
   Widget _buildPopupDialog(BuildContext context, bool exist) {
     if (!exist) {
-      return new AlertDialog(
+      return AlertDialog(
         title: Text('Friend Added to your Friends'),
         actions: <Widget>[
           FlatButton(
-            onPressed: () {
-              Navigator.of(context).pop();
-            },
             textColor: Theme.of(context).primaryColor,
             child: Text(
               'Close',
               style: TextStyle(fontSize: 16),
             ),
+            onPressed: () {
+              Navigator.of(context).pop();
+            },
           ),
         ],
       );
     } else {
-      return new AlertDialog(
+      return AlertDialog(
         title: Text('This friends is already in you list'),
         actions: <Widget>[
           FlatButton(
-            onPressed: () {
-              Navigator.of(context).pop();
-            },
-            textColor: Theme.of(context).primaryColor,
-            child: Text(
-              'Close',
-              style: TextStyle(fontSize: 16),
-            ),
-          ),
+              textColor: Theme.of(context).primaryColor,
+              child: Text(
+                'Close',
+                style: TextStyle(fontSize: 16),
+              ),
+              onPressed: () {
+                Navigator.of(context).pop();
+                setState(() {});
+              }),
         ],
       );
     }
@@ -159,22 +164,25 @@ class CustomTile extends StatelessWidget {
 
   void checkyourfriends(BuildContext context) {
     bool exist = false;
-    for (int i = 0; i < widget.user.friends.length; i++) {
-      if (userList[index].email == widget.user.friends[i])
+    for (int i = 0; i < widget.widget.user.friends.length; i++) {
+      if (widget.userList[widget.index].email == widget.widget.user.friends[i])
         exist = true;
       else
         exist = false;
     }
     if (!exist) {
-      widget.user.friends.add(userList[index].email);
-      user.set(
-        DMUser.setUser(widget.user.username, widget.user.friends,
-                widget.user.profilePicture)
+      widget.widget.user.friends.add(widget.userList[widget.index].email);
+      widget.user.set(
+        DMUser.setUser(widget.widget.user.username, widget.widget.user.friends,
+                widget.widget.user.profilePicture)
             .toFirestore(),
       );
       showDialog(
           context: context,
-          builder: (BuildContext context) => _buildPopupDialog(context, exist));
+          builder: (BuildContext context) =>
+              _buildPopupDialog(context, exist)).then((value) {
+        Navigator.of(context).pop();
+      });
     }
   }
 
@@ -187,11 +195,11 @@ class CustomTile extends StatelessWidget {
       ),
       child: ListTile(
         title: Text(
-          userList[index].username,
+          widget.userList[widget.index].username,
           style: TextStyle(color: Colors.white),
         ),
         subtitle: Text(
-          userList[index].email,
+          widget.userList[widget.index].email,
           style: TextStyle(color: Colors.white),
         ),
         trailing: Container(
@@ -201,7 +209,7 @@ class CustomTile extends StatelessWidget {
             shape: BoxShape.circle,
             image: DecorationImage(
               fit: BoxFit.fill,
-              image: NetworkImage(userList[index].profilePicture),
+              image: NetworkImage(widget.userList[widget.index].profilePicture),
             ),
           ),
         ),

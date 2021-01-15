@@ -1,6 +1,5 @@
 import 'package:dm_music/screens/main_screens/home_screen.dart';
 import 'package:dm_music/screens/main_screens/search_screen.dart';
-import 'package:dm_music/screens/main_screens/social_screen.dart';
 import 'package:dm_music/screens/main_screens/user_profile_screen.dart';
 import 'package:dm_music/userinfo/user.dart';
 import 'package:flutter/material.dart';
@@ -34,10 +33,6 @@ class _BottomBarState extends State<BottomBar> {
             Navigator.of(context).push(MaterialPageRoute(
                 builder: (context) => UserProfileScreen(widget.user, true)));
             break;
-          case 3:
-            Navigator.of(context).push(MaterialPageRoute(
-                builder: (context) => SocialScreen(widget.user)));
-            break;
           default:
             break;
         }
@@ -56,8 +51,6 @@ class _BottomBarState extends State<BottomBar> {
         BottomNavigationBarItem(icon: Icon(Icons.home), label: "Home"),
         BottomNavigationBarItem(
             icon: Icon(Icons.perm_identity), label: "Profile"),
-        BottomNavigationBarItem(
-            icon: Icon(Icons.person_add_alt), label: "Social"),
       ],
       currentIndex: widget._myIndex,
       onTap: _onItemTapped,
