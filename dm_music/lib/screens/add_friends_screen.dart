@@ -88,29 +88,11 @@ class _AddFriendsScreenState extends State<AddFriendsScreen> {
                     separatorBuilder: (BuildContext context, int index) =>
                         Divider(),
                     itemBuilder: (context, int index) {
-                      return ListTile(
-                        title: Text(userList[index].username),
-                        trailing: Image.network(userList[index].profilePicture),
-                        tileColor: Colors.white,
-                        onTap: () {
-                          bool exist = false;
-                          for (int i = 0; i < widget.user.friends.length; i++) {
-                            if (userList[index].email == widget.user.friends[i])
-                              exist = true;
-                            else
-                              exist = false;
-                          }
-                          if (!exist) {
-                            widget.user.friends.add(userList[index].email);
-                            user.set(
-                              DMUser.setUser(
-                                      widget.user.username,
-                                      widget.user.friends,
-                                      widget.user.profilePicture)
-                                  .toFirestore(),
-                            );
-                          }
-                        },
+                      return CustomTile(
+                        userList: userList,
+                        widget: widget,
+                        user: user,
+                        index: index,
                       );
                     },
                   ),
@@ -124,38 +106,70 @@ class _AddFriendsScreenState extends State<AddFriendsScreen> {
   }
 }
 
-/*Stack(
-            children: [
-              BackgroundMainScreen(),
-              Padding(
-                padding: const EdgeInsets.all(32.0),
-                child: Column(
-                  children: [
-                    TextSearch(_friendsController, initList),
-                    SizedBox(height: 20),
+class CustomTile extends StatelessWidget {
+  const CustomTile({
+    Key key,
+    @required this.userList,
+    @required this.widget,
+    @required this.user,
+    @required this.index,
+  }) : super(key: key);
 
-                        Expanded(
-                          child: ListView.separated(
-                              padding: EdgeInsets.all(10),
-                              itemCount: snapshot.data.docs.lenght,
-                              separatorBuilder:
-                                  (BuildContext context, int index) =>
-                                      Divider(),
-                              itemBuilder: (context, int index) {
-                                return ListTile(
-                                    title: Text(user["username"]),
-                                    trailing:
-                                        Image.network(user["profilePicture"]),
-                                    tileColor: Colors.white,
-                                    onTap: () {
-                                      /*user["email"]*/
-                                    });
-                              }),
-                        );
-                      },
-                    ),
-                  ],
-                ),
-              )
-            ],
-          );*/
+  final List<DMUser> userList;
+  final AddFriendsScreen widget;
+
+  final user;
+  final int index;
+
+  void checkyourfriends() {
+    bool exist = false;
+    for (int i = 0; i < widget.user.friends.length; i++) {
+      if (userList[index].email == widget.user.friends[i])
+        exist = true;
+      else
+        exist = false;
+    }
+    if (!exist) {
+      widget.user.friends.add(userList[index].email);
+      user.set(
+        DMUser.setUser(widget.user.username, widget.user.friends,
+                widget.user.profilePicture)
+            .toFirestore(),
+      );
+    }
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Card(
+      color: Colors.blueGrey[800],
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.all(Radius.circular(20)),
+      ),
+      child: ListTile(
+        title: Text(
+          userList[index].username,
+          style: TextStyle(color: Colors.white),
+        ),
+        subtitle: Text(
+          userList[index].email,
+          style: TextStyle(color: Colors.white),
+        ),
+        trailing: Container(
+          width: 60,
+          height: 60,
+          decoration: BoxDecoration(
+            shape: BoxShape.circle,
+            image: DecorationImage(
+              fit: BoxFit.fill,
+              image: NetworkImage(userList[index].profilePicture),
+            ),
+          ),
+        ),
+        onTap: () {
+          checkyourfriends();
+        },
+      ),
+    );
+  }
+}
