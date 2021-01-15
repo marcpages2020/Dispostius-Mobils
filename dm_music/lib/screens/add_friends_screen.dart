@@ -34,43 +34,32 @@ class _AddFriendsScreenState extends State<AddFriendsScreen> {
   }
 
   final db = FirebaseFirestore.instance;
-  void initList() async {
-    StreamBuilder(
-      stream: db.collection('users').snapshots(),
-      builder: (context, snapshot) {
-        if (snapshot.hasError) {
-          return Container(
-            child: Text(
-              snapshot.error.toString(),
-            ),
-          );
-        }
-        if (!snapshot.hasData) {
-          return Center(
-            child: CircularProgressIndicator(),
-          );
-        }
-        print(snapshot.data.docs.length.toString());
-        for (var i = 0; i < snapshot.data.docs.length; i++) {
-          if (snapshot.data.docs[i].id
-              .toString()
-              .contains(_friendsController.text)) {
-            userList.add(
-              DMUser(
-                snapshot.data.docs[i].get('email'),
-                snapshot.data.docs[i].get('username'),
-                snapshot.data.docs[i].get('profilePicture'),
-                snapshot.data.docs[i].get('friends'),
-              ),
-            );
-          }
-        }
-      },
-    );
 
-    /*if () {
-      //names.add(listUsers[i].id.toString());
-    }*/
+  void initList() async {
+    userList = [];
+
+    final users = await db.collection('users').get().then(
+          (QuerySnapshot querySnapshot) => {
+            querySnapshot.docs.forEach(
+              (user) {
+                if (user.id.toString().contains(_friendsController.text)) {
+                  userList.add(
+                    DMUser(
+                      user.id,
+                      user['username'],
+                      user['profilePicture'],
+                      user['friends'],
+                    ),
+                  );
+                }
+              },
+            )
+          },
+        );
+
+    setState(() {
+      //userList = tmpList;
+    });
   }
 
   @override
@@ -100,13 +89,29 @@ class _AddFriendsScreenState extends State<AddFriendsScreen> {
                         Divider(),
                     itemBuilder: (context, int index) {
                       return ListTile(
-                          title: Text(userList[index].username),
-                          trailing:
-                              Image.network(userList[index].profilePicture),
-                          tileColor: Colors.white,
-                          onTap: () {
-                            /*snapshot.data.docs[index].get('email');*/
-                          });
+                        title: Text(userList[index].username),
+                        trailing: Image.network(userList[index].profilePicture),
+                        tileColor: Colors.white,
+                        onTap: () {
+                          bool exist = false;
+                          for (int i = 0; i < widget.user.friends.length; i++) {
+                            if (userList[index].email == widget.user.friends[i])
+                              exist = true;
+                            else
+                              exist = false;
+                          }
+                          if (!exist) {
+                            widget.user.friends.add(userList[index].email);
+                            user.set(
+                              DMUser.setUser(
+                                      widget.user.username,
+                                      widget.user.friends,
+                                      widget.user.profilePicture)
+                                  .toFirestore(),
+                            );
+                          }
+                        },
+                      );
                     },
                   ),
                 )

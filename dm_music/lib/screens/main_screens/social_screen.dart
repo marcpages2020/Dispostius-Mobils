@@ -68,7 +68,7 @@ class FriendsList extends StatelessWidget {
   }
 }
 
-class AddFriendIcon extends StatelessWidget {
+class AddFriendIcon extends StatefulWidget {
   const AddFriendIcon({
     Key key,
     @required this.widget,
@@ -76,6 +76,11 @@ class AddFriendIcon extends StatelessWidget {
 
   final SocialScreen widget;
 
+  @override
+  _AddFriendIconState createState() => _AddFriendIconState();
+}
+
+class _AddFriendIconState extends State<AddFriendIcon> {
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -93,9 +98,13 @@ class AddFriendIcon extends StatelessWidget {
             ),
           ),
           onPressed: () {
-            Navigator.of(context).push(MaterialPageRoute(
-              builder: (context) => AddFriendsScreen(widget.user),
-            ));
+            Navigator.of(context)
+                .push(MaterialPageRoute(
+              builder: (context) => AddFriendsScreen(widget.widget.user),
+            ))
+                .then((value) {
+              setState(() {});
+            });
           },
         ),
         SizedBox(height: 1),
@@ -159,8 +168,11 @@ class _FriendIconState extends State<FriendIcon> {
         FlatButton(
           child: ClipRRect(
             borderRadius: BorderRadius.circular(50),
-            child: Image.network(friendUser == null ? "https://pbs.twimg.com/profile_images/1306654479601864715/5rJogQzq_400x400.jpg" : 
-            friendUser.profilePicture, height: 60),
+            child: Image.network(
+                friendUser == null
+                    ? "https://pbs.twimg.com/profile_images/1306654479601864715/5rJogQzq_400x400.jpg"
+                    : friendUser.profilePicture,
+                height: 60),
           ),
           onPressed: () {
             Navigator.of(context).push(
@@ -169,13 +181,14 @@ class _FriendIconState extends State<FriendIcon> {
                   return UserProfileScreen(friendUser, false);
                 },
               ),
-            );
+            ).then((value) {
+              setState(() {});
+            });
           },
         ),
         SizedBox(height: 1),
         Text(
-          friendUser == null ? "user" : 
-          friendUser.username,
+          friendUser == null ? "user" : friendUser.username,
           style: TextStyle(
             color: Colors.white,
             fontFamily: "FredokaOne",
