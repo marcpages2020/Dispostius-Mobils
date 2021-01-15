@@ -16,7 +16,6 @@ class AddFriendsScreen extends StatefulWidget {
 class _AddFriendsScreenState extends State<AddFriendsScreen> {
   TextEditingController _friendsController;
   var user;
-  var listUsers;
   List<DMUser> userList = [];
   List<String> names = [];
 
@@ -34,10 +33,44 @@ class _AddFriendsScreenState extends State<AddFriendsScreen> {
     super.dispose();
   }
 
+  final db = FirebaseFirestore.instance;
   void initList() async {
-    if (listUsers.id.toString().contains(_friendsController.text)) {
+    StreamBuilder(
+      stream: db.collection('users').snapshots(),
+      builder: (context, snapshot) {
+        if (snapshot.hasError) {
+          return Container(
+            child: Text(
+              snapshot.error.toString(),
+            ),
+          );
+        }
+        if (!snapshot.hasData) {
+          return Center(
+            child: CircularProgressIndicator(),
+          );
+        }
+        print(snapshot.data.docs.length.toString());
+        for (var i = 0; i < snapshot.data.docs.length; i++) {
+          if (snapshot.data.docs[i].id
+              .toString()
+              .contains(_friendsController.text)) {
+            userList.add(
+              DMUser(
+                snapshot.data.docs[i].get('email'),
+                snapshot.data.docs[i].get('username'),
+                snapshot.data.docs[i].get('profilePicture'),
+                snapshot.data.docs[i].get('friends'),
+              ),
+            );
+          }
+        }
+      },
+    );
+
+    /*if () {
       //names.add(listUsers[i].id.toString());
-    }
+    }*/
   }
 
   @override
@@ -50,22 +83,43 @@ class _AddFriendsScreenState extends State<AddFriendsScreen> {
       ),
       resizeToAvoidBottomInset: false,
       backgroundColor: Colors.black,
-      body: StreamBuilder(
-        stream: db.collection('users').snapshots(),
-        builder: (context, snapshot) {
-          if (snapshot.hasError) {
-            return Container(
-              child: Text(
-                snapshot.error.toString(),
-              ),
-            );
-          }
-          if (!snapshot.hasData) {
-            return Center(
-              child: CircularProgressIndicator(),
-            );
-          }
-          return Stack(
+      body: Stack(
+        children: [
+          BackgroundMainScreen(),
+          Padding(
+            padding: const EdgeInsets.all(20.0),
+            child: Column(
+              children: [
+                TextSearch(_friendsController, initList),
+                SizedBox(height: 20),
+                Expanded(
+                  child: ListView.separated(
+                    padding: EdgeInsets.all(10),
+                    itemCount: userList.length,
+                    separatorBuilder: (BuildContext context, int index) =>
+                        Divider(),
+                    itemBuilder: (context, int index) {
+                      return ListTile(
+                          title: Text(userList[index].username),
+                          trailing:
+                              Image.network(userList[index].profilePicture),
+                          tileColor: Colors.white,
+                          onTap: () {
+                            /*snapshot.data.docs[index].get('email');*/
+                          });
+                    },
+                  ),
+                )
+              ],
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+/*Stack(
             children: [
               BackgroundMainScreen(),
               Padding(
@@ -74,53 +128,29 @@ class _AddFriendsScreenState extends State<AddFriendsScreen> {
                   children: [
                     TextSearch(_friendsController, initList),
                     SizedBox(height: 20),
-                    Expanded(
-                      child: ListView.separated(
-                        padding: EdgeInsets.all(10),
-                        itemCount:
-                            4 /*snapshot.data.docs.getDocuments().lenght*/,
-                        separatorBuilder: (BuildContext context, int index) =>
-                            Divider(),
-                        itemBuilder: (context, int index) {
-                          return ListTile(
-                            title: Text(snapshot.data.docs[index].id),
-                            trailing: Image.network(snapshot.data.docs[index]
-                                .get('profilePicture')),
-                            tileColor: Colors.white,
-                            onTap: () {
-                              bool exist = false;
-                              for (int i = 0;
-                                  i < widget.user.friends.length;
-                                  i++) {
-                                if (_friendsController ==
-                                    widget.user.friends[i])
-                                  exist = true;
-                                else
-                                  exist = false;
-                              }
-                              if (!exist) {
-                                widget.user.friends
-                                    .add(_friendsController.text);
-                                user.set(
-                                  DMUser.setUser(
-                                          widget.user.username,
-                                          widget.user.friends,
-                                          widget.user.profilePicture)
-                                      .toFirestore(),
-                                );
-                              }
-                            },
-                          );
-                        },
-                      ),
+
+                        Expanded(
+                          child: ListView.separated(
+                              padding: EdgeInsets.all(10),
+                              itemCount: snapshot.data.docs.lenght,
+                              separatorBuilder:
+                                  (BuildContext context, int index) =>
+                                      Divider(),
+                              itemBuilder: (context, int index) {
+                                return ListTile(
+                                    title: Text(user["username"]),
+                                    trailing:
+                                        Image.network(user["profilePicture"]),
+                                    tileColor: Colors.white,
+                                    onTap: () {
+                                      /*user["email"]*/
+                                    });
+                              }),
+                        );
+                      },
                     ),
                   ],
                 ),
               )
             ],
-          );
-        },
-      ),
-    );
-  }
-}
+          );*/

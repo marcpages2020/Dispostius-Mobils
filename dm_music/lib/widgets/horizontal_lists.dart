@@ -58,6 +58,7 @@ class HorizontalImageList extends StatelessWidget {
         super(key: key);
   final ChangeProfileImage widget;
   final List<String> _images;
+
   @override
   Widget build(BuildContext context) {
     return Container(
