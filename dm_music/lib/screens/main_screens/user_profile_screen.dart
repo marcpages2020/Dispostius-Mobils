@@ -85,53 +85,60 @@ class _UserProfileScreen extends State<UserProfileScreen> {
                                     (BuildContext context, int index) =>
                                         Divider(),
                                 itemBuilder: (context, int index) {
-                                  return Container(
-                                    decoration: BoxDecoration(
-                                      borderRadius: BorderRadius.circular(18),
-                                      image: DecorationImage(
-                                          image: Image.network(snapshot
-                                                  .data.docs[index]
-                                                  .get("albumCover")
-                                                  .toString())
-                                              .image,
-                                          fit: BoxFit.cover,
-                                          colorFilter: ColorFilter.mode(
-                                              Colors.black.withOpacity(0.35),
-                                              BlendMode.dstATop)),
-                                      color: Colors.grey[850],
-                                    ),
-                                    margin: EdgeInsets.all(10),
-                                    width: 160,
-                                    child: Column(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.center,
-                                      children: [
-                                        SizedBox(height: 10),
-                                        Text(snapshot.data.docs[index].id,
-                                            style: TextStyle(
-                                                color: Colors.white,
-                                                fontWeight: FontWeight.bold,
-                                                fontSize: 16)),
-                                        SizedBox(height: 10),
-                                        Row(
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.end,
-                                          children: [
-                                            Text(
-                                              snapshot.data.docs[index]
-                                                  .get("likes")
-                                                  .toString(),
+                                  return GestureDetector(
+                                    onTap: () {
+                                      print(snapshot.data.docs[index]
+                                          .get("likes")
+                                          .toString());
+                                    },
+                                    child: Container(
+                                      decoration: BoxDecoration(
+                                        borderRadius: BorderRadius.circular(18),
+                                        image: DecorationImage(
+                                            image: Image.network(snapshot
+                                                    .data.docs[index]
+                                                    .get("albumCover")
+                                                    .toString())
+                                                .image,
+                                            fit: BoxFit.cover,
+                                            colorFilter: ColorFilter.mode(
+                                                Colors.black.withOpacity(0.35),
+                                                BlendMode.dstATop)),
+                                        color: Colors.grey[850],
+                                      ),
+                                      margin: EdgeInsets.all(10),
+                                      width: 160,
+                                      child: Column(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.center,
+                                        children: [
+                                          SizedBox(height: 10),
+                                          Text(snapshot.data.docs[index].id,
                                               style: TextStyle(
                                                   color: Colors.white,
                                                   fontWeight: FontWeight.bold,
-                                                  fontSize: 20),
-                                            ),
-                                            Icon(Icons.star,
-                                                color: Colors.yellow),
-                                            SizedBox(width: 15),
-                                          ],
-                                        ),
-                                      ],
+                                                  fontSize: 16)),
+                                          SizedBox(height: 10),
+                                          Row(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.end,
+                                            children: [
+                                              Text(
+                                                snapshot.data.docs[index]
+                                                    .get("likes")
+                                                    .toString(),
+                                                style: TextStyle(
+                                                    color: Colors.white,
+                                                    fontWeight: FontWeight.bold,
+                                                    fontSize: 20),
+                                              ),
+                                              Icon(Icons.star,
+                                                  color: Colors.yellow),
+                                              SizedBox(width: 15),
+                                            ],
+                                          ),
+                                        ],
+                                      ),
                                     ),
                                   );
                                 },
@@ -177,6 +184,10 @@ class UserPictureAndUsername extends StatelessWidget {
     return new SignInScreen();
   }
 
+  void _deleteUser() {
+    print(widget.user.email); //TODO
+  }
+
   @override
   Widget build(BuildContext context) {
     return Expanded(
@@ -212,9 +223,11 @@ class UserPictureAndUsername extends StatelessWidget {
                   height: 40,
                   width: 40,
                   child: FloatingActionButton(
-                    child: Icon(Icons.logout),
+                    child: widget.ownProfile
+                        ? Icon(Icons.logout)
+                        : Icon(Icons.delete),
                     onPressed: () {
-                      _signOut();
+                      widget.ownProfile ? _signOut() : _deleteUser();
                     },
                   ),
                 ),
