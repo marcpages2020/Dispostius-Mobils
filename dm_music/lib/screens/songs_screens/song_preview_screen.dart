@@ -21,9 +21,9 @@ class _SongPreviewScreenState extends State<SongPreviewScreen> {
   }
 
   void _likeSong() {
-    if(!liked){
-    widget.song.likes++;
-    liked = true;
+    if (!liked) {
+      widget.song.likes++;
+      liked = true;
     }
   }
 
@@ -34,24 +34,22 @@ class _SongPreviewScreenState extends State<SongPreviewScreen> {
         appBar: AppBar(
           title: Text(widget.song.title),
           actions: [
-            FloatingActionButton(
-              backgroundColor: Colors.black,
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Text(
-                    widget.song.likes.toString(),
-                  ),
-                  Icon(Icons.star,color: liked ? Colors.yellow : Colors.white,),
-                ],
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: FloatingActionButton.extended(
+                backgroundColor: Colors.black,
+                label: Text(
+                  widget.song.likes.toString(),
+                ),
+                icon: Icon(Icons.star),
+                onPressed: () {
+                  if (!widget.isLoggedUserSong) {
+                    setState(() {
+                      _likeSong();
+                    });
+                  }
+                },
               ),
-              onPressed: () {
-                if (!widget.isLoggedUserSong) {
-                  setState(() {
-                    _likeSong();
-                  });
-                }
-              },
             )
           ],
         ),
