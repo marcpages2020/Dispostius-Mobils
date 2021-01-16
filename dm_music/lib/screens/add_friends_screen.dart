@@ -37,11 +37,31 @@ class _AddFriendsScreenState extends State<AddFriendsScreen> {
 
   void initList() async {
     userList = [];
+    // ignore: unused_local_variable
+    final users = await db.collection('users').get().then(
+          (QuerySnapshot querySnapshot) => {
+            querySnapshot.docs.forEach(
+              (user) {
+                if (user.id.toString().contains(_friendsController.text)) {
+                  userList.add(
+                    DMUser(
+                      user.id,
+                      user['username'],
+                      user['profilePicture'],
+                      user['friends'],
+                    ),
+                  );
+                }
+              },
+            )
+          },
+        );
+
+    setState(() {});
   }
 
   @override
   Widget build(BuildContext context) {
-
     return Scaffold(
       appBar: AppBar(
         title: Text("Add Friends"),
@@ -105,13 +125,26 @@ class _CustomTileState extends State<CustomTile> {
   Widget _buildPopupDialog(BuildContext context, bool exist) {
     if (!exist) {
       return AlertDialog(
-        title: Text('Friend Added to your Friends'),
+        backgroundColor: Colors.grey[800],
+        shape: RoundedRectangleBorder(
+          side: BorderSide(
+            width: 3,
+            color: Colors.lime[800],
+          ),
+          borderRadius: BorderRadius.circular(25),
+        ),
+        title: Text(
+          'Friend Added to your Friends',
+          style: TextStyle(
+            color: Colors.white,
+          ),
+        ),
         actions: <Widget>[
           FlatButton(
             textColor: Theme.of(context).primaryColor,
             child: Text(
               'Close',
-              style: TextStyle(fontSize: 16),
+              style: TextStyle(fontSize: 16, color: Colors.white),
             ),
             onPressed: () {
               Navigator.of(context).pop();
@@ -121,7 +154,20 @@ class _CustomTileState extends State<CustomTile> {
       );
     } else {
       return AlertDialog(
-        title: Text('This friends is already in you list'),
+        backgroundColor: Colors.grey[800],
+        shape: RoundedRectangleBorder(
+          side: BorderSide(
+            width: 3,
+            color: Colors.lime[800],
+          ),
+          borderRadius: BorderRadius.circular(25),
+        ),
+        title: Text(
+          'This friends is already in you list',
+          style: TextStyle(
+            color: Colors.white,
+          ),
+        ),
         actions: <Widget>[
           FlatButton(
               textColor: Theme.of(context).primaryColor,
@@ -142,7 +188,8 @@ class _CustomTileState extends State<CustomTile> {
     bool exist = false;
 
     for (int i = 0; i < widget.friendsScreen.user.friends.length; i++) {
-      if (widget.userList[widget.index].email == widget.friendsScreen.user.friends[i]) {
+      if (widget.userList[widget.index].email ==
+          widget.friendsScreen.user.friends[i]) {
         exist = true;
         break;
       } else
@@ -150,9 +197,12 @@ class _CustomTileState extends State<CustomTile> {
     }
 
     if (!exist) {
-      widget.friendsScreen.user.friends.add(widget.userList[widget.index].email);
+      widget.friendsScreen.user.friends
+          .add(widget.userList[widget.index].email);
       widget.firebaseUser.set(
-        DMUser.setUser(widget.friendsScreen.user.username, widget.friendsScreen.user.friends,
+        DMUser.setUser(
+                widget.friendsScreen.user.username,
+                widget.friendsScreen.user.friends,
                 widget.friendsScreen.user.profilePicture)
             .toFirestore(),
       );
