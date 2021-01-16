@@ -12,6 +12,7 @@ import '../../userinfo/user.dart';
 import '../add_friends_screen.dart';
 import '../change_image_screen.dart';
 
+// ignore: must_be_immutable
 class UserProfileScreen extends StatefulWidget {
   final DMUser userToShow;
   DMUser loggedUser;
@@ -38,11 +39,55 @@ class _UserProfileScreen extends State<UserProfileScreen> {
     super.initState();
   }
 
+  void _deleteFriend(DMUser friendToDelete) async {
+    List<dynamic> friends = [];
+
+    for (var i = 0; i < widget.loggedUser.friends.length; i++) {
+      if (widget.loggedUser.friends[i] != friendToDelete.email) {
+        friends.add(widget.loggedUser.friends[i]);
+      }
+    }
+
+    widget.loggedUser.friends = friends;
+
+    final user = FirebaseFirestore.instance
+        .collection('users')
+        .doc(widget.loggedUser.email);
+
+    user.set(DMUser.setUser(widget.loggedUser.username,
+            widget.loggedUser.friends, widget.loggedUser.profilePicture)
+        .toFirestore());
+
+    widget.loggedUser.friends = friends;
+  }
+
   Widget build(BuildContext context) {
     final db = FirebaseFirestore.instance;
 
     return Scaffold(
-      appBar: !widget.ownProfile ? AppBar() : null,
+      appBar: !widget.ownProfile
+          ? AppBar(
+              actions: [
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Container(
+                    height: 40,
+                    width: 40,
+                    child: FloatingActionButton(
+                      backgroundColor: Colors.grey[850],
+                      child: Icon(Icons.delete),
+                      onPressed: () {
+                        setState(() {
+                          _deleteFriend(widget.userToShow);
+                          Navigator.of(context).pop();
+                        });
+                      },
+                    ),
+                  ),
+                ),
+              ],
+            )
+          : null,
       backgroundColor: Colors.black,
       bottomNavigationBar:
           widget.ownProfile ? BottomBar(2, widget.loggedUser) : null,
@@ -79,9 +124,13 @@ class _UserProfileScreen extends State<UserProfileScreen> {
                           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                           children: [
                             Expanded(
-                                flex: 1,
-                                child:
-                                    SectionTitle("Songs", color: Colors.white, alignment: Alignment.centerLeft,)),
+                              flex: 1,
+                              child: SectionTitle(
+                                "Songs",
+                                color: Colors.white,
+                                alignment: Alignment.centerLeft,
+                              ),
+                            ),
                             Expanded(
                               flex: 3,
                               child: ListView.separated(
@@ -176,7 +225,11 @@ class _UserProfileScreen extends State<UserProfileScreen> {
                         child: Column(
                           children: [
                             SizedBox(height: 20),
-                            SectionTitle("Friends", color: Colors.white, alignment: Alignment.centerLeft,),
+                            SectionTitle(
+                              "Friends",
+                              color: Colors.white,
+                              alignment: Alignment.centerLeft,
+                            ),
                             SizedBox(height: 5),
                             FriendsList(widget: widget),
                           ],
@@ -207,35 +260,10 @@ class UserPictureAndUsername extends StatefulWidget {
 }
 
 class _UserPictureAndUsernameState extends State<UserPictureAndUsername> {
- 
   Future<SignInScreen> _signOut() async {
     await FirebaseAuth.instance.signOut();
 
     return new SignInScreen();
-  }
-
-  void _deleteFriend(DMUser friendToDelete) async {
-    List<dynamic> friends = [];
-
-    for (var i = 0; i < widget.widget.loggedUser.friends.length; i++) {
-      if (widget.widget.loggedUser.friends[i] != friendToDelete.email) {
-        friends.add(widget.widget.loggedUser.friends[i]);
-      }
-    }
-
-    widget.widget.loggedUser.friends = friends;
-
-    final user = FirebaseFirestore.instance
-        .collection('users')
-        .doc(widget.widget.loggedUser.email);
-
-    user.set(DMUser.setUser(
-            widget.widget.loggedUser.username,
-            widget.widget.loggedUser.friends,
-            widget.widget.loggedUser.profilePicture)
-        .toFirestore());
-
-    widget.widget.loggedUser.friends = friends;
   }
 
   @override
@@ -271,23 +299,21 @@ class _UserPictureAndUsernameState extends State<UserPictureAndUsername> {
               SizedBox(height: 20),
               Align(
                 alignment: Alignment.topRight,
-                child: Container(
-                  height: 40,
-                  width: 40,
-                  child: FloatingActionButton(
-                    child: widget.widget.ownProfile
-                        ? Icon(Icons.logout)
-                        : Icon(Icons.delete),
-                    onPressed: () {
-                      setState(() {
-                        widget.widget.ownProfile
-                            ? _signOut()
-                            : _deleteFriend(widget.widget.userToShow);
-                        Navigator.of(context).pop();
-                      });
-                    },
-                  ),
-                ),
+                child: widget.widget.ownProfile
+                    ? Container(
+                        height: 40,
+                        width: 40,
+                        child: FloatingActionButton(
+                          child: Icon(Icons.logout),
+                          onPressed: () {
+                            setState(() {
+                              _signOut();
+                              Navigator.of(context).pop();
+                            });
+                          },
+                        ),
+                      )
+                    : null,
               ),
             ],
           ),
