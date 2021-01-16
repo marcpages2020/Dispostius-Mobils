@@ -31,7 +31,7 @@ class _BottomBarState extends State<BottomBar> {
             break;
           case 2:
             Navigator.of(context).push(MaterialPageRoute(
-                builder: (context) => UserProfileScreen(widget.user, true)));
+                builder: (context) => UserProfileScreen(widget.user, widget.user,true)));
             break;
           default:
             break;

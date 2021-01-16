@@ -15,14 +15,14 @@ class AddFriendsScreen extends StatefulWidget {
 
 class _AddFriendsScreenState extends State<AddFriendsScreen> {
   TextEditingController _friendsController;
-  var user;
+  var firebaseUser;
   List<DMUser> userList = [];
   List<String> names = [];
 
   @override
   void initState() {
     _friendsController = TextEditingController();
-    user =
+    firebaseUser =
         FirebaseFirestore.instance.collection('users').doc(widget.user.email);
     super.initState();
   }
@@ -57,14 +57,11 @@ class _AddFriendsScreenState extends State<AddFriendsScreen> {
           },
         );
 
-    setState(() {
-      //userList = tmpList;
-    });
+    setState(() {});
   }
 
   @override
   Widget build(BuildContext context) {
-    final db = FirebaseFirestore.instance;
 
     return Scaffold(
       appBar: AppBar(
@@ -90,8 +87,8 @@ class _AddFriendsScreenState extends State<AddFriendsScreen> {
                     itemBuilder: (context, int index) {
                       return CustomTile(
                         userList: userList,
-                        widget: widget,
-                        user: user,
+                        friendsScreen: widget,
+                        firebaseUser: firebaseUser,
                         index: index,
                       );
                     },
@@ -110,15 +107,15 @@ class CustomTile extends StatefulWidget {
   const CustomTile({
     Key key,
     @required this.userList,
-    @required this.widget,
-    @required this.user,
+    @required this.friendsScreen,
+    @required this.firebaseUser,
     @required this.index,
   }) : super(key: key);
 
   final List<DMUser> userList;
-  final AddFriendsScreen widget;
+  final AddFriendsScreen friendsScreen;
 
-  final user;
+  final firebaseUser;
   final int index;
 
   @override
@@ -162,11 +159,11 @@ class _CustomTileState extends State<CustomTile> {
     }
   }
 
-  void checkyourfriends(BuildContext context) {
+  void checkYourFriends(BuildContext context) {
     bool exist = false;
 
-    for (int i = 0; i < widget.user.friends.length; i++) {
-      if (widget.userList[widget.index].email == widget.user.friends[i]) {
+    for (int i = 0; i < widget.friendsScreen.user.friends.length; i++) {
+      if (widget.userList[widget.index].email == widget.friendsScreen.user.friends[i]) {
         exist = true;
         break;
       } else
@@ -174,10 +171,10 @@ class _CustomTileState extends State<CustomTile> {
     }
 
     if (!exist) {
-      widget.widget.user.friends.add(widget.userList[widget.index].email);
-      widget.user.set(
-        DMUser.setUser(widget.widget.user.username, widget.widget.user.friends,
-                widget.widget.user.profilePicture)
+      widget.friendsScreen.user.friends.add(widget.userList[widget.index].email);
+      widget.firebaseUser.set(
+        DMUser.setUser(widget.friendsScreen.user.username, widget.friendsScreen.user.friends,
+                widget.friendsScreen.user.profilePicture)
             .toFirestore(),
       );
       showDialog(
@@ -218,7 +215,7 @@ class _CustomTileState extends State<CustomTile> {
           ),
         ),
         onTap: () {
-          checkyourfriends(context);
+          checkYourFriends(context);
         },
       ),
     );

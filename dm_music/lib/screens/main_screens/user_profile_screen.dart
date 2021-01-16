@@ -12,9 +12,10 @@ import '../add_friends_screen.dart';
 import '../change_image_screen.dart';
 
 class UserProfileScreen extends StatefulWidget {
-  final DMUser user;
+  final DMUser userToShow;
+  final DMUser loggedUser;
   final bool ownProfile;
-  UserProfileScreen(this.user, this.ownProfile);
+  UserProfileScreen(this.userToShow, this.loggedUser, this.ownProfile);
 
   @override
   _UserProfileScreen createState() => _UserProfileScreen();
@@ -39,11 +40,12 @@ class _UserProfileScreen extends State<UserProfileScreen> {
     return Scaffold(
       appBar: !widget.ownProfile ? AppBar() : null,
       backgroundColor: Colors.black,
-      bottomNavigationBar: widget.ownProfile ? BottomBar(2, widget.user) : null,
+      bottomNavigationBar:
+          widget.ownProfile ? BottomBar(2, widget.loggedUser) : null,
       body: StreamBuilder(
         stream: db
             .collection('users')
-            .doc(widget.user.email)
+            .doc(widget.userToShow.email)
             .collection('songs')
             .snapshots(),
         builder: (context, snapshot) {
@@ -184,8 +186,24 @@ class UserPictureAndUsername extends StatelessWidget {
     return new SignInScreen();
   }
 
-  void _deleteUser() {
-    print(widget.user.email); //TODO
+  void _deleteUser(DMUser friendToDelete) async {
+    List<dynamic> friends = [];
+
+    for (var i = 0; i < widget.loggedUser.friends.length; i++) {
+      if (widget.loggedUser.friends[i] != friendToDelete.email) {
+        friends.add(widget.loggedUser.friends[i].email);
+      }
+    }
+
+    widget.loggedUser.friends = friends;
+
+    final user = FirebaseFirestore.instance
+        .collection('users')
+        .doc(widget.loggedUser.email);
+
+    user.set(DMUser.setUser(widget.loggedUser.username,
+            widget.loggedUser.friends, widget.loggedUser.profilePicture)
+        .toFirestore());
   }
 
   @override
@@ -202,7 +220,9 @@ class UserPictureAndUsername extends StatelessWidget {
                 children: [
                   ProfilePicture(widget: widget),
                   Text(
-                    widget.user == null ? "user" : widget.user.username,
+                    widget.userToShow == null
+                        ? "user"
+                        : widget.userToShow.username,
                     style: TextStyle(
                       fontSize: 30,
                       color: Colors.white,
@@ -227,7 +247,10 @@ class UserPictureAndUsername extends StatelessWidget {
                         ? Icon(Icons.logout)
                         : Icon(Icons.delete),
                     onPressed: () {
-                      widget.ownProfile ? _signOut() : _deleteUser();
+                      widget.ownProfile
+                          ? _signOut()
+                          : _deleteUser(widget.userToShow);
+                        Navigator.of(context).pop();
                     },
                   ),
                 ),
@@ -263,20 +286,24 @@ class _ProfilePictureState extends State<ProfilePicture> {
         ),
         child: ClipRRect(
           borderRadius: BorderRadius.circular(100),
-          child: Image.network(widget.widget.user.profilePicture, height: 170),
+          child: Image.network(widget.widget.userToShow.profilePicture,
+              height: 170),
         ),
         onPressed: () {
-          Navigator.of(context)
-              .push(
-            MaterialPageRoute(
-              builder: (context) => ChangeProfileImage(widget.widget.user),
-            ),
-          )
-              .then((value) {
-            setState(() {
-              print("pop");
+          if (widget.widget.ownProfile) {
+            Navigator.of(context)
+                .push(
+              MaterialPageRoute(
+                builder: (context) =>
+                    ChangeProfileImage(widget.widget.userToShow),
+              ),
+            )
+                .then((value) {
+              setState(() {
+                print("pop");
+              });
             });
-          });
+          }
         },
       ),
     );
@@ -318,12 +345,14 @@ class FriendsList extends StatelessWidget {
       height: 90,
       child: ListView.builder(
         scrollDirection: Axis.horizontal,
-        itemCount: widget.user.friends.length + 1,
+        itemCount: widget.ownProfile
+            ? widget.userToShow.friends.length + 1
+            : widget.userToShow.friends.length,
         itemBuilder: (BuildContext context, int index) {
-          if (index == widget.user.friends.length) {
+          if (widget.ownProfile && index == widget.userToShow.friends.length) {
             return AddFriendIcon(widget: widget);
           } else {
-            return FriendIcon(socialScreen: widget, index: index);
+            return FriendIcon(userProfileScreen: widget, index: index);
           }
         },
       ),
@@ -369,7 +398,8 @@ class _AddFriendIconState extends State<AddFriendIcon> {
             Navigator.of(context)
                 .push(
               MaterialPageRoute(
-                builder: (context) => AddFriendsScreen(widget.widget.user),
+                builder: (context) =>
+                    AddFriendsScreen(widget.widget.userToShow),
               ),
             )
                 .then((value) {
@@ -395,11 +425,11 @@ class _AddFriendIconState extends State<AddFriendIcon> {
 }
 
 class FriendIcon extends StatefulWidget {
-  final UserProfileScreen socialScreen;
+  final UserProfileScreen userProfileScreen;
 
   const FriendIcon({
     Key key,
-    @required this.socialScreen,
+    @required this.userProfileScreen,
     @required this.index,
   }) : super(key: key);
 
@@ -412,6 +442,7 @@ class FriendIcon extends StatefulWidget {
 class _FriendIconState extends State<FriendIcon> {
   DMUser friendUser;
   var friend;
+
   @override
   void initState() {
     initUser();
@@ -422,12 +453,15 @@ class _FriendIconState extends State<FriendIcon> {
     final db = FirebaseFirestore.instance;
     friend = await db
         .collection('users')
-        .doc(widget.socialScreen.user.friends[widget.index])
+        .doc(widget.userProfileScreen.userToShow.friends[widget.index])
         .get();
 
     setState(() {
-      friendUser = DMUser(widget.socialScreen.user.friends[widget.index],
-          friend["username"], friend["profilePicture"], friend["friends"]);
+      friendUser = DMUser(
+          widget.userProfileScreen.userToShow.friends[widget.index],
+          friend["username"],
+          friend["profilePicture"],
+          friend["friends"]);
     });
   }
 
@@ -448,7 +482,8 @@ class _FriendIconState extends State<FriendIcon> {
             Navigator.of(context).push(
               MaterialPageRoute(
                 builder: (context) {
-                  return UserProfileScreen(friendUser, false);
+                  return UserProfileScreen(
+                      friendUser, widget.userProfileScreen.loggedUser, false);
                 },
               ),
             ).then((value) {
