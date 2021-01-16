@@ -21,14 +21,6 @@ class UserProfileScreen extends StatefulWidget {
 
   @override
   _UserProfileScreen createState() => _UserProfileScreen();
-
-  void _updateFriends() {
-    FirebaseFirestore.instance
-        .collection('users')
-        .doc(userToShow.email)
-        .get()
-        .then((value) => loggedUser = DMUser.fromFirestoreSnapshot(value));
-  }
 }
 
 class _UserProfileScreen extends State<UserProfileScreen> {
@@ -368,7 +360,12 @@ class _ProfilePictureState extends State<ProfilePicture> {
   }
 }
 
-class BackgroundUserScreen extends StatelessWidget {
+class BackgroundUserScreen extends StatefulWidget {
+  @override
+  _BackgroundUserScreenState createState() => _BackgroundUserScreenState();
+}
+
+class _BackgroundUserScreenState extends State<BackgroundUserScreen> {
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -390,9 +387,8 @@ class BackgroundUserScreen extends StatelessWidget {
 
 class FriendsList extends StatelessWidget {
   const FriendsList({
-    Key key,
     @required this.widget,
-  }) : super(key: key);
+  });
 
   final UserProfileScreen widget;
 
@@ -408,7 +404,7 @@ class FriendsList extends StatelessWidget {
             : widget.userToShow.friends.length,
         itemBuilder: (BuildContext context, int index) {
           if (widget.ownProfile && index == widget.userToShow.friends.length) {
-            return AddFriendIcon(userProfileScreen: widget);
+            return AddFriendIcon(userProfileScreen: widget, friendsList: this);
           } else {
             return FriendIcon(userProfileScreen: widget, index: index);
           }
@@ -419,10 +415,11 @@ class FriendsList extends StatelessWidget {
 }
 
 class AddFriendIcon extends StatefulWidget {
+  final FriendsList friendsList;
   const AddFriendIcon({
-    Key key,
     @required this.userProfileScreen,
-  }) : super(key: key);
+    this.friendsList,
+  });
 
   final UserProfileScreen userProfileScreen;
 
@@ -462,7 +459,8 @@ class _AddFriendIconState extends State<AddFriendIcon> {
             )
                 .then((value) {
               setState(() {
-                widget.userProfileScreen._updateFriends();
+                widget.userProfileScreen.loggedUser.friends = value;
+                widget.friendsList.build(context);
               });
             });
           },
@@ -547,9 +545,7 @@ class _FriendIconState extends State<FriendIcon> {
                 },
               ),
             ).then((value) {
-              setState(() {
-                widget.userProfileScreen._updateFriends();
-              });
+              setState(() {});
             });
           },
         ),

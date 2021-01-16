@@ -62,42 +62,48 @@ class _AddFriendsScreenState extends State<AddFriendsScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text("Add Friends"),
-      ),
-      resizeToAvoidBottomInset: false,
-      backgroundColor: Colors.black,
-      body: Stack(
-        children: [
-          BackgroundMainScreen(),
-          Padding(
-            padding: const EdgeInsets.all(20.0),
-            child: Column(
-              children: [
-                TextSearch(_friendsController, initList),
-                SizedBox(height: 20),
-                Expanded(
-                  child: ListView.separated(
-                    padding: EdgeInsets.all(10),
-                    itemCount: userList.length,
-                    separatorBuilder: (BuildContext context, int index) =>
-                        Divider(),
-                    itemBuilder: (context, int index) {
-                      return CustomTile(
-                        userList: userList,
-                        friendsScreen: widget,
-                        firebaseUser: firebaseUser,
-                        index: index,
-                      );
-                    },
-                  ),
-                )
-              ],
+    return WillPopScope(
+      child: Scaffold(
+        appBar: AppBar(
+          title: Text("Add Friends"),
+        ),
+        resizeToAvoidBottomInset: false,
+        backgroundColor: Colors.black,
+        body: Stack(
+          children: [
+            BackgroundMainScreen(),
+            Padding(
+              padding: const EdgeInsets.all(20.0),
+              child: Column(
+                children: [
+                  TextSearch(_friendsController, initList),
+                  SizedBox(height: 20),
+                  Expanded(
+                    child: ListView.separated(
+                      padding: EdgeInsets.all(10),
+                      itemCount: userList.length,
+                      separatorBuilder: (BuildContext context, int index) =>
+                          Divider(),
+                      itemBuilder: (context, int index) {
+                        return CustomTile(
+                          userList: userList,
+                          friendsScreen: widget,
+                          firebaseUser: firebaseUser,
+                          index: index,
+                        );
+                      },
+                    ),
+                  )
+                ],
+              ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
+      onWillPop: () {
+        print("pop");
+        Navigator.of(context).pop(widget.user.friends);
+      },
     );
   }
 }
@@ -186,7 +192,6 @@ class _CustomTileState extends State<CustomTile> {
 
   void checkYourFriends(BuildContext context) {
     bool exist = false;
-
     for (int i = 0; i < widget.friendsScreen.user.friends.length; i++) {
       if (widget.userList[widget.index].email ==
           widget.friendsScreen.user.friends[i]) {

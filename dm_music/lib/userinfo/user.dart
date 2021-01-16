@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:flutter/cupertino.dart';
 
 class DMUser {
   String username;
@@ -23,6 +24,21 @@ class DMUser {
     this.username = doc['username'];
     this.profilePicture = doc['profilePicture'];
     this.friends = doc['friends'];
+  }
+
+  DMUser.update() {
+    StreamBuilder<DocumentSnapshot>(
+      stream:
+          FirebaseFirestore.instance.collection('users').doc(email).snapshots(),
+      builder:
+          (BuildContext context, AsyncSnapshot<DocumentSnapshot> snapshot) {
+        if (snapshot.hasData) {
+          username = snapshot.data['username'];
+          profilePicture = snapshot.data['profilePiscture'];
+          friends = snapshot.data['friends'];
+        }
+      },
+    );
   }
 
   Map<String, dynamic> toFirestore() => {
