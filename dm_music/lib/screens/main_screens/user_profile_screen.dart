@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:dm_music/screens/sign_in_screen.dart';
+import 'package:dm_music/screens/sign_in-log_in/sign_in_screen.dart';
+import 'package:dm_music/screens/songs_screens/song_preview_screen.dart';
 import 'package:dm_music/widgets/bottom_bar.dart';
 import 'package:dm_music/widgets/custom_painters.dart';
 import 'package:dm_music/widgets/title.dart';
@@ -89,9 +90,16 @@ class _UserProfileScreen extends State<UserProfileScreen> {
                                 itemBuilder: (context, int index) {
                                   return GestureDetector(
                                     onTap: () {
-                                      print(snapshot.data.docs[index]
-                                          .get("likes")
-                                          .toString());
+                                      Navigator.of(context).push(
+                                        MaterialPageRoute(
+                                          builder: (context) =>
+                                              SongPreviewScreen(
+                                            Song.fromNewFirestore(
+                                                snapshot.data.docs[index]),
+                                            widget.ownProfile,
+                                          ),
+                                        ),
+                                      );
                                     },
                                     child: Container(
                                       decoration: BoxDecoration(
@@ -250,7 +258,7 @@ class UserPictureAndUsername extends StatelessWidget {
                       widget.ownProfile
                           ? _signOut()
                           : _deleteUser(widget.userToShow);
-                        Navigator.of(context).pop();
+                      Navigator.of(context).pop();
                     },
                   ),
                 ),

@@ -1,6 +1,6 @@
 import 'dart:convert';
 
-import 'package:dm_music/screens/lyrics_preview_screen.dart';
+import 'package:dm_music/screens/songs_screens/lyrics_preview_screen.dart';
 import 'package:dm_music/screens/main_screens/home_screen.dart';
 import 'package:dm_music/userinfo/user.dart';
 import 'package:dm_music/widgets/bottom_bar.dart';
