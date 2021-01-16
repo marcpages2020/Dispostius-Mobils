@@ -3,13 +3,14 @@ import 'package:flutter/material.dart';
 class SectionTitle extends StatelessWidget {
   final String text;
   final Color color;
+  final Alignment alignment;
 
-  SectionTitle(this.text, {@required this.color});
+  SectionTitle(this.text, {@required this.color, this.alignment});
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      alignment: Alignment.centerLeft,
+      alignment: alignment,
       child: Text(
         text,
         style: TextStyle(

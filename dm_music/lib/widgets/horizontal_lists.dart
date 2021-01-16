@@ -6,8 +6,7 @@ import 'package:dm_music/userinfo/user.dart';
 import 'package:flutter/material.dart';
 
 class HorizontalList extends StatelessWidget {
-  @override
-  List<Song> songs;
+  final List<Song> songs;
 
   HorizontalList(this.songs);
 

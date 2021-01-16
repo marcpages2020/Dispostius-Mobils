@@ -13,7 +13,7 @@ import '../add_friends_screen.dart';
 import '../change_image_screen.dart';
 
 class UserProfileScreen extends StatefulWidget {
-  DMUser userToShow;
+  final DMUser userToShow;
   DMUser loggedUser;
   final bool ownProfile;
   UserProfileScreen(this.userToShow, this.loggedUser, this.ownProfile);
@@ -31,12 +31,7 @@ class UserProfileScreen extends StatefulWidget {
 }
 
 class _UserProfileScreen extends State<UserProfileScreen> {
-  List<Song> songs;
-
-  Future<SignInScreen> _signOut() async {
-    await FirebaseAuth.instance.signOut();
-    return new SignInScreen();
-  }
+  final List<Song> songs = [];
 
   @override
   void initState() {
@@ -86,7 +81,7 @@ class _UserProfileScreen extends State<UserProfileScreen> {
                             Expanded(
                                 flex: 1,
                                 child:
-                                    SectionTitle("Songs", color: Colors.white)),
+                                    SectionTitle("Songs", color: Colors.white, alignment: Alignment.centerLeft,)),
                             Expanded(
                               flex: 3,
                               child: ListView.separated(
@@ -181,7 +176,7 @@ class _UserProfileScreen extends State<UserProfileScreen> {
                         child: Column(
                           children: [
                             SizedBox(height: 20),
-                            SectionTitle("Friends", color: Colors.white),
+                            SectionTitle("Friends", color: Colors.white, alignment: Alignment.centerLeft,),
                             SizedBox(height: 5),
                             FriendsList(widget: widget),
                           ],
@@ -212,7 +207,7 @@ class UserPictureAndUsername extends StatefulWidget {
 }
 
 class _UserPictureAndUsernameState extends State<UserPictureAndUsername> {
-  @override
+ 
   Future<SignInScreen> _signOut() async {
     await FirebaseAuth.instance.signOut();
 

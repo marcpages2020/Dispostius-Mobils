@@ -37,27 +37,6 @@ class _AddFriendsScreenState extends State<AddFriendsScreen> {
 
   void initList() async {
     userList = [];
-
-    final users = await db.collection('users').get().then(
-          (QuerySnapshot querySnapshot) => {
-            querySnapshot.docs.forEach(
-              (user) {
-                if (user.id.toString().contains(_friendsController.text)) {
-                  userList.add(
-                    DMUser(
-                      user.id,
-                      user['username'],
-                      user['profilePicture'],
-                      user['friends'],
-                    ),
-                  );
-                }
-              },
-            )
-          },
-        );
-
-    setState(() {});
   }
 
   @override
