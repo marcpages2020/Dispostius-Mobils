@@ -90,7 +90,8 @@ class _UserProfileScreen extends State<UserProfileScreen> {
                                 itemBuilder: (context, int index) {
                                   return GestureDetector(
                                     onTap: () {
-                                      Navigator.of(context).push(
+                                      Navigator.of(context)
+                                          .push(
                                         MaterialPageRoute(
                                           builder: (context) =>
                                               SongPreviewScreen(
@@ -99,7 +100,17 @@ class _UserProfileScreen extends State<UserProfileScreen> {
                                             widget.ownProfile,
                                           ),
                                         ),
-                                      );
+                                      )
+                                          .then((value) {
+                                        if (value != null) {
+                                          FirebaseFirestore.instance
+                                              .collection('users')
+                                              .doc(widget.userToShow.email)
+                                              .collection('songs')
+                                              .doc(snapshot.data.docs[index].id)
+                                              .update(value.toFirestore());
+                                        }
+                                      });
                                     },
                                     child: Container(
                                       decoration: BoxDecoration(
