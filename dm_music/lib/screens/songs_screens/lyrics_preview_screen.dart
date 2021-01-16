@@ -98,39 +98,32 @@ class _LyricsPreviewScreenState extends State<LyricsPreviewScreen> {
         ],
       ),
       backgroundColor: Colors.grey[900],
-      body: Row(
-        mainAxisAlignment: MainAxisAlignment.center,
+      body: Column(
         children: [
-          Column(
-            children: [
-              SizedBox(height: 10),
-              Text(
-                widget.song.title,
-                style: TextStyle(
-                    fontWeight: FontWeight.bold,
-                    fontSize: 26,
-                    color: Colors.white),
-              ),
-              SizedBox(height: 6),
-              Text(
-                widget.song.artist,
-                style: TextStyle(fontSize: 20, color: Colors.white),
-              ),
-              SizedBox(height: 10),
-              Expanded(
-                child: Container(
-                  width: MediaQuery.of(context).size.width * 0.95,
-                  color: Colors.white,
-                  child: SingleChildScrollView(
-                    padding: EdgeInsets.fromLTRB(0.0, 15.0, 0.0, 0.0),
-                    child: Text(lyrics,
-                        style: TextStyle(fontSize: 16),
-                        textAlign: TextAlign.center),
-                  ),
-                ),
-              )
-            ],
+          SizedBox(height: 10),
+          Text(
+            widget.song.title,
+            style: TextStyle(
+                fontWeight: FontWeight.bold, fontSize: 26, color: Colors.white),
           ),
+          SizedBox(height: 6),
+          Text(
+            widget.song.artist,
+            style: TextStyle(fontSize: 20, color: Colors.white),
+          ),
+          SizedBox(height: 10),
+          Expanded(
+            child: Container(
+              width: MediaQuery.of(context).size.width * 0.95,
+              color: Colors.white,
+              child: SingleChildScrollView(
+                padding: EdgeInsets.fromLTRB(0.0, 15.0, 0.0, 0.0),
+                child: Text(lyrics,
+                    style: TextStyle(fontSize: 16),
+                    textAlign: TextAlign.center),
+              ),
+            ),
+          )
         ],
       ),
     );
