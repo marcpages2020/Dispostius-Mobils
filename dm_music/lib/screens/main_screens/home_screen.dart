@@ -115,6 +115,7 @@ class _HomeScreenState extends State<HomeScreen> {
                         child: SectionTitle(
                           "Your Songs",
                           color: Colors.white,
+                          alignment: Alignment.center,
                         ),
                       ),
                     ),

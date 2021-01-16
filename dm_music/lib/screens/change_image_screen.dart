@@ -1,4 +1,3 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:dm_music/userinfo/image_lists.dart';
 import 'package:dm_music/widgets/horizontal_lists.dart';
 import 'package:dm_music/widgets/title.dart';
