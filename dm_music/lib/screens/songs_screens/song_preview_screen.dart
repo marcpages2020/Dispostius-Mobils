@@ -42,7 +42,7 @@ class _SongPreviewScreenState extends State<SongPreviewScreen> {
                   Text(
                     widget.song.likes.toString(),
                   ),
-                  Icon(Icons.star),
+                  Icon(Icons.star,color: liked ? Colors.yellow : Colors.white,),
                 ],
               ),
               onPressed: () {
@@ -55,7 +55,7 @@ class _SongPreviewScreenState extends State<SongPreviewScreen> {
             )
           ],
         ),
-        backgroundColor: Colors.lime[800],
+        backgroundColor: Colors.grey[350],
         body: Padding(
           padding: EdgeInsets.fromLTRB(8.0, 20.0, 8.0, 8.0),
           child: Row(

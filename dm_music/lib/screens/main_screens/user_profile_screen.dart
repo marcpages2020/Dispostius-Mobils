@@ -13,13 +13,21 @@ import '../add_friends_screen.dart';
 import '../change_image_screen.dart';
 
 class UserProfileScreen extends StatefulWidget {
-  final DMUser userToShow;
-  final DMUser loggedUser;
+  DMUser userToShow;
+  DMUser loggedUser;
   final bool ownProfile;
   UserProfileScreen(this.userToShow, this.loggedUser, this.ownProfile);
 
   @override
   _UserProfileScreen createState() => _UserProfileScreen();
+
+  void _updateFriends() {
+    FirebaseFirestore.instance
+        .collection('users')
+        .doc(userToShow.email)
+        .get()
+        .then((value) => loggedUser = DMUser.fromFirestoreSnapshot(value));
+  }
 }
 
 class _UserProfileScreen extends State<UserProfileScreen> {
@@ -191,13 +199,19 @@ class _UserProfileScreen extends State<UserProfileScreen> {
   }
 }
 
-class UserPictureAndUsername extends StatelessWidget {
+class UserPictureAndUsername extends StatefulWidget {
   const UserPictureAndUsername({
     Key key,
     @required this.widget,
   }) : super(key: key);
 
   final UserProfileScreen widget;
+
+  @override
+  _UserPictureAndUsernameState createState() => _UserPictureAndUsernameState();
+}
+
+class _UserPictureAndUsernameState extends State<UserPictureAndUsername> {
   @override
   Future<SignInScreen> _signOut() async {
     await FirebaseAuth.instance.signOut();
@@ -205,24 +219,28 @@ class UserPictureAndUsername extends StatelessWidget {
     return new SignInScreen();
   }
 
-  void _deleteUser(DMUser friendToDelete) async {
+  void _deleteFriend(DMUser friendToDelete) async {
     List<dynamic> friends = [];
 
-    for (var i = 0; i < widget.loggedUser.friends.length; i++) {
-      if (widget.loggedUser.friends[i] != friendToDelete.email) {
-        friends.add(widget.loggedUser.friends[i].email);
+    for (var i = 0; i < widget.widget.loggedUser.friends.length; i++) {
+      if (widget.widget.loggedUser.friends[i] != friendToDelete.email) {
+        friends.add(widget.widget.loggedUser.friends[i]);
       }
     }
 
-    widget.loggedUser.friends = friends;
+    widget.widget.loggedUser.friends = friends;
 
     final user = FirebaseFirestore.instance
         .collection('users')
-        .doc(widget.loggedUser.email);
+        .doc(widget.widget.loggedUser.email);
 
-    user.set(DMUser.setUser(widget.loggedUser.username,
-            widget.loggedUser.friends, widget.loggedUser.profilePicture)
+    user.set(DMUser.setUser(
+            widget.widget.loggedUser.username,
+            widget.widget.loggedUser.friends,
+            widget.widget.loggedUser.profilePicture)
         .toFirestore());
+
+    widget.widget.loggedUser.friends = friends;
   }
 
   @override
@@ -237,11 +255,11 @@ class UserPictureAndUsername extends StatelessWidget {
               Column(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
-                  ProfilePicture(widget: widget),
+                  ProfilePicture(widget: widget.widget),
                   Text(
-                    widget.userToShow == null
+                    widget.widget.userToShow == null
                         ? "user"
-                        : widget.userToShow.username,
+                        : widget.widget.userToShow.username,
                     style: TextStyle(
                       fontSize: 30,
                       color: Colors.white,
@@ -262,14 +280,16 @@ class UserPictureAndUsername extends StatelessWidget {
                   height: 40,
                   width: 40,
                   child: FloatingActionButton(
-                    child: widget.ownProfile
+                    child: widget.widget.ownProfile
                         ? Icon(Icons.logout)
                         : Icon(Icons.delete),
                     onPressed: () {
-                      widget.ownProfile
-                          ? _signOut()
-                          : _deleteUser(widget.userToShow);
-                      Navigator.of(context).pop();
+                      setState(() {
+                        widget.widget.ownProfile
+                            ? _signOut()
+                            : _deleteFriend(widget.widget.userToShow);
+                        Navigator.of(context).pop();
+                      });
                     },
                   ),
                 ),
@@ -318,9 +338,7 @@ class _ProfilePictureState extends State<ProfilePicture> {
               ),
             )
                 .then((value) {
-              setState(() {
-                print("pop");
-              });
+              setState(() {});
             });
           }
         },
@@ -369,7 +387,7 @@ class FriendsList extends StatelessWidget {
             : widget.userToShow.friends.length,
         itemBuilder: (BuildContext context, int index) {
           if (widget.ownProfile && index == widget.userToShow.friends.length) {
-            return AddFriendIcon(widget: widget);
+            return AddFriendIcon(userProfileScreen: widget);
           } else {
             return FriendIcon(userProfileScreen: widget, index: index);
           }
@@ -382,10 +400,10 @@ class FriendsList extends StatelessWidget {
 class AddFriendIcon extends StatefulWidget {
   const AddFriendIcon({
     Key key,
-    @required this.widget,
+    @required this.userProfileScreen,
   }) : super(key: key);
 
-  final UserProfileScreen widget;
+  final UserProfileScreen userProfileScreen;
 
   @override
   _AddFriendIconState createState() => _AddFriendIconState();
@@ -418,11 +436,13 @@ class _AddFriendIconState extends State<AddFriendIcon> {
                 .push(
               MaterialPageRoute(
                 builder: (context) =>
-                    AddFriendsScreen(widget.widget.userToShow),
+                    AddFriendsScreen(widget.userProfileScreen.userToShow),
               ),
             )
                 .then((value) {
-              setState(() {});
+              setState(() {
+                widget.userProfileScreen._updateFriends();
+              });
             });
           },
         ),
@@ -506,7 +526,9 @@ class _FriendIconState extends State<FriendIcon> {
                 },
               ),
             ).then((value) {
-              setState(() {});
+              setState(() {
+                widget.userProfileScreen._updateFriends();
+              });
             });
           },
         ),

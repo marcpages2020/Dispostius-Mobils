@@ -12,8 +12,17 @@ class DMUser {
   DMUser.setUser(this.username, this.friends, this.profilePicture);
 
   DMUser.fromFirestore(QueryDocumentSnapshot doc) {
-    this.username = doc.id;
-    this.email = doc['email'];
+    this.email = doc.id;
+    this.username = doc['username'];
+    this.profilePicture = doc['profilePicture'];
+    this.friends = doc['friends'];
+  }
+
+  DMUser.fromFirestoreSnapshot(DocumentSnapshot doc) {
+    this.email = doc.id;
+    this.username = doc['username'];
+    this.profilePicture = doc['profilePicture'];
+    this.friends = doc['friends'];
   }
 
   Map<String, dynamic> toFirestore() => {
