@@ -46,7 +46,18 @@ class _LyricsPreviewScreenState extends State<LyricsPreviewScreen> {
 
   Widget _buildPopupDialog(BuildContext context) {
     return new AlertDialog(
-      title: Text('Song added to Your Songs'),
+      backgroundColor: Colors.grey[800],
+      shape: RoundedRectangleBorder(
+        side: BorderSide(
+          width: 3,
+          color: Colors.lime[800],
+        ),
+        borderRadius: BorderRadius.circular(25),
+      ),
+      title: Text(
+        'Song added to Your Songs',
+        style: TextStyle(color: Colors.white),
+      ),
       actions: <Widget>[
         FlatButton(
           onPressed: () {

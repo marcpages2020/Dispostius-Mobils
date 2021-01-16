@@ -215,14 +215,11 @@ class SignUp extends StatelessWidget {
                 EmailAndPassword(_email.text, _password.text),
               );
 
-              users.doc(_email.text).set(
+              users.doc(_email.text.toLowerCase()).set(
                   DMUser.setUser(_username.text, friends, profilePicture)
                       .toFirestore());
 
-              users.doc(_email.text).collection('songs').doc(title).set(
-                    Song(title, artist, album, albumCoverUrl, lyrics, likes)
-                        .toFirestore(),
-                  );
+              //users.doc(_email.text.toLowerCase()).collection('songs');
             },
             child: Text(
               'Sign Up',
