@@ -10,10 +10,11 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-  cloud_firestore: ^0.14.4
-  cupertino_icons: ^1.0.1
-  firebase: ^7.3.3
-  firebase_auth: ^0.18.4+1
+  cloud_firestore: ^0.16.0
+  cupertino_icons: ^1.0.2
+  firebase: ^8.0.0
+  firebase_auth: ^0.20.0+1
+  firebase_storage: ^7.0.0
   http: ^0.12.2
   image_picker: ^0.6.7+21
   url_launcher: ^5.7.10

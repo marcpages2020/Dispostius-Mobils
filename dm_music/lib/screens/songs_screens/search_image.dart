@@ -1,11 +1,14 @@
+import 'dart:async';
 import 'dart:io';
 
 import 'package:dm_music/screens/main_screens/home_screen.dart';
 import 'package:dm_music/userinfo/user.dart';
 import 'package:dm_music/widgets/title.dart';
+import 'package:firebase/firebase.dart';
+import 'package:firebase_storage/firebase_storage.dart';
+
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
-
 import '../../song.dart';
 
 class ChangeImage extends StatefulWidget {
@@ -46,10 +49,25 @@ class _ChangeImageState extends State<ChangeImage> {
     setState(() {
       if (pickedFile != null) {
         _image = File(pickedFile.path);
+        _saveinStorage(_image);
       } else {
         print('No image selected.');
       }
     });
+  }
+
+  void _saveinStorage(File imagetoSave) async {
+    final Reference storageReference = FirebaseStorage.instance
+        .ref()
+        .child('/users/${widget.user.email}/${_image.path}.jpg');
+
+    final StorageUploadTask uploadTask = storageReference.putFile(_image);
+    final StreamSubscription<StorageTaskEvent> streamSubscription =
+        uploadTask.events.listen((event) {
+      print('EVENT ${event.type}');
+    });
+    await uploadTask.onComplete;
+    streamSubscription.cancel();
   }
 
   @override
