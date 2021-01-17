@@ -1,3 +1,4 @@
+import 'package:dm_music/screens/songs_screens/search_image.dart';
 import 'package:dm_music/song.dart';
 import 'package:dm_music/userinfo/user.dart';
 import 'package:flutter/material.dart';
@@ -40,18 +41,36 @@ class _EditSongScreenState extends State<EditSongScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: TextField(
-          style: TextStyle(color: Colors.white, fontSize: 18),
-          cursorColor: Colors.white,
-          controller: _titleController,
+        title: Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: TextField(
+            style: TextStyle(color: Colors.white, fontSize: 18),
+            cursorColor: Colors.white,
+            controller: _titleController,
+          ),
         ),
         actions: [
-          IconButton(
-            icon: Icon(Icons.check),
-            onPressed: () {
-              _editSong();
-              Navigator.of(context).pop(widget.song);
-            },
+          Row(
+            children: [
+              GestureDetector(
+                child: Image.network(widget.song.albumCoverUrl),
+                onTap: () {
+                  Navigator.of(context).push(
+                    MaterialPageRoute(
+                      builder: (context) =>
+                          ChangeImage(widget.user, widget.song),
+                    ),
+                  );
+                },
+              ),
+              IconButton(
+                icon: Icon(Icons.check),
+                onPressed: () {
+                  _editSong();
+                  Navigator.of(context).pop(widget.song);
+                },
+              ),
+            ],
           ),
         ],
       ),

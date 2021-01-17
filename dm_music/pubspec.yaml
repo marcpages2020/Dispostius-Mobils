@@ -14,8 +14,9 @@ dependencies:
   cupertino_icons: ^1.0.1
   firebase: ^7.3.3
   firebase_auth: ^0.18.4+1
-  url_launcher: ^5.7.10
   http: ^0.12.2
+  image_picker: ^0.6.7+21
+  url_launcher: ^5.7.10
 dev_dependencies:
   flutter_test:
     sdk: flutter
