@@ -57,17 +57,19 @@ class _ChangeImageState extends State<ChangeImage> {
   }
 
   void _saveinStorage(File imagetoSave) async {
-    final Reference storageReference = FirebaseStorage.instance
-        .ref()
-        .child('/users/${widget.user.email}/${_image.path}.jpg');
+    StorageReference storageRef = storage().ref().child('/users/${widget.user.email}/${_image.path}');
 
-    final StorageUploadTask uploadTask = storageReference.putFile(_image);
-    final StreamSubscription<StorageTaskEvent> streamSubscription =
+    final uploadTask = storageRef.put(_image);
+    print("uploading image");
+    /*
+    StreamSubscription<StorageTaskEvent> streamSubscription =
         uploadTask.events.listen((event) {
       print('EVENT ${event.type}');
     });
     await uploadTask.onComplete;
     streamSubscription.cancel();
+    */
+    
   }
 
   @override
