@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'dart:math' as math;
 
 import '../../song.dart';
 
@@ -12,18 +13,33 @@ class SongPreviewScreen extends StatefulWidget {
 }
 
 class _SongPreviewScreenState extends State<SongPreviewScreen>
-    with TickerProviderStateMixin {
+    with SingleTickerProviderStateMixin {
   bool liked;
   AnimationController animationController;
+  Animation _sizeAnim, _rotationAnim;
+
   @override
   void initState() {
     liked = false;
     animationController = AnimationController(
       vsync: this,
-      duration: Duration(milliseconds: 100),
-      lowerBound: 30.0,
-      upperBound: 35.0,
+      duration: Duration(milliseconds: 800),
     );
+
+    _sizeAnim = TweenSequence<double>([
+      TweenSequenceItem(tween: Tween(begin: 25, end: 35), weight: 1),
+      TweenSequenceItem(tween: Tween(begin: 35, end: 25), weight: 3),
+    ]).animate(animationController);
+
+    _rotationAnim = TweenSequence<double>([
+      TweenSequenceItem(tween: Tween(begin: 0, end: 360), weight: 1),
+    ]).animate(animationController);
+
+    final curvedAnimation = CurvedAnimation(
+      curve: Curves.easeInOutBack,
+      parent: animationController,
+    );
+
     super.initState();
   }
 
@@ -53,19 +69,26 @@ class _SongPreviewScreenState extends State<SongPreviewScreen>
                 label: Text(
                   widget.song.likes.toString(),
                 ),
-                icon: AnimatedBuilder(
+                icon: Container(
+                  width: 36,
+                  child: AnimatedBuilder(
                     animation: animationController,
-                    builder: (BuildContext context, Widget child) {
-                      return Icon(
-                        Icons.star,
-                        size: 1.0 * animationController.value,
+                    builder: (context, _) {
+                      return Transform.rotate(
+                        angle: _rotationAnim.value * math.pi / 180.0,
+                        child: Icon(
+                          Icons.star,
+                          size: _sizeAnim.value,
+                          color: liked ? Colors.yellow : Colors.white,
+                        ),
                       );
-                    }),
+                    },
+                  ),
+                ),
                 onPressed: () {
                   if (!widget.isLoggedUserSong) {
                     setState(() {
-                      animationController..forward();
-
+                      animationController.forward();
                       _likeSong();
                       //animationController..reset();
                     });
