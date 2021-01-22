@@ -1,6 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'main_screens/search_screen.dart';
-import 'package:dm_music/userinfo/user.dart';
+import '../userinfo/user.dart';
 import 'package:flutter/material.dart';
 
 import 'main_screens/home_screen.dart';

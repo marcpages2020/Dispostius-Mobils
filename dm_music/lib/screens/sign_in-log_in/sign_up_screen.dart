@@ -1,5 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:dm_music/animations/animated_route.dart';
+import '../../animations/animated_route.dart';
 import 'package:flutter/material.dart';
 
 import '../../userinfo/user.dart';

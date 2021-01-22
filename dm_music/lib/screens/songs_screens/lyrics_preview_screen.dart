@@ -1,8 +1,8 @@
 import 'dart:convert';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:dm_music/song.dart';
-import 'package:dm_music/userinfo/user.dart';
+import '../../song.dart';
+import '../../userinfo/user.dart';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';

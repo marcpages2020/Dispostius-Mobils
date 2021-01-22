@@ -1,6 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:dm_music/screens/main_screens/home_screen.dart';
-import 'package:dm_music/userinfo/user.dart';
+import 'screens/main_screens/home_screen.dart';
+import 'userinfo/user.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 

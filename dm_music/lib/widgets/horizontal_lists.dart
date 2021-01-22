@@ -1,8 +1,8 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:dm_music/screens/change_image_screen.dart';
-import 'package:dm_music/screens/main_screens/home_screen.dart';
-import 'package:dm_music/song.dart';
-import 'package:dm_music/userinfo/user.dart';
+import '../screens/change_image_screen.dart';
+import '../screens/main_screens/home_screen.dart';
+import '../song.dart';
+import '../userinfo/user.dart';
 import 'package:flutter/material.dart';
 
 class HorizontalList extends StatelessWidget {

@@ -1,5 +1,5 @@
-import 'package:dm_music/song.dart';
-import 'package:dm_music/userinfo/user.dart';
+import '../../song.dart';
+import '../../userinfo/user.dart';
 import 'package:flutter/material.dart';
 
 class EditSongScreen extends StatefulWidget {

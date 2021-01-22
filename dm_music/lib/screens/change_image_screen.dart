@@ -1,6 +1,6 @@
-import 'package:dm_music/userinfo/image_lists.dart';
-import 'package:dm_music/widgets/horizontal_lists.dart';
-import 'package:dm_music/widgets/title.dart';
+import '../userinfo/image_lists.dart';
+import '../widgets/horizontal_lists.dart';
+import '../widgets/title.dart';
 import 'package:flutter/material.dart';
 
 import '../userinfo/user.dart';

@@ -1,9 +1,9 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:dm_music/screens/sign_in-log_in/sign_in_screen.dart';
-import 'package:dm_music/screens/songs_screens/song_preview_screen.dart';
-import 'package:dm_music/widgets/bottom_bar.dart';
-import 'package:dm_music/widgets/custom_painters.dart';
-import 'package:dm_music/widgets/title.dart';
+import '../../screens/sign_in-log_in/sign_in_screen.dart';
+import '../../screens/songs_screens/song_preview_screen.dart';
+import '../../widgets/bottom_bar.dart';
+import '../../widgets/custom_painters.dart';
+import '../../widgets/title.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 

@@ -1,4 +1,4 @@
-import 'package:dm_music/app.dart';
+import '../app.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 

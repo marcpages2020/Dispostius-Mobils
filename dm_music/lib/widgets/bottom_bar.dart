@@ -1,7 +1,7 @@
-import 'package:dm_music/screens/main_screens/home_screen.dart';
-import 'package:dm_music/screens/main_screens/search_screen.dart';
-import 'package:dm_music/screens/main_screens/user_profile_screen.dart';
-import 'package:dm_music/userinfo/user.dart';
+import '../screens/main_screens/home_screen.dart';
+import '../screens/main_screens/search_screen.dart';
+import '../screens/main_screens/user_profile_screen.dart';
+import '../userinfo/user.dart';
 import 'package:flutter/material.dart';
 
 class BottomBar extends StatefulWidget {
