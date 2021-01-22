@@ -90,7 +90,6 @@ class _SongPreviewScreenState extends State<SongPreviewScreen>
                     setState(() {
                       animationController.forward();
                       _likeSong();
-                      //animationController..reset();
                     });
                   }
                 },
