@@ -33,7 +33,6 @@ class _UserProfileScreen extends State<UserProfileScreen> {
 
   void _deleteFriend(DMUser friendToDelete) async {
     List<dynamic> friends = [];
-
     for (var i = 0; i < widget.loggedUser.friends.length; i++) {
       if (widget.loggedUser.friends[i] != friendToDelete.email) {
         friends.add(widget.loggedUser.friends[i]);
