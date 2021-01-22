@@ -11,13 +11,25 @@ class SongPreviewScreen extends StatefulWidget {
   _SongPreviewScreenState createState() => _SongPreviewScreenState();
 }
 
-class _SongPreviewScreenState extends State<SongPreviewScreen> {
+class _SongPreviewScreenState extends State<SongPreviewScreen>
+    with TickerProviderStateMixin {
   bool liked;
-
+  AnimationController animationController;
   @override
   void initState() {
     liked = false;
+    animationController = AnimationController(
+      vsync: this,
+      duration: Duration(milliseconds: 100),
+      lowerBound: 30.0,
+      upperBound: 35.0,
+    );
     super.initState();
+  }
+
+  void dispose() {
+    animationController.dispose();
+    super.dispose();
   }
 
   void _likeSong() {
@@ -41,11 +53,21 @@ class _SongPreviewScreenState extends State<SongPreviewScreen> {
                 label: Text(
                   widget.song.likes.toString(),
                 ),
-                icon: Icon(Icons.star),
+                icon: AnimatedBuilder(
+                    animation: animationController,
+                    builder: (BuildContext context, Widget child) {
+                      return Icon(
+                        Icons.star,
+                        size: 1.0 * animationController.value,
+                      );
+                    }),
                 onPressed: () {
                   if (!widget.isLoggedUserSong) {
                     setState(() {
+                      animationController..forward();
+
                       _likeSong();
+                      //animationController..reset();
                     });
                   }
                 },
