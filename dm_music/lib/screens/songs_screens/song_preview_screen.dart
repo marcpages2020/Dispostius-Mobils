@@ -35,11 +35,6 @@ class _SongPreviewScreenState extends State<SongPreviewScreen>
       TweenSequenceItem(tween: Tween(begin: 0, end: 360), weight: 1),
     ]).animate(animationController);
 
-    final curvedAnimation = CurvedAnimation(
-      curve: Curves.easeInOutBack,
-      parent: animationController,
-    );
-
     super.initState();
   }
 
