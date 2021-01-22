@@ -110,6 +110,7 @@ class _SongPreviewScreenState extends State<SongPreviewScreen>
           ),
         ),
       ),
+      // ignore: missing_return
       onWillPop: () {
         Navigator.of(context).pop(widget.song);
       },

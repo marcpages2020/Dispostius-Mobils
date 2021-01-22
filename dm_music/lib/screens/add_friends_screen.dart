@@ -100,8 +100,8 @@ class _AddFriendsScreenState extends State<AddFriendsScreen> {
           ],
         ),
       ),
+      // ignore: missing_return
       onWillPop: () {
-        print("pop");
         Navigator.of(context).pop(widget.user.friends);
       },
     );

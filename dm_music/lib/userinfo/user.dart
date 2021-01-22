@@ -31,6 +31,7 @@ class DMUser {
       stream:
           FirebaseFirestore.instance.collection('users').doc(email).snapshots(),
       builder:
+          // ignore: missing_return
           (BuildContext context, AsyncSnapshot<DocumentSnapshot> snapshot) {
         if (snapshot.hasData) {
           username = snapshot.data['username'];
